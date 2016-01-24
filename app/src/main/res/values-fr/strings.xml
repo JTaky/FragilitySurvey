@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FragilitySurvey</string>
+    <string name="new_patient">Nouveau patient</string>
+    <string name="edit_patient">Edit</string>
+    <string name="sign_up">Sign Up</string>
+</resources>
