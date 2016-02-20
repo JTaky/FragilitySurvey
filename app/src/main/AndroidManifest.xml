@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".neweditpatient.NewEditPatientActivity"
+            android:name=".quiz.QuizActivity"
             android:label="@string/title_activity_step1"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>

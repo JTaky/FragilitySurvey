@@ -14,8 +14,9 @@ import android.widget.Spinner;
 import java.util.Locale;
 
 import mcgill.ca.fragilitysurvey.credentials.CredentialsActivity;
-import mcgill.ca.fragilitysurvey.neweditpatient.NewEditPatientActivity;
+import mcgill.ca.fragilitysurvey.quiz.QuizActivity;
 import mcgill.ca.fragilitysurvey.patientlist.PatientListActivity;
+import mcgill.ca.fragilitysurvey.quiz.questions.Questions;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -24,7 +25,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private View.OnClickListener newPatientListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent myIntent = new Intent(MainActivity.this, NewEditPatientActivity.class);
+            Intent myIntent = new Intent(MainActivity.this, QuizActivity.class);
+            myIntent.putParcelableArrayListExtra(QuizActivity.QUESTIONS_KEY, Questions.newPatientQuestions);
             MainActivity.this.startActivity(myIntent);
         }
     };
