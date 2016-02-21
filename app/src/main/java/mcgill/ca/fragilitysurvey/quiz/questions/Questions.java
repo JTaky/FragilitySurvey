@@ -22,11 +22,11 @@ public class Questions {
             add(new IQuestion.Question()
                             .questionText(res.getString(R.string.question_1))
                             .inputers(Arrays.asList(
-                                    new IQuestion.Inputter()
+                                    new Inputter()
                                             .inputType(IQuestion.InputType.CHOOSE)
                                             .caption(res.getString(R.string.question_1_1))
                                             .options(yesNo(res)),
-                                    new IQuestion.Inputter()
+                                    new Inputter()
                                             .inputType(IQuestion.InputType.CHOOSE)
                                             .caption(res.getString(R.string.question_1_2))
                                             .options(yesNo(res))
@@ -35,11 +35,11 @@ public class Questions {
             add(new IQuestion.Question()
                             .questionText(res.getString(R.string.question_1))
                             .inputers(Arrays.asList(
-                                    new IQuestion.Inputter()
+                                    new Inputter()
                                             .inputType(IQuestion.InputType.CHOOSE)
                                             .caption(res.getString(R.string.question_2_1))
                                             .options(yesNo(res)),
-                                    new IQuestion.Inputter()
+                                    new Inputter()
                                             .inputType(IQuestion.InputType.CHOOSE)
                                             .caption(res.getString(R.string.question_2_2))
                                             .orLogic(false)
@@ -53,7 +53,7 @@ public class Questions {
             add(new IQuestion.Question()
                             .questionText(res.getString(R.string.question_3))
                             .inputers(Arrays.asList(
-                                    new IQuestion.Inputter()
+                                    new Inputter()
                                             .inputType(IQuestion.InputType.INT_INPUT)
                                             .caption(res.getString(R.string.question_3_1))
                             ))
