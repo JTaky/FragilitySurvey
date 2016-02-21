@@ -24,4 +24,18 @@
     <string name="quiz.btn.submit">Submit</string>
     <string name="quiz.btn.next">Next</string>
     <string name="quiz.btn.prev">Previous</string>
+
+    <string name="question.yes">Yes</string>
+    <string name="question.no">No</string>
+    <string name="question.1">1.</string>
+    <string name="question.1.1">Have you involuntary lost weight in the past year?</string>
+    <string name="question.1.2">If yes, was the lost of weight above 3 kg?</string>
+    <string name="question.2">2.</string>
+    <string name="question.2.1">Do you receive home-help services?</string>
+    <string name="question.2.2">If yes from whom?</string>
+    <string name="question.2.2.1">Family, and/or</string>
+    <string name="question.2.2.2">Friend(s), and/or </string>
+    <string name="question.2.2.3">Professional(s)</string>
+    <string name="question.3">3.</string>
+    <string name="question.3.1">How many different drugs do you take daily?</string>
 </resources>

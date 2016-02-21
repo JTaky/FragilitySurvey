@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         @Override
         public void onClick(View v) {
             Intent myIntent = new Intent(MainActivity.this, QuizActivity.class);
-            myIntent.putParcelableArrayListExtra(QuizActivity.QUESTIONS_KEY, Questions.newPatientQuestions);
+            myIntent.putParcelableArrayListExtra(QuizActivity.QUESTIONS_KEY, Questions.newPatientQuestions(getResources()));
             MainActivity.this.startActivity(myIntent);
         }
     };
