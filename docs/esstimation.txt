@@ -1,0 +1,29 @@
+
+Esstimation:
+
+Main form:
+	User interface - 0.25 hour
+	Logic - 0.25 hour
+
+Form "New patient":
+	User Interface(UI) development (20 questions) - 4 hours
+	Data model building - 2 hours
+
+Form "Step 2":
+	UI development - 4 hours
+	Data model building - 2 hours
+
+Systematic/Non-Systematic examination:
+	UI development - 1 hours
+	Making decision - 2 hours
+
+Form "Patient list":
+	UI development - 2 hours
+	Logic - 0.5 hour (navigaton over the Steps)
+
+Save/Load data from the file - 2 hour
+
+Test and Debug - 5 hours
+
+Total:
+	25 hours
