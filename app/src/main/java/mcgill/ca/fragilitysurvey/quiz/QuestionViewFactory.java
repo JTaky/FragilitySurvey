@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import mcgill.ca.fragilitysurvey.quiz.questions.IQuestion;
 import mcgill.ca.fragilitysurvey.quiz.questions.Inputter;
+import mcgill.ca.fragilitysurvey.quiz.questions.OptionValue;
 
 public class QuestionViewFactory {
 
@@ -57,13 +58,15 @@ public class QuestionViewFactory {
         if(curChose.isOrLogic()) {
             RadioGroup radioGroup = new RadioGroup(context);
             radioGroup.setOrientation(RadioGroup.HORIZONTAL);
-            for (final String option : curChose.options()) {
+            int id = 0;
+            for (final OptionValue option : curChose.options()) {
                 RadioButton radioButton = new RadioButton(context);
-                radioButton.setText(option);
+                radioButton.setText(option.caption());
+                radioButton.setId(id++);
                 radioButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        curChose.answer(option);
+                        curChose.answer(option.caption());
                     }
                 });
                 radioGroup.addView(radioButton);
@@ -72,13 +75,13 @@ public class QuestionViewFactory {
         } else {
             LinearLayout checkBoxGroup = new LinearLayout(context);
             subQuestionLayout.setOrientation(LinearLayout.HORIZONTAL);
-            for (final String option : curChose.options()) {
+            for (final OptionValue option : curChose.options()) {
                 CheckBox checkBox = new CheckBox(context);
-                checkBox.setText(option);
+                checkBox.setText(option.caption());
                 checkBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        curChose.addAnswer(option);
+                        curChose.addAnswer(option.caption());
                     }
                 });
                 checkBoxGroup.addView(checkBox);

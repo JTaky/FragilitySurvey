@@ -37,12 +37,8 @@ public interface IQuestion extends Parcelable {
             }
 
             private List<Inputter> readInputers(Parcel in) {
-                int inputerSize = in.readInt();
-                List<Inputter> inputers = new ArrayList<>(inputerSize);
-                for(int i = 0; i < inputerSize; i++){
-                    Inputter inputter = in.readParcelable(Inputter.class.getClassLoader());
-                    inputers.add(inputter);
-                }
+                List<Inputter> inputers = new ArrayList<>();
+                in.readList(inputers, Inputter.class.getClassLoader());
                 return inputers;
             }
 
@@ -59,10 +55,7 @@ public interface IQuestion extends Parcelable {
         @Override
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(questionText);
-            dest.writeInt(inputters.size());
-            for(Inputter cur : inputters){
-                dest.writeParcelable(cur, Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
-            }
+            dest.writeList(inputters);
         }
 
         @Override

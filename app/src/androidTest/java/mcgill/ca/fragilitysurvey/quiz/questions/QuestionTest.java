@@ -12,8 +12,8 @@ public class QuestionTest extends TestCase {
     private Inputter chose = new Inputter()
             .inputType(IQuestion.InputType.CHOOSE)
             .caption("option 1")
-            .options(asList("+", "-"))
-            .answer("answer");
+            .options(asList(new OptionValue().caption("+"), new OptionValue().caption("-")))
+                    .answer("answer");
 
     private IQuestion.Question chooseQuestion = new IQuestion.Question()
             .questionText("title")
@@ -22,13 +22,14 @@ public class QuestionTest extends TestCase {
                             .caption("option 1")
                             .inputType(IQuestion.InputType.CHOOSE)
                             .orLogic(false)
-                            .options(asList("+", "-", "="))
-                            .addAnswer("+")
-                            .addAnswer("-"),
-                    new Inputter()
-                            .caption("option 2")
-                            .inputType(IQuestion.InputType.INT_INPUT)
-            ));
+                            .options(asList(new OptionValue().caption("+"),
+                                            new OptionValue().caption("-"),
+                                            new OptionValue().caption("=")
+                                    )).addAnswer("+").addAnswer("-"),
+                                    new Inputter()
+                                            .caption("option 2")
+                                            .inputType(IQuestion.InputType.INT_INPUT)
+                            ));
 
     public void testChoseReadWrite(){
         Parcel parcel = Parcel.obtain();

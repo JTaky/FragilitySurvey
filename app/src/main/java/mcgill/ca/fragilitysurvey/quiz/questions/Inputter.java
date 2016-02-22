@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import org.apache.commons.lang3.BooleanUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -16,8 +17,8 @@ public class Inputter implements Parcelable {
             IQuestion.InputType inputType = IQuestion.InputType.values()[in.readInt()];
             boolean orLogic = BooleanUtils.toBoolean(in.readInt());
             String caption = in.readString();
-            List<String> options = new ArrayList<>();
-            in.readStringList(options);
+            List<OptionValue> options = new ArrayList<>();
+            in.readList(options, OptionValue.class.getClassLoader());
             List<String> answers = new ArrayList<>();
             in.readStringList(answers);
             return new Inputter()
@@ -35,7 +36,7 @@ public class Inputter implements Parcelable {
 
     private IQuestion.InputType inputType;
     private String caption;
-    private List<String> options = new ArrayList<>();
+    private List<OptionValue> options = new ArrayList<>();
     private boolean orLogic = true;
     //answers
     private List<String> answers = new ArrayList<>();
@@ -61,11 +62,11 @@ public class Inputter implements Parcelable {
         return this;
     }
 
-    public List<String> options() {
+    public List<OptionValue> options() {
         return options;
     }
 
-    public Inputter options(List<String> options) {
+    public Inputter options(List<OptionValue> options) {
         this.options = options;
         return this;
     }
@@ -108,7 +109,7 @@ public class Inputter implements Parcelable {
         dest.writeInt(inputType.ordinal());
         dest.writeInt(BooleanUtils.toInteger(orLogic));
         dest.writeString(caption);
-        dest.writeStringList(options);
+        dest.writeList(options);
         dest.writeStringList(answers);
     }
 

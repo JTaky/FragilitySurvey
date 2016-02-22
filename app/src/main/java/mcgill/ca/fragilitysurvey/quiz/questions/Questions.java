@@ -10,10 +10,10 @@ import mcgill.ca.fragilitysurvey.R;
 
 public class Questions {
 
-    public static List<String> yesNo(final Resources res) {
+    public static List<OptionValue> yesNo(final Resources res) {
         return Arrays.asList(
-                res.getString(R.string.question_yes),
-                res.getString(R.string.question_no)
+                new OptionValue().caption(res.getString(R.string.question_no)).id(0),
+                new OptionValue().caption(res.getString(R.string.question_yes)).id(1)
         );
     }
 
@@ -44,9 +44,9 @@ public class Questions {
                                             .caption(res.getString(R.string.question_2_2))
                                             .orLogic(false)
                                             .options(Arrays.asList(
-                                                    res.getString(R.string.question_2_2_1),
-                                                    res.getString(R.string.question_2_2_2),
-                                                    res.getString(R.string.question_2_2_3)
+                                                    new OptionValue().caption(res.getString(R.string.question_2_2_1)).id(0),
+                                                    new OptionValue().caption(res.getString(R.string.question_2_2_2)).id(1),
+                                                    new OptionValue().caption(res.getString(R.string.question_2_2_3)).id(2)
                                             ))
                             ))
             );
