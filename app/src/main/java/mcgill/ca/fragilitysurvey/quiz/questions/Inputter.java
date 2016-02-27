@@ -19,8 +19,8 @@ public class Inputter implements Parcelable {
             String caption = in.readString();
             List<OptionValue> options = new ArrayList<>();
             in.readList(options, OptionValue.class.getClassLoader());
-            List<String> answers = new ArrayList<>();
-            in.readStringList(answers);
+            List<IAnswer> answers = new ArrayList<>();
+            in.readList(answers, IAnswer.class.getClassLoader());
             return new Inputter()
                     .inputType(inputType)
                     .orLogic(orLogic)
@@ -34,12 +34,14 @@ public class Inputter implements Parcelable {
         }
     };
 
+    //common fields
     private IQuestion.InputType inputType;
     private String caption;
+    //option specific
     private List<OptionValue> options = new ArrayList<>();
     private boolean orLogic = true;
     //answers
-    private List<String> answers = new ArrayList<>();
+    private List<IAnswer> answers = new ArrayList<>();
 
     public Inputter() {
     }
@@ -80,23 +82,19 @@ public class Inputter implements Parcelable {
         return this;
     }
 
-    public Inputter answer(String answer) {
+    public Inputter answer(IAnswer answer) {
         this.answers = Collections.singletonList(answer);
         return this;
     }
 
-    private Inputter answers(List<String> answers) {
+    private Inputter answers(List<IAnswer> answers) {
         this.answers = answers;
         return this;
     }
 
-    public Inputter addAnswer(String answer) {
+    public Inputter addAnswer(IAnswer answer) {
         this.answers.add(answer);
         return this;
-    }
-
-    public List<String> answer() {
-        return answers;
     }
 
     @Override
@@ -110,7 +108,7 @@ public class Inputter implements Parcelable {
         dest.writeInt(BooleanUtils.toInteger(orLogic));
         dest.writeString(caption);
         dest.writeList(options);
-        dest.writeStringList(answers);
+        dest.writeList(answers);
     }
 
     @Override
@@ -150,5 +148,4 @@ public class Inputter implements Parcelable {
         result = 31 * result + (answers != null ? answers.hashCode() : 0);
         return result;
     }
-
 }

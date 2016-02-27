@@ -13,7 +13,7 @@ public class QuestionTest extends TestCase {
             .inputType(IQuestion.InputType.CHOOSE)
             .caption("option 1")
             .options(asList(new OptionValue().caption("+"), new OptionValue().caption("-")))
-                    .answer("answer");
+                    .addAnswer(new IAnswer.ChooseAnswer().value(5));
 
     private IQuestion.Question chooseQuestion = new IQuestion.Question()
             .questionText("title")
@@ -25,7 +25,7 @@ public class QuestionTest extends TestCase {
                             .options(asList(new OptionValue().caption("+"),
                                             new OptionValue().caption("-"),
                                             new OptionValue().caption("=")
-                                    )).addAnswer("+").addAnswer("-"),
+                                    )).addAnswer(new IAnswer.IntAnswer().value(3)).addAnswer(new IAnswer.StringAnswer().value("-")),
                                     new Inputter()
                                             .caption("option 2")
                                             .inputType(IQuestion.InputType.INT_INPUT)

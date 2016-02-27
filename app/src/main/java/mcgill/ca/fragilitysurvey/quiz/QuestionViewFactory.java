@@ -62,11 +62,11 @@ public class QuestionViewFactory {
             for (final OptionValue option : curChose.options()) {
                 RadioButton radioButton = new RadioButton(context);
                 radioButton.setText(option.caption());
-                radioButton.setId(id++);
+                radioButton.setId(option.id());
                 radioButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        curChose.answer(option.caption());
+                        curChose.answer(curChose.inputType().toAnswer(String.valueOf(v.getId())));
                     }
                 });
                 radioGroup.addView(radioButton);
@@ -78,10 +78,11 @@ public class QuestionViewFactory {
             for (final OptionValue option : curChose.options()) {
                 CheckBox checkBox = new CheckBox(context);
                 checkBox.setText(option.caption());
+                checkBox.setId(option.id());
                 checkBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        curChose.addAnswer(option.caption());
+                        curChose.addAnswer(curChose.inputType().toAnswer(String.valueOf(v.getId())));
                     }
                 });
                 checkBoxGroup.addView(checkBox);
@@ -102,7 +103,7 @@ public class QuestionViewFactory {
 
             @Override
             public void afterTextChanged(Editable value) {
-                curChose.answer(value.toString());
+                curChose.answer(curChose.inputType().toAnswer(value.toString()));
             }
         });
         subQuestionLayout.addView(txt);

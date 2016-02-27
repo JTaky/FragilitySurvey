@@ -1,5 +1,6 @@
 package mcgill.ca.fragilitysurvey.quiz.questions;
 
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -13,15 +14,36 @@ public interface IQuestion extends Parcelable {
     List<Inputter> inputters();
 
     enum InputType {
-        TEXT_INPUT,
-        CHOOSE,
-        INT_INPUT,
-        DOUBLE_INPUT;
+        TEXT_INPUT {
+            @Override
+            public IAnswer toAnswer(String stringValue) {
+                return new IAnswer.StringAnswer().value(stringValue);
+            }
+        },
+        CHOOSE {
+            @Override
+            public IAnswer toAnswer(String idStr) {
+                return new IAnswer.ChooseAnswer().value(Integer.parseInt(idStr));
+            }
+        },
+        INT_INPUT {
+            @Override
+            public IAnswer toAnswer(String stringValue) {
+                return new IAnswer.IntAnswer().value(Integer.parseInt(stringValue));
+            }
+        },
+        DOUBLE_INPUT {
+            @Override
+            public IAnswer toAnswer(String stringValue) {
+                return new IAnswer.DoubleAnswer().value(Double.parseDouble(stringValue));
+            }
+        };
 
         public static InputType fromInt(int v){
             return values()[v];
         }
 
+        public abstract IAnswer toAnswer(String stringValue);
     }
 
     class Question implements IQuestion {
