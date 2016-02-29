@@ -11,7 +11,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import mcgill.ca.fragilitysurvey.R;
-import mcgill.ca.fragilitysurvey.quiz.questions.IQuestion;
+import mcgill.ca.fragilitysurvey.repo.DBContext;
+import mcgill.ca.fragilitysurvey.quiz.questions.Question;
+import mcgill.ca.fragilitysurvey.repo.SurveyService;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -19,19 +21,21 @@ public class QuizActivity extends AppCompatActivity {
 
     public static final String QUESTIONS_KEY = "mcgill.ca.fragilitysurvey";
 
-    private final LinkedList<IQuestion> previousQuestions = new LinkedList<>();
-    private final LinkedList<IQuestion> nextQuestions = new LinkedList<>();
-    private IQuestion cur;
+    private final LinkedList<Question> previousQuestions = new LinkedList<>();
+    private final LinkedList<Question> nextQuestions = new LinkedList<>();
+    private Question cur;
 
     private View.OnClickListener nextOnClickListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
             if(nextQuestions.isEmpty()){
                 //submit
-                for(IQuestion cur : previousQuestions){
+                previousQuestions.add(cur);
+                for(Question cur : previousQuestions){
                     Log.i(TAG, cur.toString());
                 }
-                Log.i(TAG, cur.toString());
+                saveSurvey(previousQuestions);
+                finish();
             } else {
                 //show next question
                 moveNext();
@@ -86,7 +90,7 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void displayQuestions() {
-        List<IQuestion> questions = getIntent().getParcelableArrayListExtra(QUESTIONS_KEY);
+        List<Question> questions = getIntent().getParcelableArrayListExtra(QUESTIONS_KEY);
         nextQuestions.clear();
         nextQuestions.addAll(questions);
         if(!questions.isEmpty()) {
@@ -116,13 +120,10 @@ public class QuizActivity extends AppCompatActivity {
         updateBtnActivity();
     }
 
-    private View.OnClickListener createOnClickListener(final List<IQuestion> questions) {
-        return new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "Has to answer - " + questions.size() + " questions");
-            }
-        };
+    //service level
+    private void saveSurvey(LinkedList<Question> questions) {
+        SurveyService surveyService = new SurveyService(new DBContext(this));
+        surveyService.newSurvey(questions);
     }
 
 }

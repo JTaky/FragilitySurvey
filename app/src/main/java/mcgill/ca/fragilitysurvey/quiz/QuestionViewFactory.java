@@ -14,15 +14,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import mcgill.ca.fragilitysurvey.quiz.questions.IQuestion;
 import mcgill.ca.fragilitysurvey.quiz.questions.Inputter;
 import mcgill.ca.fragilitysurvey.quiz.questions.OptionValue;
+import mcgill.ca.fragilitysurvey.quiz.questions.Question;
 
 public class QuestionViewFactory {
 
     public static final QuestionViewFactory INSTANCE = new QuestionViewFactory();
 
-    public View createQuestionView(Context context, IQuestion cur) {
+    public View createQuestionView(Context context, Question cur) {
         LinearLayout questionView = new LinearLayout(context);
         questionView.setOrientation(LinearLayout.VERTICAL);
         questionView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -40,14 +40,14 @@ public class QuestionViewFactory {
                 case CHOOSE:
                     createChoseInputView(subQuestionLayout, context, curChose);
                     break;
-                case INT_INPUT:
+                case INT:
                     createIntInputView(subQuestionLayout, context, curChose);
                     break;
-                case DOUBLE_INPUT:
+                case DOUBLE:
                     createDoubleInputView(subQuestionLayout, context, curChose);
                     break;
                 default:
-                    throw new IllegalArgumentException("Do not support InputType - " + curChose.inputType());
+                    throw new IllegalArgumentException("Do not support AnswerType - " + curChose.inputType());
             }
             questionView.addView(subQuestionLayout);
         }
@@ -58,7 +58,6 @@ public class QuestionViewFactory {
         if(curChose.isOrLogic()) {
             RadioGroup radioGroup = new RadioGroup(context);
             radioGroup.setOrientation(RadioGroup.HORIZONTAL);
-            int id = 0;
             for (final OptionValue option : curChose.options()) {
                 RadioButton radioButton = new RadioButton(context);
                 radioButton.setText(option.caption());

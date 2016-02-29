@@ -6,15 +6,21 @@ import android.os.Parcelable;
 import org.apache.commons.lang3.BooleanUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import mcgill.ca.fragilitysurvey.repo.entity.answer.AnswerType;
+import mcgill.ca.fragilitysurvey.repo.entity.answer.IAnswer;
+
+/**
+ * Represent model for the current input(part of the question)
+ */
 public class Inputter implements Parcelable {
 
     public static final Creator CREATOR = new Creator() {
         public Inputter createFromParcel(Parcel in) {
-            IQuestion.InputType inputType = IQuestion.InputType.values()[in.readInt()];
+            int id = in.readInt();
+            AnswerType inputType = AnswerType.fromId(in.readInt());
             boolean orLogic = BooleanUtils.toBoolean(in.readInt());
             String caption = in.readString();
             List<OptionValue> options = new ArrayList<>();
@@ -22,6 +28,7 @@ public class Inputter implements Parcelable {
             List<IAnswer> answers = new ArrayList<>();
             in.readList(answers, IAnswer.class.getClassLoader());
             return new Inputter()
+                    .id(id)
                     .inputType(inputType)
                     .orLogic(orLogic)
                     .caption(caption)
@@ -29,13 +36,14 @@ public class Inputter implements Parcelable {
                     .answers(answers);
         }
 
-        public IQuestion.Question[] newArray(int size) {
-            return new IQuestion.Question[size];
+        public Question[] newArray(int size) {
+            return new Question[size];
         }
     };
 
     //common fields
-    private IQuestion.InputType inputType;
+    private int id;
+    private AnswerType inputType;
     private String caption;
     //option specific
     private List<OptionValue> options = new ArrayList<>();
@@ -43,14 +51,22 @@ public class Inputter implements Parcelable {
     //answers
     private List<IAnswer> answers = new ArrayList<>();
 
-    public Inputter() {
+    public Inputter() {}
+
+    public int id(){
+        return id;
     }
 
-    public IQuestion.InputType inputType() {
+    public Inputter id(int id){
+        this.id = id;
+        return this;
+    }
+
+    public AnswerType inputType() {
         return inputType;
     }
 
-    public Inputter inputType(IQuestion.InputType inputType) {
+    public Inputter inputType(AnswerType inputType) {
         this.inputType = inputType;
         return this;
     }
@@ -92,6 +108,10 @@ public class Inputter implements Parcelable {
         return this;
     }
 
+    public List<IAnswer> answers() {
+        return answers;
+    }
+
     public Inputter addAnswer(IAnswer answer) {
         this.answers.add(answer);
         return this;
@@ -104,7 +124,8 @@ public class Inputter implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(inputType.ordinal());
+        dest.writeInt(id);
+        dest.writeInt(inputType.id);
         dest.writeInt(BooleanUtils.toInteger(orLogic));
         dest.writeString(caption);
         dest.writeList(options);

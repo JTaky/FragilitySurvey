@@ -21,7 +21,7 @@ public class CredentialsActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(getString(R.string.preferences_key_organisation), String.valueOf(organisationName));
         editor.putString(getString(R.string.preferences_key_password), String.valueOf(password));
-        editor.commit();
+        editor.apply();
     }
 
     private String getPassword(){

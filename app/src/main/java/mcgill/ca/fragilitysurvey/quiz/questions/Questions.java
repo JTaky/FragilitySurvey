@@ -5,10 +5,18 @@ import android.content.res.Resources;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import mcgill.ca.fragilitysurvey.R;
+import mcgill.ca.fragilitysurvey.repo.entity.answer.AnswerType;
 
 public class Questions {
+
+    private static AtomicInteger nextId = new AtomicInteger();
+
+    private static Question newQuestion(){
+        return new Question().id(nextId.incrementAndGet());
+    }
 
     public static List<OptionValue> yesNo(final Resources res) {
         return Arrays.asList(
@@ -17,30 +25,30 @@ public class Questions {
         );
     }
 
-    public static ArrayList<IQuestion> newPatientQuestions(final Resources res) {
-        return new ArrayList<IQuestion>() {{
-            add(new IQuestion.Question()
+    public static ArrayList<Question> newPatientQuestions(final Resources res) {
+        return new ArrayList<Question>() {{
+            add(newQuestion()
                             .questionText(res.getString(R.string.question_1))
                             .inputers(Arrays.asList(
                                     new Inputter()
-                                            .inputType(IQuestion.InputType.CHOOSE)
+                                            .inputType(AnswerType.CHOOSE)
                                             .caption(res.getString(R.string.question_1_1))
                                             .options(yesNo(res)),
                                     new Inputter()
-                                            .inputType(IQuestion.InputType.CHOOSE)
+                                            .inputType(AnswerType.CHOOSE)
                                             .caption(res.getString(R.string.question_1_2))
                                             .options(yesNo(res))
                             ))
             );
-            add(new IQuestion.Question()
+            add(newQuestion()
                             .questionText(res.getString(R.string.question_1))
                             .inputers(Arrays.asList(
                                     new Inputter()
-                                            .inputType(IQuestion.InputType.CHOOSE)
+                                            .inputType(AnswerType.CHOOSE)
                                             .caption(res.getString(R.string.question_2_1))
                                             .options(yesNo(res)),
                                     new Inputter()
-                                            .inputType(IQuestion.InputType.CHOOSE)
+                                            .inputType(AnswerType.CHOOSE)
                                             .caption(res.getString(R.string.question_2_2))
                                             .orLogic(false)
                                             .options(Arrays.asList(
@@ -50,11 +58,11 @@ public class Questions {
                                             ))
                             ))
             );
-            add(new IQuestion.Question()
+            add(newQuestion()
                             .questionText(res.getString(R.string.question_3))
                             .inputers(Arrays.asList(
                                     new Inputter()
-                                            .inputType(IQuestion.InputType.INT_INPUT)
+                                            .inputType(AnswerType.INT)
                                             .caption(res.getString(R.string.question_3_1))
                             ))
             );

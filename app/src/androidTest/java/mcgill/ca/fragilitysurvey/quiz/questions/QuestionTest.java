@@ -5,30 +5,36 @@ import android.os.Parcelable;
 
 import junit.framework.TestCase;
 
+import mcgill.ca.fragilitysurvey.repo.entity.answer.AnswerType;
+import mcgill.ca.fragilitysurvey.repo.entity.answer.ChooseAnswer;
+import mcgill.ca.fragilitysurvey.repo.entity.answer.IntAnswer;
+import mcgill.ca.fragilitysurvey.repo.entity.answer.StringAnswer;
+
 import static java.util.Arrays.asList;
 
 public class QuestionTest extends TestCase {
 
     private Inputter chose = new Inputter()
-            .inputType(IQuestion.InputType.CHOOSE)
+            .inputType(AnswerType.CHOOSE)
             .caption("option 1")
             .options(asList(new OptionValue().caption("+"), new OptionValue().caption("-")))
-                    .addAnswer(new IAnswer.ChooseAnswer().value(5));
+                    .addAnswer(new ChooseAnswer().value(5));
 
-    private IQuestion.Question chooseQuestion = new IQuestion.Question()
+    private Question chooseQuestion = new Question()
+            .id(42)
             .questionText("title")
             .inputers(asList(
                     new Inputter()
                             .caption("option 1")
-                            .inputType(IQuestion.InputType.CHOOSE)
+                            .inputType(AnswerType.CHOOSE)
                             .orLogic(false)
                             .options(asList(new OptionValue().caption("+"),
                                             new OptionValue().caption("-"),
                                             new OptionValue().caption("=")
-                                    )).addAnswer(new IAnswer.IntAnswer().value(3)).addAnswer(new IAnswer.StringAnswer().value("-")),
+                                    )).addAnswer(new IntAnswer().value(3)).addAnswer(new StringAnswer().value("-")),
                                     new Inputter()
                                             .caption("option 2")
-                                            .inputType(IQuestion.InputType.INT_INPUT)
+                                            .inputType(AnswerType.INT)
                             ));
 
     public void testChoseReadWrite(){
@@ -50,8 +56,9 @@ public class QuestionTest extends TestCase {
         //done writing, now reset parcel for reading
         parcel.setDataPosition(0);
 
-        IQuestion.Question createFromParcel = (IQuestion.Question)IQuestion.Question.CREATOR.createFromParcel(parcel);
+        Question createFromParcel = (Question) Question.CREATOR.createFromParcel(parcel);
 
+        assertEquals("expected id is selialized", 42, createFromParcel.id());
         assertEquals("expected the same objects", chooseQuestion, createFromParcel);
     }
 
