@@ -65,6 +65,11 @@ public class Question implements Parcelable {
         return inputters;
     }
 
+    public Question addInputter(Inputter inputter) {
+        inputters.add(inputter);
+        return this;
+    }
+
     public Question inputers(List<Inputter> inputters) {
         int inputterId = 0;
         for(Inputter inputter : inputters){

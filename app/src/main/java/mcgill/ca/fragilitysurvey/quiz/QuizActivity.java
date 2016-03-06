@@ -19,7 +19,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private static final String TAG = "questions";
 
-    public static final String QUESTIONS_KEY = "mcgill.ca.fragilitysurvey";
+    public static final String QUESTIONS_KEY = "mcgill.ca.fragilitysurvey.questions";
+    public static final String SURVEY_KEY = "mcgill.ca.fragilitysurvey.questions";
 
     private final LinkedList<Question> previousQuestions = new LinkedList<>();
     private final LinkedList<Question> nextQuestions = new LinkedList<>();
@@ -123,7 +124,7 @@ public class QuizActivity extends AppCompatActivity {
     //service level
     private void saveSurvey(LinkedList<Question> questions) {
         SurveyService surveyService = new SurveyService(new DBContext(this));
-        surveyService.newSurvey(questions);
+        surveyService.saveNewSurvey(questions);
     }
 
 }

@@ -2,11 +2,12 @@ package mcgill.ca.fragilitysurvey.repo;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBContext extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "FeedReader.db";
 
     public DBContext(Context context){
@@ -24,5 +25,9 @@ public class DBContext extends SQLiteOpenHelper {
         db.execSQL(AnswerRepository.SQL_DELETE_ANSWER_TABLE);
         db.execSQL(SurveyRepository.SQL_DELETE_SURVEY_TABLE);
         onCreate(db);
+    }
+
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        onUpgrade(db, oldVersion, newVersion);
     }
 }

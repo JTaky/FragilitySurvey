@@ -12,9 +12,14 @@ import mcgill.ca.fragilitysurvey.repo.entity.answer.AnswerType;
 
 public class Questions {
 
+    public static final int PATIENT_QUESTIONS_COUNT = 3;
+
     private static AtomicInteger nextId = new AtomicInteger();
 
-    private static Question newQuestion(){
+    private static ArrayList<Question> patientQuestions;
+    private static ArrayList<Question> completeSurveyQuestions;
+
+    private static Question newQuestion() {
         return new Question().id(nextId.incrementAndGet());
     }
 
@@ -26,7 +31,10 @@ public class Questions {
     }
 
     public static ArrayList<Question> newPatientQuestions(final Resources res) {
-        return new ArrayList<Question>() {{
+        if (patientQuestions != null)
+            return patientQuestions;
+
+        patientQuestions = new ArrayList<Question>() {{
             add(newQuestion()
                             .questionText(res.getString(R.string.question_1))
                             .inputers(Arrays.asList(
@@ -67,6 +75,24 @@ public class Questions {
                             ))
             );
         }};
+        return patientQuestions;
+    }
+
+    public static ArrayList<Question> completeSurveyQuestions(final Resources res) {
+        if (completeSurveyQuestions != null)
+            return completeSurveyQuestions;
+
+        completeSurveyQuestions = new ArrayList<Question>() {{
+            add(newQuestion()
+                            .questionText(res.getString(R.string.question_complete_1))
+                            .inputers(Arrays.asList(
+                                    new Inputter()
+                                            .inputType(AnswerType.DOUBLE)
+                                            .caption(res.getString(R.string.question_complete_1_1))
+                            ))
+            );
+        }};
+        return completeSurveyQuestions;
     }
 
 }

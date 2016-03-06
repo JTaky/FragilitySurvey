@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/o.nitavskyi/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.2/36d6e77a419cb455e6fd5909f6f96b168e21e9d0/joda-time-2.9.2.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="36d6e77a419cb455e6fd5909f6f96b168e21e9d0">
+        <dex dex="/Users/o.nitavskyi/git/FragilitySurvey/app/build/intermediates/pre-dexed/debug/joda-time-2.9.2-d033ac01f9339bc086c4d61d10fa42f7c5edd771.jar" />
+    </item>
+    <item
+        jar="/Users/o.nitavskyi/git/FragilitySurvey/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="3f151e49c316a5ab2c065969a3b3b55ef9b393fc">
+        <dex dex="/Users/o.nitavskyi/git/FragilitySurvey/app/build/intermediates/pre-dexed/debug/classes-c95577381e55feec1b5c42891240357093610706.jar" />
+    </item>
+    <item
+        jar="/Users/o.nitavskyi/git/FragilitySurvey/app/build/intermediates/exploded-aar/com.android.support/design/23.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="19026d31f5d3ae868db81319671a642be5fbba08">
+        <dex dex="/Users/o.nitavskyi/git/FragilitySurvey/app/build/intermediates/pre-dexed/debug/classes-f3ca08f2ccde5bd966db53fad13253ac18150ea5.jar" />
+    </item>
+    <item
+        jar="/Users/o.nitavskyi/git/FragilitySurvey/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
+        <dex dex="/Users/o.nitavskyi/git/FragilitySurvey/app/build/intermediates/pre-dexed/debug/classes-df3a7671658992945d575187e488c30194facb1d.jar" />
+    </item>
+    <item
+        jar="/Users/o.nitavskyi/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.4/5fe28b9518e58819180a43a850fbc0dd24b7c050/commons-lang3-3.4.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5fe28b9518e58819180a43a850fbc0dd24b7c050">
+        <dex dex="/Users/o.nitavskyi/git/FragilitySurvey/app/build/intermediates/pre-dexed/debug/commons-lang3-3.4-84940257d223d32faf4670df637ed452861b6e5d.jar" />
+    </item>
+    <item
+        jar="/Users/o.nitavskyi/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.0/support-annotations-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
+        <dex dex="/Users/o.nitavskyi/git/FragilitySurvey/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.0-c749a79780278575ae2f735f89091da1967159a6.jar" />
+    </item>
+    <item
+        jar="/Users/o.nitavskyi/git/FragilitySurvey/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.0/jars/libs/internal_impl-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
+        <dex dex="/Users/o.nitavskyi/git/FragilitySurvey/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.0-ce63803fb407b0f2f4a61047e89df65dafbc299e.jar" />
+    </item>
+    <item
+        jar="/Users/o.nitavskyi/git/FragilitySurvey/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="/Users/o.nitavskyi/git/FragilitySurvey/app/build/intermediates/pre-dexed/debug/classes-ebdd28ea67a67ff2713b650d87405b5c883264e0.jar" />
+    </item>
+
+</items>

@@ -38,4 +38,12 @@
     <string name="question.2.2.3">Professional(s)</string>
     <string name="question.3">3.</string>
     <string name="question.3.1">How many different drugs do you take daily?</string>
+
+    <string name="question.complete.1">1.</string>
+    <string name="question.complete.1.1">Enter some double?</string>
+
+    <string name="patient.list.survey.id">Survey ID</string>
+    <string name="patient.list.survey.date">Date</string>
+    <string name="patient.list.checkbox.label">Completed</string>
+    <string name="patient.list.survey.button">Complete</string>
 </resources>

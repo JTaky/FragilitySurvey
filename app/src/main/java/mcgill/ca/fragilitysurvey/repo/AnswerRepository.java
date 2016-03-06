@@ -1,14 +1,19 @@
 package mcgill.ca.fragilitysurvey.repo;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import mcgill.ca.fragilitysurvey.quiz.questions.Inputter;
 import mcgill.ca.fragilitysurvey.quiz.questions.Question;
 import mcgill.ca.fragilitysurvey.repo.entity.Survey;
+import mcgill.ca.fragilitysurvey.repo.entity.answer.AnswerType;
 import mcgill.ca.fragilitysurvey.repo.entity.answer.IAnswer;
 
 /**
@@ -18,7 +23,7 @@ public class AnswerRepository extends BaseRepository {
 
     private static final String TAG = "repository.survey";
 
-    public static String TABLE_NAME = "answer";
+    public static String ANSWER_TABLE_NAME = "answer";
 
     //join to the question
     public static String SURVEY_ID = "survey_id";
@@ -28,17 +33,17 @@ public class AnswerRepository extends BaseRepository {
     public static String ANSWER_TYPE = "type";
     public static String ANSWER_VALUE = "value";
 
-    public static String SQL_CREATE_ANSWER_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
+    public static String SQL_CREATE_ANSWER_TABLE = "CREATE TABLE " + ANSWER_TABLE_NAME + " (" +
             _ID + " INTEGER PRIMARY KEY, " +
-            SURVEY_ID + " STRING, " +
-            QUESTION_ID + " INTEGER, " +
-            INPUTTER_ID + " INTEGER, " +
-            ANSWER_TYPE + " INTEGER, " +
-            ANSWER_VALUE + " TEXT " +
+            QUESTION_ID + " INTEGER NOT NULL, " +
+            SURVEY_ID + " STRING NOT NULL, " +
+            INPUTTER_ID + " INTEGER NOT NULL, " +
+            ANSWER_TYPE + " INTEGER NOT NULL, " +
+            ANSWER_VALUE + " TEXT NOT NULL" +
             " )";
 
     public static final String SQL_DELETE_ANSWER_TABLE =
-            "DROP TABLE IF EXISTS " + TABLE_NAME;
+            "DROP TABLE IF EXISTS " + ANSWER_TABLE_NAME;
 
     private final DBContext dbContext;
 
@@ -72,15 +77,62 @@ public class AnswerRepository extends BaseRepository {
         SQLiteDatabase db = dbContext.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(SURVEY_ID, survey.surveyId());
         values.put(QUESTION_ID, q.id());
+        values.put(SURVEY_ID, survey.surveyId());
         values.put(INPUTTER_ID, inputter.id());
         values.put(ANSWER_TYPE, inputter.inputType().id);
         values.put(ANSWER_VALUE, inputter.inputType().fromAnswer(answer));
 
-        long newRowId = db.insert(TABLE_NAME, null, values);
+        long newRowId = db.insert(ANSWER_TABLE_NAME, null, values);
         Log.d(TAG, "Inserted answer with id - " + newRowId);
         return this;
     }
 
+    public List<Question> getBySurveyId(String surveyId) {
+        SQLiteDatabase db = dbContext.getReadableDatabase();
+        Map<Integer, Question> questionsMap = new HashMap<>();
+        Map<Integer, Map<Integer, Inputter>> inputtersMap = new HashMap<>();
+        try(Cursor surveyCursor = db.rawQuery("SELECT " +
+                QUESTION_ID + ", " +
+                INPUTTER_ID + ", " +
+                ANSWER_TYPE + ", " +
+                ANSWER_VALUE + "" +
+                " FROM " + ANSWER_TABLE_NAME +
+                " WHERE " +
+                SURVEY_ID + " = '" + surveyId + "'", new String[]{})){
+            while(surveyCursor.moveToNext()) {
+                //create questions
+                int questionId = surveyCursor.getInt(surveyCursor.getColumnIndex(QUESTION_ID));
+                Question question = questionsMap.get(questionId);
+                if(question == null){
+                    question = new Question().id(questionId);
+                    questionsMap.put(questionId, question);
+                }
+                //create inputters
+                int inputterId = surveyCursor.getInt(surveyCursor.getColumnIndex(INPUTTER_ID));
+                Map<Integer, Inputter> inputterSubMap = inputtersMap.get(questionId);
+                if(inputterSubMap == null){
+                    inputterSubMap = new HashMap<>();
+                    inputtersMap.put(questionId, inputterSubMap);
+                }
+                Inputter inputter = inputterSubMap.get(inputterId);
+                if(inputter == null){
+                    inputter = new Inputter().id(questionId);
+                    inputterSubMap.put(inputterId, inputter);
+                    question.addInputter(inputter);
+                }
+                //create answer
+                int answerTypeId = surveyCursor.getInt(surveyCursor.getColumnIndex(ANSWER_TYPE));
+                AnswerType answerType = AnswerType.fromId(answerTypeId);
+                if(answerType != null) {
+                    String answerValue = surveyCursor.getString(surveyCursor.getColumnIndex(ANSWER_VALUE));
+                    IAnswer answer = answerType.toAnswer(answerValue);
+                    inputter.addAnswer(answer);
+                } else {
+                    Log.e(TAG, "Cannot find answerType for id " + answerTypeId);
+                }
+            }
+        }
+        return new ArrayList<>(questionsMap.values());
+    }
 }
