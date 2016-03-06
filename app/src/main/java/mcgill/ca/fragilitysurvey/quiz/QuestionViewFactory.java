@@ -108,9 +108,23 @@ public class QuestionViewFactory {
         subQuestionLayout.addView(txt);
     }
 
-    private void createDoubleInputView(LinearLayout subQuestionLayout, Context context, Inputter curChose) {
+    private void createDoubleInputView(LinearLayout subQuestionLayout, Context context, final Inputter curChose) {
         EditText txt = new EditText(context);
         txt.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        txt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable value) {
+                curChose.answer(curChose.inputType().toAnswer(value.toString()));
+            }
+        });
         subQuestionLayout.addView(txt);
     }
 

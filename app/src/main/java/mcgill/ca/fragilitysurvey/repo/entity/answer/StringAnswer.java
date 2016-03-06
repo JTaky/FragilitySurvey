@@ -2,9 +2,6 @@ package mcgill.ca.fragilitysurvey.repo.entity.answer;
 
 import android.os.Parcel;
 
-/**
- * Created by taky on 2/27/16.
- */
 public final class StringAnswer implements IAnswer<String> {
 
     public static final Creator CREATOR = new Creator() {
@@ -54,5 +51,12 @@ public final class StringAnswer implements IAnswer<String> {
     @Override
     public int hashCode() {
         return value != null ? value.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "StringAnswer{" +
+                "value='" + value + '\'' +
+                '}';
     }
 }

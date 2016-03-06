@@ -35,4 +35,11 @@ public final class DoubleAnswer implements IAnswer<Double> {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeDouble(value);
     }
+
+    @Override
+    public String toString() {
+        return "DoubleAnswer{" +
+                "value=" + value +
+                '}';
+    }
 }

@@ -12,7 +12,7 @@ public class Question implements Parcelable {
     private String questionText;
     private List<Inputter> inputters = new ArrayList<>();
 
-    public static final Creator CREATOR = new Creator() {
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
         public Question createFromParcel(Parcel in) {
             return new Question()
                     .id(in.readInt())

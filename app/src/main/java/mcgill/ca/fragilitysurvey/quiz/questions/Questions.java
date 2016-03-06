@@ -82,6 +82,9 @@ public class Questions {
         if (completeSurveyQuestions != null)
             return completeSurveyQuestions;
 
+        //init patient questions ids
+        newPatientQuestions(res);
+
         completeSurveyQuestions = new ArrayList<Question>() {{
             add(newQuestion()
                             .questionText(res.getString(R.string.question_complete_1))

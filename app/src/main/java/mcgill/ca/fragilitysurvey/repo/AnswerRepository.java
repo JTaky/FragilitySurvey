@@ -28,6 +28,7 @@ public class AnswerRepository extends BaseRepository {
     //join to the question
     public static String SURVEY_ID = "survey_id";
     public static String QUESTION_ID = "question_id";
+    public static String QUESTION_TEXT = "question_text";
     public static String INPUTTER_ID = "inputter_id";
     //value fields
     public static String ANSWER_TYPE = "type";
@@ -36,6 +37,7 @@ public class AnswerRepository extends BaseRepository {
     public static String SQL_CREATE_ANSWER_TABLE = "CREATE TABLE " + ANSWER_TABLE_NAME + " (" +
             _ID + " INTEGER PRIMARY KEY, " +
             QUESTION_ID + " INTEGER NOT NULL, " +
+            QUESTION_TEXT + " TEXT NOT NULL, " +
             SURVEY_ID + " STRING NOT NULL, " +
             INPUTTER_ID + " INTEGER NOT NULL, " +
             ANSWER_TYPE + " INTEGER NOT NULL, " +
@@ -52,7 +54,7 @@ public class AnswerRepository extends BaseRepository {
     }
 
 
-    public AnswerRepository saveQuestions(Survey survey, List<Question> questions) {
+    public AnswerRepository insertQuestions(Survey survey, List<Question> questions) {
         for (Question q : questions) {
             saveQuestion(survey, q);
         }
@@ -78,6 +80,7 @@ public class AnswerRepository extends BaseRepository {
 
         ContentValues values = new ContentValues();
         values.put(QUESTION_ID, q.id());
+        values.put(QUESTION_TEXT, q.questionText());
         values.put(SURVEY_ID, survey.surveyId());
         values.put(INPUTTER_ID, inputter.id());
         values.put(ANSWER_TYPE, inputter.inputType().id);
@@ -127,6 +130,7 @@ public class AnswerRepository extends BaseRepository {
                 if(answerType != null) {
                     String answerValue = surveyCursor.getString(surveyCursor.getColumnIndex(ANSWER_VALUE));
                     IAnswer answer = answerType.toAnswer(answerValue);
+                    inputter.inputType(answerType);
                     inputter.addAnswer(answer);
                 } else {
                     Log.e(TAG, "Cannot find answerType for id " + answerTypeId);

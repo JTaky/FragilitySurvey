@@ -1,5 +1,6 @@
 package mcgill.ca.fragilitysurvey.quiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,17 +15,23 @@ import mcgill.ca.fragilitysurvey.R;
 import mcgill.ca.fragilitysurvey.repo.DBContext;
 import mcgill.ca.fragilitysurvey.quiz.questions.Question;
 import mcgill.ca.fragilitysurvey.repo.SurveyService;
+import mcgill.ca.fragilitysurvey.repo.entity.Survey;
 
 public class QuizActivity extends AppCompatActivity {
 
+    public static final int SURVEY_REQUEST_CODE = 1;
+
     private static final String TAG = "questions";
 
+    public static final String EXTRAS_KEY = "mcgill.ca.fragilitysurvey.extras";
     public static final String QUESTIONS_KEY = "mcgill.ca.fragilitysurvey.questions";
-    public static final String SURVEY_KEY = "mcgill.ca.fragilitysurvey.questions";
+    public static final String SURVEY_KEY = "mcgill.ca.fragilitysurvey.survey";
 
     private final LinkedList<Question> previousQuestions = new LinkedList<>();
     private final LinkedList<Question> nextQuestions = new LinkedList<>();
     private Question cur;
+
+    private Survey survey;
 
     private View.OnClickListener nextOnClickListener = new View.OnClickListener(){
         @Override
@@ -35,7 +42,8 @@ public class QuizActivity extends AppCompatActivity {
                 for(Question cur : previousQuestions){
                     Log.i(TAG, cur.toString());
                 }
-                saveSurvey(previousQuestions);
+                saveSurvey(survey, previousQuestions);
+                setResult(RESULT_OK, new Intent());
                 finish();
             } else {
                 //show next question
@@ -57,8 +65,13 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        initSurvey();
         initBtns();
         displayQuestions();
+    }
+
+    private void initSurvey() {
+        this.survey = getIntent().getBundleExtra(EXTRAS_KEY).getParcelable(SURVEY_KEY);
     }
 
     @Override
@@ -91,9 +104,10 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void displayQuestions() {
-        List<Question> questions = getIntent().getParcelableArrayListExtra(QUESTIONS_KEY);
+        List<Question> questions = getIntent().getBundleExtra(EXTRAS_KEY).getParcelableArrayList(QUESTIONS_KEY);
         nextQuestions.clear();
         nextQuestions.addAll(questions);
+        assert questions != null;
         if(!questions.isEmpty()) {
             moveNext();
             displayQuestion();
@@ -122,9 +136,13 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     //service level
-    private void saveSurvey(LinkedList<Question> questions) {
+    private void saveSurvey(Survey survey, LinkedList<Question> questions) {
         SurveyService surveyService = new SurveyService(new DBContext(this));
-        surveyService.saveNewSurvey(questions);
+        if(survey == null) {
+            surveyService.insertNewSurvey(questions);
+        } else {
+            surveyService.saveSurvey(survey, questions);
+        }
     }
 
 }

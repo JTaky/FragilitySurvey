@@ -52,4 +52,11 @@ public final class ChooseAnswer implements IAnswer<Integer> {
     public int hashCode() {
         return value != null ? value.hashCode() : 0;
     }
+
+    @Override
+    public String toString() {
+        return "ChooseAnswer{" +
+                "value=" + value +
+                '}';
+    }
 }

@@ -17,12 +17,17 @@ public class SurveyService {
         answerRepository = new AnswerRepository(dbContext);
     }
 
-    public Survey saveNewSurvey(LinkedList<Question> questions) {
+    public Survey insertNewSurvey(LinkedList<Question> questions) {
         Survey survey = new Survey().surveyId(generateId()).questions(questions);
         //ideally start transaction here
-        answerRepository.saveQuestions(survey, questions);
-        surveyRepository.saveSurvey(survey);
+        answerRepository.insertQuestions(survey, questions);
+        surveyRepository.insertSurvey(survey);
         return survey;
+    }
+
+    public SurveyService saveSurvey(Survey survey, LinkedList<Question> questions){
+        answerRepository.insertQuestions(survey, questions);
+        return this;
     }
 
     private String generateId() {

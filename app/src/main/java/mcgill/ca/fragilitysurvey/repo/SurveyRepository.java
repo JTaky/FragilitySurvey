@@ -40,7 +40,7 @@ public class SurveyRepository extends BaseRepository {
         this.dbContext = dbContext;
     }
 
-    public SurveyRepository saveSurvey(Survey survey) {
+    public SurveyRepository insertSurvey(Survey survey) {
         SQLiteDatabase db = dbContext.getWritableDatabase();
 
         ContentValues values = new ContentValues();
