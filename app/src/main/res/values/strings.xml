@@ -2,6 +2,7 @@
     <string name="app_name">FragilitySurvey</string>
     <string name="new_patient">New patient</string>
     <string name="edit_patient">Edit Patient</string>
+    <string name="export_patient">Export Patients</string>
     <string name="sign_up">Sign Up</string>
     <string-array name="supportedLanguages">
         <item>EN</item>

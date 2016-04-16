@@ -1,7 +1,11 @@
 package mcgill.ca.fragilitysurvey;
 
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,12 +15,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Locale;
 
 import mcgill.ca.fragilitysurvey.credentials.CredentialsActivity;
 import mcgill.ca.fragilitysurvey.quiz.QuizActivity;
 import mcgill.ca.fragilitysurvey.patientlist.PatientListActivity;
 import mcgill.ca.fragilitysurvey.quiz.questions.Questions;
+import mcgill.ca.fragilitysurvey.repo.DBContext;
+import mcgill.ca.fragilitysurvey.report.CsvExporter;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -38,6 +46,31 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         public void onClick(View v) {
             Intent myIntent = new Intent(MainActivity.this, PatientListActivity.class);
             MainActivity.this.startActivity(myIntent);
+        }
+    };
+
+    private View.OnClickListener exportPatientsListener = new View.OnClickListener() {
+
+        @TargetApi(Build.VERSION_CODES.KITKAT)
+        public File getExportDir(Context context, String fileName) {
+            // Get the directory for the app's private pictures directory.
+            File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), fileName);
+            if (!file.mkdirs()) {
+                Log.e(TAG, "Export directory was not created");
+            }
+            return file;
+        }
+
+        @Override
+        public void onClick(View v) {
+            try {
+                new CsvExporter().exportPatients(
+                        getExportDir(MainActivity.this, MainActivity.this.getString(getApplicationInfo().labelRes)),
+                        new DBContext(MainActivity.this)
+                );
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     };
 
@@ -64,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         btnNewPatient.setOnClickListener(newPatientListener);
         Button btnEditPatient = (Button) findViewById(R.id.btnEditPatient);
         btnEditPatient.setOnClickListener(editPatientListener);
+        Button btnExportPatients = (Button) findViewById(R.id.btnExportPatients);
+        btnExportPatients.setOnClickListener(exportPatientsListener);
         Button btnSignUp = (Button) findViewById(R.id.btnSignUp);
         btnSignUp.setOnClickListener(signUpListener);
     }

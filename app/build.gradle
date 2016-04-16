@@ -5,7 +5,7 @@ android {
     buildToolsVersion '23.0.2'
     defaultConfig {
         applicationId "mcgill.ca.fragilitysurvey"
-        minSdkVersion 23
+        minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -25,10 +25,12 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'joda-time:joda-time:2.9.2'
+    compile 'com.opencsv:opencsv:3.7'
+    compile 'com.itextpdf:itextpdf:5.5.9'
     androidTestCompile 'junit:junit:4.12'
 }

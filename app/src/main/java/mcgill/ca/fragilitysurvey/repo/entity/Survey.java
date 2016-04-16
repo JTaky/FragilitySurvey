@@ -3,6 +3,7 @@ package mcgill.ca.fragilitysurvey.repo.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -58,6 +59,10 @@ public class Survey implements Parcelable {
     public Survey questions(List<Question> questions) {
         this.questions = questions;
         return this;
+    }
+
+    public List<Question> questions() {
+        return Collections.unmodifiableList(this.questions);
     }
 
     public boolean isCompleted() {
