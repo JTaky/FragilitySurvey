@@ -49,7 +49,7 @@ public class Questions {
                             ))
             );
             add(newQuestion()
-                            .questionText(res.getString(R.string.question_1))
+                            .questionText(res.getString(R.string.question_2))
                             .inputers(Arrays.asList(
                                     new Inputter()
                                             .inputType(AnswerType.CHOOSE)
@@ -96,6 +96,17 @@ public class Questions {
             );
         }};
         return completeSurveyQuestions;
+    }
+
+    public static Question getQuestionById(int id, final Resources res){
+        List<Question> questions = completeSurveyQuestions(res);
+        questions.addAll(newPatientQuestions(res));
+        for(Question question : questions){
+            if(question.id() == id){
+                return question;
+            }
+        }
+        return null;
     }
 
 }

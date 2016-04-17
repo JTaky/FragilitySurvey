@@ -1,6 +1,7 @@
 package mcgill.ca.fragilitysurvey.repo;
 
 import android.content.ContentValues;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 import mcgill.ca.fragilitysurvey.quiz.questions.Inputter;
 import mcgill.ca.fragilitysurvey.quiz.questions.Question;
+import mcgill.ca.fragilitysurvey.quiz.questions.Questions;
 import mcgill.ca.fragilitysurvey.repo.entity.Survey;
 import mcgill.ca.fragilitysurvey.repo.entity.answer.AnswerType;
 import mcgill.ca.fragilitysurvey.repo.entity.answer.IAnswer;
@@ -91,7 +93,8 @@ public class AnswerRepository extends BaseRepository {
         return this;
     }
 
-    public List<Question> getBySurveyId(String surveyId) {
+    //very dirty method, because of the bad DB model. It can be faster to store evrything in the single table
+    public List<Question> getBySurveyId(String surveyId, Resources res) {
         SQLiteDatabase db = dbContext.getReadableDatabase();
         Map<Integer, Question> questionsMap = new HashMap<>();
         Map<Integer, Map<Integer, Inputter>> inputtersMap = new HashMap<>();
@@ -106,10 +109,12 @@ public class AnswerRepository extends BaseRepository {
             while(surveyCursor.moveToNext()) {
                 //create questions
                 int questionId = surveyCursor.getInt(surveyCursor.getColumnIndex(QUESTION_ID));
+                Question templateQuestion = Questions.getQuestionById(questionId, res);
                 Question question = questionsMap.get(questionId);
                 if(question == null){
                     question = new Question().id(questionId);
                     questionsMap.put(questionId, question);
+                    question.questionText(templateQuestion.questionText());
                 }
                 //create inputters
                 int inputterId = surveyCursor.getInt(surveyCursor.getColumnIndex(INPUTTER_ID));
@@ -119,8 +124,12 @@ public class AnswerRepository extends BaseRepository {
                     inputtersMap.put(questionId, inputterSubMap);
                 }
                 Inputter inputter = inputterSubMap.get(inputterId);
+                Inputter templateInputter = templateQuestion.getInputterById(inputterId);
                 if(inputter == null){
                     inputter = new Inputter().id(questionId);
+                    inputter.caption(templateInputter.caption());
+                    inputter.options(templateInputter.options());
+                    inputter.orLogic(templateInputter.isOrLogic());
                     inputterSubMap.put(inputterId, inputter);
                     question.addInputter(inputter);
                 }

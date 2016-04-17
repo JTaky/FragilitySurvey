@@ -2,8 +2,10 @@
     <string name="app_name">FragilitySurvey</string>
     <string name="new_patient">New patient</string>
     <string name="edit_patient">Edit Patient</string>
-    <string name="export_patient">Export Patients</string>
+    <string name="export_csv_patient">Export CSV</string>
+    <string name="export_pdf_patient">Export PDF</string>
     <string name="sign_up">Sign Up</string>
+    <string name="positive_btn">OK</string>
     <string-array name="supportedLanguages">
         <item>EN</item>
         <item>FR</item>
@@ -47,4 +49,10 @@
     <string name="patient.list.survey.date">Date</string>
     <string name="patient.list.checkbox.label">Completed</string>
     <string name="patient.list.survey.button">Complete</string>
+
+    <string name="pdf.title">Fragility Survey Result</string>
+    <string name="pdf.date">Date: </string>
+    <string name="pdf.caption.1">Madam, Mister,</string>
+    <string name="pdf.caption.2">You will be seen in consultation by a physician.</string>
+    <string name="pdf.caption.3">Before starting the consultation, would you please complete this short questionnaire by filling in the appropriate box the way you perceive your own health. The person accompanying you may help you.</string>
 </resources>

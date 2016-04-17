@@ -39,7 +39,7 @@ public class PatientListActivity extends AppCompatActivity {
     }
 
     private void showData() {
-        SurveyService surveyService = new SurveyService(new DBContext(this));
+        SurveyService surveyService = new SurveyService(new DBContext(this), this.getResources());
 
         TableLayout patientTable = (TableLayout) findViewById(R.id.patientTable);
         patientTable.removeAllViews();

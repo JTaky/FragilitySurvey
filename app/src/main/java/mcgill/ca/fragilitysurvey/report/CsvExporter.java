@@ -1,6 +1,8 @@
 package mcgill.ca.fragilitysurvey.report;
 
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 
 import com.opencsv.CSVWriter;
@@ -26,17 +28,18 @@ import mcgill.ca.fragilitysurvey.repo.entity.answer.IAnswer;
 public class CsvExporter {
 
     private static final String SEP = " ";
-    public static final DateFormat dateFormat = new SimpleDateFormat("yyyyy-MM-dd_hh:mm:ss");
+    public static final DateFormat fileDateFormat = new SimpleDateFormat("yyyyy-MM-dd_hh:mm:ss");
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public void exportPatients(File outputDirectory, DBContext dbContext) throws FileNotFoundException {
-        File outputFile = new File(outputDirectory, "exported_" + dateFormat.format(new Date()) + ".csv");
-        SurveyService surveyService = new SurveyService(dbContext);
+    public String exportPatients(File outputDirectory, DBContext dbContext, Context context) throws FileNotFoundException {
+        File outputFile = new File(outputDirectory, "exported_" + fileDateFormat.format(new Date()) + ".csv");
+        SurveyService surveyService = new SurveyService(dbContext, context.getResources());
         List<Survey> surveys = surveyService.getSurveys();
         String csvContent = serializeToCsv(surveys);
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(outputFile))) {
             writer.print(csvContent);
         }
+        return outputFile.getName();
     }
 
     public static String serializeToCsv(List<Survey> surveys) {

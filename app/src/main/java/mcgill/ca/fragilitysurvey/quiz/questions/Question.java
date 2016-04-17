@@ -110,4 +110,12 @@ public class Question implements Parcelable {
         return result;
     }
 
+    public Inputter getInputterById(int inputterId) {
+        for(Inputter inputter : inputters()){
+            if(inputter.id() == inputterId){
+                return inputter;
+            }
+        }
+        return null;
+    }
 }

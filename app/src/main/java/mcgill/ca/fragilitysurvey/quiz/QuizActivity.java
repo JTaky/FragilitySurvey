@@ -137,7 +137,7 @@ public class QuizActivity extends AppCompatActivity {
 
     //service level
     private void saveSurvey(Survey survey, LinkedList<Question> questions) {
-        SurveyService surveyService = new SurveyService(new DBContext(this));
+        SurveyService surveyService = new SurveyService(new DBContext(this), this.getResources());
         if(survey == null) {
             surveyService.insertNewSurvey(questions);
         } else {

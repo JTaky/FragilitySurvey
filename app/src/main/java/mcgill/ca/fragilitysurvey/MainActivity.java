@@ -1,7 +1,9 @@
 package mcgill.ca.fragilitysurvey;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -15,6 +17,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.itextpdf.text.DocumentException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Locale;
@@ -25,6 +29,7 @@ import mcgill.ca.fragilitysurvey.patientlist.PatientListActivity;
 import mcgill.ca.fragilitysurvey.quiz.questions.Questions;
 import mcgill.ca.fragilitysurvey.repo.DBContext;
 import mcgill.ca.fragilitysurvey.report.CsvExporter;
+import mcgill.ca.fragilitysurvey.report.PdfExporter;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -49,30 +54,53 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     };
 
-    private View.OnClickListener exportPatientsListener = new View.OnClickListener() {
-
-        @TargetApi(Build.VERSION_CODES.KITKAT)
-        public File getExportDir(Context context, String fileName) {
-            // Get the directory for the app's private pictures directory.
-            File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), fileName);
-            if (!file.mkdirs()) {
-                Log.e(TAG, "Export directory was not created");
-            }
-            return file;
-        }
+    private View.OnClickListener exportCsvPatientsListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
             try {
-                new CsvExporter().exportPatients(
+                String filePath = new CsvExporter().exportPatients(
                         getExportDir(MainActivity.this, MainActivity.this.getString(getApplicationInfo().labelRes)),
-                        new DBContext(MainActivity.this)
+                        new DBContext(MainActivity.this),
+                        MainActivity.this
                 );
+                showMessage("Success", "Data was exported to the '" + filePath + "'");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
     };
+
+    private View.OnClickListener exportPdfPatientsListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            try {
+                String filePath = new PdfExporter().exportPatients(
+                        getExportDir(MainActivity.this, MainActivity.this.getString(getApplicationInfo().labelRes)),
+                        new DBContext(MainActivity.this),
+                        MainActivity.this
+                );
+                showMessage("Success", "Data was exported to the '" + filePath + "'");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    private void showMessage(String title, String msg) {
+        new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(msg)
+                .setPositiveButton(R.string.positive_btn, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {}
+                })
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .show();
+    }
 
     private View.OnClickListener signUpListener = new View.OnClickListener() {
         @Override
@@ -81,6 +109,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             MainActivity.this.startActivity(myIntent);
         }
     };
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public File getExportDir(Context context, String fileName) {
+        // Get the directory for the app's private pictures directory.
+        File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), fileName);
+        if (!file.exists() && !file.mkdirs()) {
+            Log.e(TAG, "Export directory was not created");
+        }
+        return file;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,8 +135,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         btnNewPatient.setOnClickListener(newPatientListener);
         Button btnEditPatient = (Button) findViewById(R.id.btnEditPatient);
         btnEditPatient.setOnClickListener(editPatientListener);
-        Button btnExportPatients = (Button) findViewById(R.id.btnExportPatients);
-        btnExportPatients.setOnClickListener(exportPatientsListener);
+        Button btnExportCsvPatients = (Button) findViewById(R.id.btnExportCsvPatients);
+        btnExportCsvPatients.setOnClickListener(exportCsvPatientsListener);
+        Button btnExportPdfPatients = (Button) findViewById(R.id.btnExportPdfPatients);
+        btnExportPdfPatients.setOnClickListener(exportPdfPatientsListener);
         Button btnSignUp = (Button) findViewById(R.id.btnSignUp);
         btnSignUp.setOnClickListener(signUpListener);
     }

@@ -1,5 +1,7 @@
 package mcgill.ca.fragilitysurvey.repo;
 
+import android.content.res.Resources;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -9,12 +11,14 @@ import mcgill.ca.fragilitysurvey.repo.entity.Survey;
 
 public class SurveyService {
 
-    private SurveyRepository surveyRepository;
-    private AnswerRepository answerRepository;
+    private final Resources resources;
+    private final SurveyRepository surveyRepository;
+    private final AnswerRepository answerRepository;
 
-    public SurveyService(DBContext dbContext){
+    public SurveyService(DBContext dbContext, Resources res){
         surveyRepository = new SurveyRepository(dbContext);
         answerRepository = new AnswerRepository(dbContext);
+        resources = res;
     }
 
     public Survey insertNewSurvey(LinkedList<Question> questions) {
@@ -38,7 +42,7 @@ public class SurveyService {
         List<Survey> surveys = surveyRepository.getSurveys();
         for(Survey curSurvey : surveys) {
             curSurvey.questions(
-                    answerRepository.getBySurveyId(curSurvey.surveyId())
+                    answerRepository.getBySurveyId(curSurvey.surveyId(), resources)
             );
         }
         return surveys;
