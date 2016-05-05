@@ -75,7 +75,7 @@ public class Questions {
                             ))
             );
         }};
-        return patientQuestions;
+        return new ArrayList<>(patientQuestions);
     }
 
     public static ArrayList<Question> completeSurveyQuestions(final Resources res) {
@@ -99,7 +99,8 @@ public class Questions {
     }
 
     public static Question getQuestionById(int id, final Resources res){
-        List<Question> questions = completeSurveyQuestions(res);
+        List<Question> questions = new ArrayList<>();
+        questions.addAll(completeSurveyQuestions(res));
         questions.addAll(newPatientQuestions(res));
         for(Question question : questions){
             if(question.id() == id){
