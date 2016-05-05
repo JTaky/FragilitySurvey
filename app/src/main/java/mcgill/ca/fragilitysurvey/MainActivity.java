@@ -5,11 +5,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,7 +34,7 @@ import mcgill.ca.fragilitysurvey.repo.DBContext;
 import mcgill.ca.fragilitysurvey.report.CsvExporter;
 import mcgill.ca.fragilitysurvey.report.PdfExporter;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
@@ -90,6 +93,37 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     };
 
+    private AdapterView.OnItemSelectedListener localeSelectedListener = new AdapterView.OnItemSelectedListener(){
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            String lang = String.valueOf(parent.getItemAtPosition(position));
+            Locale newLocale = new Locale(lang.toLowerCase());
+            Resources res = getResources();
+            if(!res.getConfiguration().locale.getLanguage().equalsIgnoreCase(newLocale.getLanguage())) {
+                //save in the preferences
+                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(getString(R.string.preferences_key_locale), String.valueOf(lang.toLowerCase()));
+                editor.apply();
+                //update resources
+                DisplayMetrics dm = res.getDisplayMetrics();
+                Configuration conf = res.getConfiguration();
+                conf.locale = newLocale;
+                res.updateConfiguration(conf, dm);
+                //refresh main form
+                Intent refresh = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(refresh);
+                finish();
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+            Log.v(TAG, "Nothing is selected on the language");
+        }
+    };
+
     private void showMessage(String title, String msg) {
         new AlertDialog.Builder(this)
                 .setTitle(title)
@@ -143,15 +177,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         btnSignUp.setOnClickListener(signUpListener);
     }
 
-    private void setLocale(String languageToLoad) {
-        Locale locale = new Locale(languageToLoad);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
-    }
-
     private void initLanguageSpinner() {
         Spinner spinner = (Spinner) findViewById(R.id.spinnerLang);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -161,18 +186,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        //update state, according to the settings
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        String localeLanguage = sharedPref.getString(getString(R.string.preferences_key_locale), "en");
+        if(localeLanguage.equalsIgnoreCase("fr")) {
+            spinner.setSelection(1);
+        }
         //Set action processor
-        spinner.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(localeSelectedListener);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String lang = String.valueOf(parent.getItemAtPosition(position));
-        setLocale(lang.toLowerCase());
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        Log.v(TAG, "Nothing is selected on the language");
-    }
 }
