@@ -19,14 +19,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.itextpdf.text.DocumentException;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Locale;
 
 import mcgill.ca.fragilitysurvey.credentials.CredentialsActivity;
+import mcgill.ca.fragilitysurvey.preferences.Preferences;
 import mcgill.ca.fragilitysurvey.quiz.QuizActivity;
 import mcgill.ca.fragilitysurvey.patientlist.PatientListActivity;
 import mcgill.ca.fragilitysurvey.quiz.questions.Questions;
@@ -37,6 +41,8 @@ import mcgill.ca.fragilitysurvey.report.PdfExporter;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+
+    public static final int SIGN_UP_RESULT_SAVED = 1;
 
     private View.OnClickListener newPatientListener = new View.OnClickListener() {
         @Override
@@ -85,9 +91,7 @@ public class MainActivity extends AppCompatActivity {
                         MainActivity.this
                 );
                 showMessage("Success", "Data was exported to the '" + filePath + "'");
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (DocumentException e) {
+            } catch (FileNotFoundException | DocumentException e) {
                 e.printStackTrace();
             }
         }
@@ -102,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             Resources res = getResources();
             if(!res.getConfiguration().locale.getLanguage().equalsIgnoreCase(newLocale.getLanguage())) {
                 //save in the preferences
-                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getPreferences();
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.preferences_key_locale), String.valueOf(lang.toLowerCase()));
                 editor.apply();
@@ -111,10 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 Configuration conf = res.getConfiguration();
                 conf.locale = newLocale;
                 res.updateConfiguration(conf, dm);
-                //refresh main form
-                Intent refresh = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(refresh);
-                finish();
+                restartActivity();
             }
         }
 
@@ -123,6 +124,13 @@ public class MainActivity extends AppCompatActivity {
             Log.v(TAG, "Nothing is selected on the language");
         }
     };
+
+    private void restartActivity() {
+        //refresh main form
+        Intent refresh = new Intent(MainActivity.this, MainActivity.class);
+        startActivity(refresh);
+        finish();
+    }
 
     private void showMessage(String title, String msg) {
         new AlertDialog.Builder(this)
@@ -139,8 +147,8 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener signUpListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent myIntent = new Intent(MainActivity.this, CredentialsActivity.class);
-            MainActivity.this.startActivity(myIntent);
+            Intent createntialsActivityIntent = new Intent(MainActivity.this, CredentialsActivity.class);
+            MainActivity.this.startActivityForResult(createntialsActivityIntent, SIGN_UP_RESULT_SAVED);
         }
     };
 
@@ -155,6 +163,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == SIGN_UP_RESULT_SAVED){
+            restartActivity();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -162,6 +178,26 @@ public class MainActivity extends AppCompatActivity {
 
         initBtns();
         initLanguageSpinner();
+        initWelcomeMsg();
+    }
+
+    private SharedPreferences getPreferences(){
+        return Preferences.getPreferences(this);
+    }
+
+    private void initWelcomeMsg() {
+        TextView txtWelcome = (TextView) findViewById(R.id.txtWelcome);
+        SharedPreferences sharedPref = getPreferences();
+        String organisationName = sharedPref.getString(getString(R.string.preferences_key_organisation), "");
+        if(StringUtils.isNotBlank(organisationName)){
+            //update label
+            txtWelcome.setText(getString(R.string.welcome_label_prefix, organisationName));
+            //change 'Sign UP' to edit caption
+            Button btnSignUp = (Button) findViewById(R.id.btnSignUp);
+            btnSignUp.setText(getString(R.string.sign_up_edit));
+        } else {
+            txtWelcome.setText("");
+        }
     }
 
     private void initBtns() {
@@ -187,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         //update state, according to the settings
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getPreferences();
         String localeLanguage = sharedPref.getString(getString(R.string.preferences_key_locale), "en");
         if(localeLanguage.equalsIgnoreCase("fr")) {
             spinner.setSelection(1);

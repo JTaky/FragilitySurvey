@@ -63,4 +63,14 @@
         android:layout_alignTop="@+id/btnExportCsvPatients"
         android:layout_alignEnd="@+id/btnEditPatient"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/welcome.label.prefix"
+        android:id="@+id/txtWelcome"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/spinnerLang"/>
+
 </RelativeLayout>

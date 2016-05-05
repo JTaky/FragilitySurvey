@@ -1,6 +1,5 @@
 package mcgill.ca.fragilitysurvey.credentials;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,23 +9,36 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 
+import mcgill.ca.fragilitysurvey.MainActivity;
 import mcgill.ca.fragilitysurvey.R;
+import mcgill.ca.fragilitysurvey.preferences.Preferences;
 import mcgill.ca.fragilitysurvey.utils.TextValidator;
 import mcgill.ca.fragilitysurvey.utils.ViewUtils;
 
 public class CredentialsActivity extends AppCompatActivity {
 
+    private SharedPreferences getPreferences(){
+        return Preferences.getPreferences(this);
+    }
+
     private void saveOrganisationPassword(CharSequence organisationName, CharSequence password){
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getPreferences();
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(getString(R.string.preferences_key_organisation), String.valueOf(organisationName));
         editor.putString(getString(R.string.preferences_key_password), String.valueOf(password));
         editor.apply();
+        setResult(MainActivity.SIGN_UP_RESULT_SAVED);
+        finish();
     }
 
     private String getPassword(){
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getPreferences();
         return sharedPref.getString(getString(R.string.preferences_key_password), "");
+    }
+
+    private String getOrganisationName(){
+        SharedPreferences sharedPref = getPreferences();
+        return sharedPref.getString(getString(R.string.preferences_key_organisation), "");
     }
 
     private View.OnClickListener btnSaveCredentialsListener = new View.OnClickListener() {
@@ -41,8 +53,11 @@ public class CredentialsActivity extends AppCompatActivity {
                 txtNewPassword.setError(getString(R.string.credentials_validation_pwd_does_not_match));
                 return;
             }
-            if(ViewUtils.isVisible(txtCurrentPassword) && getPassword().equals(String.valueOf(txtCurrentPassword.getText()))){
-                txtNewPassword.setError(getString(R.string.credentials_validation_pwd_current_wrong));
+            if(
+                    ViewUtils.isVisible(txtCurrentPassword) &&
+                    !getPassword().equals(String.valueOf(txtCurrentPassword.getText()))
+              ){
+                txtCurrentPassword.setError(getString(R.string.credentials_validation_pwd_current_wrong));
                 return;
             }
             TextValidator.checkIfEmpty(txtOrganisationName, getString(R.string.credentials_validation_empty_field));
@@ -68,6 +83,7 @@ public class CredentialsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_credentials);
 
         initBtns();
+        fillOrganisation();
         hideIfNeed();
         setUpValidators();
     }
@@ -75,6 +91,11 @@ public class CredentialsActivity extends AppCompatActivity {
     private void initBtns() {
         Button btnSaveCredentials = (Button) findViewById(R.id.btwSaveCredentials);
         btnSaveCredentials.setOnClickListener(btnSaveCredentialsListener);
+    }
+
+    private void fillOrganisation() {
+        TextView txtOrganisationName = (TextView) findViewById(R.id.txtOrganisationName);
+        txtOrganisationName.setText(getOrganisationName());
     }
 
     private void hideIfNeed() {
