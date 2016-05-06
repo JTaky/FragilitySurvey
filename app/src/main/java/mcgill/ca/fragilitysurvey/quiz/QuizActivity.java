@@ -128,7 +128,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private void movePrev(){
         if(cur != null){
-            nextQuestions.add(cur);
+            nextQuestions.push(cur);
         }
         cur = previousQuestions.pop();
     }

@@ -29,24 +29,25 @@ public class QuestionViewFactory {
     public boolean validate(Context context, Question cur, Activity view){
         boolean isValid = true;
         for(Inputter curChose: cur.inputters()){
-            switch (curChose.inputType()){
-                case CHOOSE:
-                    isValid = isValid && validateChooseView(context, view, curChose);
-                    break;
-                case INT:
-                    isValid = isValid && validateIntView(context, view, curChose);
-                    break;
-                case DOUBLE:
-                    isValid = isValid && validateDoubleView(context, view, curChose);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Do not support AnswerType - " + curChose.inputType());
+            if(curChose.isValidateable()) {
+                switch (curChose.inputType()) {
+                    case CHOOSE:
+                        isValid = isValid && validateChooseView(context, view, curChose);
+                        break;
+                    case INT:
+                    case TEXT:
+                    case DOUBLE:
+                        isValid = isValid && validateEditTextView(context, view, curChose);
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Do not support AnswerType - " + curChose.inputType());
+                }
             }
         }
         return isValid;
     }
 
-    private boolean validateIntView(Context context, Activity view, Inputter inputter) {
+    private boolean validateEditTextView(Context context, Activity view, Inputter inputter) {
         EditText txt = (EditText)view.findViewById(inputter.inputType().componentId());
         if(StringUtils.isBlank(txt.getText())){
             txt.setError(context.getString(R.string.question_validation_empty_value));
@@ -59,7 +60,6 @@ public class QuestionViewFactory {
         boolean isValid = true;
         RadioGroup chooseRadioGroup = (RadioGroup)view.findViewById(inputter.inputType().componentId());
         if(inputter.isOrLogic()) {
-            boolean isSelected = false;
             RadioButton lastRadioButton = null;
             for (final OptionValue option : inputter.options()) {
                 lastRadioButton = (RadioButton)chooseRadioGroup.findViewById(option.id());
@@ -71,15 +71,6 @@ public class QuestionViewFactory {
         }
         //suppose, it is ok to have empty checkboxes
         return isValid;
-    }
-
-    private boolean validateDoubleView(Context context, Activity view, Inputter inputter) {
-        EditText txt = (EditText)view.findViewById(inputter.inputType().componentId());
-        if(StringUtils.isBlank(txt.getText())){
-            txt.setError(context.getString(R.string.question_validation_empty_value));
-            return false;
-        }
-        return true;
     }
 
     public View createQuestionView(Context context, Question cur) {
@@ -102,6 +93,9 @@ public class QuestionViewFactory {
                     break;
                 case INT:
                     createIntInputView(subQuestionLayout, context, curChose);
+                    break;
+                case TEXT:
+                    createTextInputView(subQuestionLayout, context, curChose);
                     break;
                 case DOUBLE:
                     createDoubleInputView(subQuestionLayout, context, curChose);
@@ -155,6 +149,24 @@ public class QuestionViewFactory {
     private void createIntInputView(LinearLayout subQuestionLayout, Context context, final Inputter curChose) {
         EditText txt = new EditText(context);
         txt.setInputType(InputType.TYPE_CLASS_NUMBER);
+        txt.setId(curChose.inputType().componentId());
+        txt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable value) {
+                curChose.answer(curChose.inputType().toAnswer(value.toString()));
+            }
+        });
+        subQuestionLayout.addView(txt);
+    }
+
+    private void createTextInputView(LinearLayout subQuestionLayout, Context context, final Inputter curChose) {
+        EditText txt = new EditText(context);
         txt.setId(curChose.inputType().componentId());
         txt.addTextChangedListener(new TextWatcher() {
             @Override

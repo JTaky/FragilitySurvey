@@ -45,6 +45,7 @@ public class Inputter implements Parcelable {
     private int id;
     private AnswerType inputType;
     private String caption;
+    private boolean isValidateable = true;
     //option specific
     private List<OptionValue> options = new ArrayList<>();
     private boolean orLogic = true;
@@ -77,6 +78,15 @@ public class Inputter implements Parcelable {
 
     public Inputter caption(String caption) {
         this.caption = caption;
+        return this;
+    }
+
+    public boolean isValidateable() {
+        return isValidateable;
+    }
+
+    public Inputter setValidateable(boolean isValidateable) {
+        this.isValidateable = isValidateable;
         return this;
     }
 
