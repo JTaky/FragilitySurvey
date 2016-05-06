@@ -4,4 +4,65 @@
     <string name="new_patient">Nouveau patient</string>
     <string name="edit_patient">Edit</string>
     <string name="sign_up">Sign Up</string>
+
+    <!-- Takyta's code :) -->
+    <string name="question.yes">Oui</string>
+    <string name="question.no">Non</string>
+    <string name="question.1">1.</string>
+    <string name="question.1.1">Avez-vous perdu involontairement du poids au cours de la dernière année ?</string>
+    <string name="question.1.2">Si oui, précisez si la perte de poids a été de plus de 3 kilos ?</string>
+    <string name="question.2">2.</string>
+    <string name="question.2.1">Combien de médicaments différents prenez-vous par jour ?</string>
+    <string name="question.3">3.</string>
+    <string name="question.3.1">Avez-vous des problèmes de vue ?</string>
+    <string name="question.4">4.</string>
+    <string name="question.4.1">Avez-vous des problèmes d’audition ?</string>
+    <string name="question.5">5.</string>
+    <string name="question.5.1">Votre entourage vous a-t-il fait remarquer que vous aviez des problèmes de mémoire ?</string>
+    <string name="question.6.1">Recevez-vous de l\’aide pour accomplir les actes de vie de tous les jours ?</string>
+    <string name="question.6.2">Si oui, précisez s\’il s\’agit d\’un : </string>
+    <string name="question.6.2.1">Parent et/ou</string>
+    <string name="question.6.2.2">Ami et/ou</string>
+    <string name="question.6.2.3">Professionnel</string>
+
+    <string name="question.7">7.</string>
+    <string name="question.7.1">Avez-vous besoin d\’aide pour faire votre toilette ?</string>
+    <string name="question.8">8.</string>
+    <string name="question.8.1">Avez-vous besoin d\’aide pour vos soins d\’apparence corporelle ?</string>
+    <string name="question.9">9.</string>
+    <string name="question.9.1">Avez-vous besoin d\’aide pour vous habiller ?</string>
+    <string name="question.10">10.</string>
+    <string name="question.10.1">Avez-vous besoin d\’aide pour vous déplacer (canne ou autre)?</string>
+    <string name="question.11">11.</string>
+    <string name="question.11.1">Avez-vous besoin d\’aide pour manger ?</string>
+    <string name="question.12">12.</string>
+    <string name="question.12.1">Avez-vous besoin d\’aide pour utiliser le téléphone ?</string>
+    <string name="question.13">13.</string>
+    <string name="question.13.1">Avez-vous besoin d\’aide pour prendre les transports en commun ?</string>
+    <string name="question.14">14.</string>
+    <string name="question.14.1">Avez-vous besoin d\’aide pour prendre vos médicaments ?</string>
+    <string name="question.15">15.</string>
+    <string name="question.15.1">Avez-vous besoin d\’aide pour gérer votre argent ?</string>
+    <string name="question.16">16.</string>
+    <string name="question.16.1">Perdez-vous vos urines et/ou selles ?</string>
+    <string name="question.17">17.</string>
+    <string name="question.17.1">Vous sentez-vous aujourd\’hui :</string>
+    <string name="question.17.1.1">Heureux</string>
+    <string name="question.17.1.2">Malheureux</string>
+    <string name="question.17.1.3">Ni l\'un ni l\'autre</string>
+    <string name="question.18">18.</string>
+    <string name="question.18.1">Vous sentez-vous plein d\’énergie ?</string>
+    <string name="question.19">19.</string>
+    <string name="question.19.1">Avez-vous pratiqué une activité physique (marche, jardinage, vélo, etc…) au moins pendant 1 heure par semaine au cours du dernier mois ?</string>
+    <string name="question.20">20.</string>
+    <string name="question.20.1">Avez-vous fait au moins une chute au cours des 12 derniers mois ?</string>
+    <!-- there is no number before next question -->
+    <string name="question.21"></string>
+    <string name="question.21.1">Avez-vous rempli seul ce questionnaire ?</string>
+    <string name="question.21.2">Si vous avez coché non, qui vous a aidé ?</string>
+    <string name="question.21.2.1">Conjoint</string>
+    <string name="question.21.2.2">Membre famille</string>
+    <string name="question.21.2.3">Ami</string>
+    <string name="question.21.2.4">Autre :</string>
+
 </resources>
