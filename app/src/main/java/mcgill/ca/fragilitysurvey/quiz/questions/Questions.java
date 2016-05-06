@@ -41,6 +41,11 @@ public class Questions {
                 ));
     }
 
+    public static void reset(){
+        patientQuestions = null;
+        completeSurveyQuestions = null;
+    }
+
     public static ArrayList<Question> newPatientQuestions(final Resources res) {
         if (patientQuestions != null)
             return patientQuestions;

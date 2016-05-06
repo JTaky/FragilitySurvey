@@ -33,6 +33,7 @@ import mcgill.ca.fragilitysurvey.credentials.CredentialsActivity;
 import mcgill.ca.fragilitysurvey.preferences.Preferences;
 import mcgill.ca.fragilitysurvey.quiz.QuizActivity;
 import mcgill.ca.fragilitysurvey.patientlist.PatientListActivity;
+import mcgill.ca.fragilitysurvey.quiz.questions.Question;
 import mcgill.ca.fragilitysurvey.quiz.questions.Questions;
 import mcgill.ca.fragilitysurvey.repo.DBContext;
 import mcgill.ca.fragilitysurvey.report.CsvExporter;
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 Configuration conf = res.getConfiguration();
                 conf.locale = newLocale;
                 res.updateConfiguration(conf, dm);
+                Questions.reset();  //request recreate for all questions
                 restartActivity();
             }
         }
