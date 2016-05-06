@@ -1,5 +1,6 @@
 package mcgill.ca.fragilitysurvey.quiz;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.Editable;
 import android.text.InputType;
@@ -14,6 +15,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
+
+import mcgill.ca.fragilitysurvey.R;
 import mcgill.ca.fragilitysurvey.quiz.questions.Inputter;
 import mcgill.ca.fragilitysurvey.quiz.questions.OptionValue;
 import mcgill.ca.fragilitysurvey.quiz.questions.Question;
@@ -21,6 +25,62 @@ import mcgill.ca.fragilitysurvey.quiz.questions.Question;
 public class QuestionViewFactory {
 
     public static final QuestionViewFactory INSTANCE = new QuestionViewFactory();
+
+    public boolean validate(Context context, Question cur, Activity view){
+        boolean isValid = true;
+        for(Inputter curChose: cur.inputters()){
+            switch (curChose.inputType()){
+                case CHOOSE:
+                    isValid = isValid && validateChooseView(context, view, curChose);
+                    break;
+                case INT:
+                    isValid = isValid && validateIntView(context, view, curChose);
+                    break;
+                case DOUBLE:
+                    isValid = isValid && validateDoubleView(context, view, curChose);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Do not support AnswerType - " + curChose.inputType());
+            }
+        }
+        return isValid;
+    }
+
+    private boolean validateIntView(Context context, Activity view, Inputter inputter) {
+        EditText txt = (EditText)view.findViewById(inputter.inputType().componentId());
+        if(StringUtils.isBlank(txt.getText())){
+            txt.setError(context.getString(R.string.question_validation_empty_value));
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateChooseView(Context context, Activity view, Inputter inputter) {
+        boolean isValid = true;
+        RadioGroup chooseRadioGroup = (RadioGroup)view.findViewById(inputter.inputType().componentId());
+        if(inputter.isOrLogic()) {
+            boolean isSelected = false;
+            RadioButton lastRadioButton = null;
+            for (final OptionValue option : inputter.options()) {
+                lastRadioButton = (RadioButton)chooseRadioGroup.findViewById(option.id());
+            }
+            if(chooseRadioGroup.getCheckedRadioButtonId() == -1){
+                lastRadioButton.setError(context.getString(R.string.question_validation_empty_value));
+                isValid = false;
+            }
+        }
+        //suppose, it is ok to have empty checkboxes
+        return isValid;
+    }
+
+    private boolean validateDoubleView(Context context, Activity view, Inputter inputter) {
+        EditText txt = (EditText)view.findViewById(inputter.inputType().componentId());
+        if(StringUtils.isBlank(txt.getText())){
+            txt.setError(context.getString(R.string.question_validation_empty_value));
+            return false;
+        }
+        return true;
+    }
 
     public View createQuestionView(Context context, Question cur) {
         LinearLayout questionView = new LinearLayout(context);
@@ -57,6 +117,7 @@ public class QuestionViewFactory {
     private void createChoseInputView(LinearLayout subQuestionLayout, Context context, final Inputter curChose) {
         if(curChose.isOrLogic()) {
             RadioGroup radioGroup = new RadioGroup(context);
+            radioGroup.setId(curChose.inputType().componentId());
             radioGroup.setOrientation(RadioGroup.HORIZONTAL);
             for (final OptionValue option : curChose.options()) {
                 RadioButton radioButton = new RadioButton(context);
@@ -73,6 +134,7 @@ public class QuestionViewFactory {
             subQuestionLayout.addView(radioGroup);
         } else {
             LinearLayout checkBoxGroup = new LinearLayout(context);
+            checkBoxGroup.setId(curChose.inputType().componentId());
             subQuestionLayout.setOrientation(LinearLayout.HORIZONTAL);
             for (final OptionValue option : curChose.options()) {
                 CheckBox checkBox = new CheckBox(context);
@@ -93,6 +155,7 @@ public class QuestionViewFactory {
     private void createIntInputView(LinearLayout subQuestionLayout, Context context, final Inputter curChose) {
         EditText txt = new EditText(context);
         txt.setInputType(InputType.TYPE_CLASS_NUMBER);
+        txt.setId(curChose.inputType().componentId());
         txt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -111,6 +174,7 @@ public class QuestionViewFactory {
     private void createDoubleInputView(LinearLayout subQuestionLayout, Context context, final Inputter curChose) {
         EditText txt = new EditText(context);
         txt.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        txt.setId(curChose.inputType().componentId());
         txt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

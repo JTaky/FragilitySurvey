@@ -8,6 +8,11 @@ public enum AnswerType {
         }
 
         @Override
+        public int componentId() {
+            return 1;
+        }
+
+        @Override
         public String fromAnswer(IAnswer answer) {
             return ((StringAnswer)answer).value();
         }
@@ -16,6 +21,11 @@ public enum AnswerType {
         @Override
         public IAnswer toAnswer(String idStr) {
             return new ChooseAnswer().value(Integer.parseInt(idStr));
+        }
+
+        @Override
+        public int componentId() {
+            return 99;
         }
 
         @Override
@@ -30,6 +40,11 @@ public enum AnswerType {
         }
 
         @Override
+        public int componentId() {
+            return 1;
+        }
+
+        @Override
         public String fromAnswer(IAnswer answer) {
             return ((IntAnswer)answer).value().toString();
         }
@@ -38,6 +53,11 @@ public enum AnswerType {
         @Override
         public IAnswer toAnswer(String stringValue) {
             return new DoubleAnswer().value(Double.parseDouble(stringValue));
+        }
+
+        @Override
+        public int componentId() {
+            return 1;
         }
 
         @Override
@@ -62,6 +82,8 @@ public enum AnswerType {
     }
 
     public abstract IAnswer toAnswer(String stringValue);
+
+    public abstract int componentId();
 
     public abstract String fromAnswer(IAnswer answer);
 }

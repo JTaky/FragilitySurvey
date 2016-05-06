@@ -36,6 +36,11 @@ public class QuizActivity extends AppCompatActivity {
     private View.OnClickListener nextOnClickListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
+            if(!QuestionViewFactory.INSTANCE.validate(QuizActivity.this, cur, QuizActivity.this)){ //isValid ?
+                //is invalid
+                Log.i(TAG, "Question wasn't validated, question - " + cur.id());
+                return;
+            }
             if(nextQuestions.isEmpty()){
                 //submit
                 previousQuestions.add(cur);
@@ -131,7 +136,8 @@ public class QuizActivity extends AppCompatActivity {
     private void displayQuestion() {
         ScrollView scrollView = (ScrollView)findViewById(R.id.scrollQuiz);
         scrollView.removeAllViews();
-        scrollView.addView(QuestionViewFactory.INSTANCE.createQuestionView(this, cur));
+        View questionView = QuestionViewFactory.INSTANCE.createQuestionView(this, cur);
+        scrollView.addView(questionView);
         updateBtnActivity();
     }
 

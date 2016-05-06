@@ -53,16 +53,16 @@ public class Questions {
                             .inputers(Arrays.asList(
                                     new Inputter()
                                             .inputType(AnswerType.CHOOSE)
-                                            .caption(res.getString(R.string.question_2_1))
+                                            .caption(res.getString(R.string.question_6_1))
                                             .options(yesNo(res)),
                                     new Inputter()
                                             .inputType(AnswerType.CHOOSE)
-                                            .caption(res.getString(R.string.question_2_2))
+                                            .caption(res.getString(R.string.question_6_2))
                                             .orLogic(false)
                                             .options(Arrays.asList(
-                                                    new OptionValue().caption(res.getString(R.string.question_2_2_1)).id(0),
-                                                    new OptionValue().caption(res.getString(R.string.question_2_2_2)).id(1),
-                                                    new OptionValue().caption(res.getString(R.string.question_2_2_3)).id(2)
+                                                    new OptionValue().caption(res.getString(R.string.question_6_2_1)).id(0),
+                                                    new OptionValue().caption(res.getString(R.string.question_6_2_2)).id(1),
+                                                    new OptionValue().caption(res.getString(R.string.question_6_2_3)).id(2)
                                             ))
                             ))
             );
@@ -87,11 +87,11 @@ public class Questions {
 
         completeSurveyQuestions = new ArrayList<Question>() {{
             add(newQuestion()
-                            .questionText(res.getString(R.string.question_complete_1))
+                            .questionText(res.getString(R.string.question_mna_1))
                             .inputers(Arrays.asList(
                                     new Inputter()
                                             .inputType(AnswerType.DOUBLE)
-                                            .caption(res.getString(R.string.question_complete_1_1))
+                                            .caption(res.getString(R.string.question_mna_1_1))
                             ))
             );
         }};
