@@ -89,7 +89,7 @@
     <string name="question.20.1">Did you fall in the previous year (at least one fall)?</string>
     <!-- there is no number before next question -->
     <string name="question.21"></string>
-    <string name="question.21.1">Have you received help to mna the questionnaire?</string>
+    <string name="question.21.1">Have you received help to complete the questionnaire?</string>
     <string name="question.21.2">If yes who helped you?</string>
     <string name="question.21.2.1">Spouse</string>
     <string name="question.21.2.2">Family member</string>

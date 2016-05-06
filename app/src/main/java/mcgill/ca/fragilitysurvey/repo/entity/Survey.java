@@ -69,6 +69,15 @@ public class Survey implements Parcelable {
         return this.questions.size() > Questions.PATIENT_QUESTIONS_COUNT;
     }
 
+    public Question getQuestionById(int i) {
+        for(Question q : this.questions()){
+            if(q.id() == i){
+                return q;
+            }
+        }
+        return null;
+    }
+
     @Override
     public int describeContents() {
         return 0;

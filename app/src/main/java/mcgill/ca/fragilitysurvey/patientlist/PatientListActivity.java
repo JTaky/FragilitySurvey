@@ -73,7 +73,6 @@ public class PatientListActivity extends AppCompatActivity {
 
             Button completeSurveyBtn = new Button(this);
             completeSurveyBtn.setText(R.string.patient_list_survey_button);
-            completeSurveyBtn.setEnabled(!survey.isCompleted());
             row.addView(completeSurveyBtn);
             completeSurveyBtn.setOnClickListener(OnCompleteSurvey(survey));
 

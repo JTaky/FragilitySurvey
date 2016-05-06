@@ -58,8 +58,8 @@ public class QuestionViewFactory {
 
     private boolean validateChooseView(Context context, Activity view, Inputter inputter) {
         boolean isValid = true;
-        RadioGroup chooseRadioGroup = (RadioGroup)view.findViewById(inputter.inputType().componentId());
         if(inputter.isOrLogic()) {
+            RadioGroup chooseRadioGroup = (RadioGroup)view.findViewById(inputter.inputType().componentId());
             RadioButton lastRadioButton = null;
             for (final OptionValue option : inputter.options()) {
                 lastRadioButton = (RadioButton)chooseRadioGroup.findViewById(option.id());
@@ -83,7 +83,8 @@ public class QuestionViewFactory {
         for(Inputter curChose: cur.inputters()){
             LinearLayout subQuestionLayout = new LinearLayout(context);
             subQuestionLayout.setOrientation(LinearLayout.HORIZONTAL);
-            subQuestionLayout.setPadding(5, 5, 5, 5);
+            final int padding = 5;
+//            subQuestionLayout.setPadding(padding, padding, padding, padding);
             TextView questionTitle = createQuestionTitle(context, curChose.caption());
             subQuestionLayout.addView(questionTitle);
 
@@ -109,6 +110,7 @@ public class QuestionViewFactory {
     }
 
     private void createChoseInputView(LinearLayout subQuestionLayout, Context context, final Inputter curChose) {
+        subQuestionLayout.setOrientation(LinearLayout.VERTICAL);
         if(curChose.isOrLogic()) {
             RadioGroup radioGroup = new RadioGroup(context);
             radioGroup.setId(curChose.inputType().componentId());
@@ -129,7 +131,7 @@ public class QuestionViewFactory {
         } else {
             LinearLayout checkBoxGroup = new LinearLayout(context);
             checkBoxGroup.setId(curChose.inputType().componentId());
-            subQuestionLayout.setOrientation(LinearLayout.HORIZONTAL);
+            checkBoxGroup.setOrientation(LinearLayout.HORIZONTAL);
             for (final OptionValue option : curChose.options()) {
                 CheckBox checkBox = new CheckBox(context);
                 checkBox.setText(option.caption());

@@ -34,6 +34,7 @@ public class QuestionTest extends TestCase {
                                     )).addAnswer(new IntAnswer().value(3)).addAnswer(new StringAnswer().value("-")),
                                     new Inputter()
                                             .caption("option 2")
+                                            .isValidateable(false)
                                             .inputType(AnswerType.INT)
                             ));
 

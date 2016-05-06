@@ -12,7 +12,7 @@ import mcgill.ca.fragilitysurvey.repo.entity.answer.AnswerType;
 
 public class Questions {
 
-    public static final int PATIENT_QUESTIONS_COUNT = 3;
+    public static final int PATIENT_QUESTIONS_COUNT = 21;
 
     private static AtomicInteger nextId = new AtomicInteger();
 
@@ -56,6 +56,7 @@ public class Questions {
                                     new Inputter()
                                             .inputType(AnswerType.CHOOSE)
                                             .caption(res.getString(R.string.question_1_2))
+                                            .isValidateable(false)
                                             .options(yesNo(res))
                             ))
             );
@@ -81,6 +82,7 @@ public class Questions {
                                             .inputType(AnswerType.CHOOSE)
                                             .caption(res.getString(R.string.question_6_2))
                                             .orLogic(false)
+                                            .isValidateable(false)
                                             .options(Arrays.asList(
                                                     new OptionValue().caption(res.getString(R.string.question_6_2_1)).id(0),
                                                     new OptionValue().caption(res.getString(R.string.question_6_2_2)).id(1),
@@ -103,8 +105,7 @@ public class Questions {
                             .inputers(Arrays.asList(
                                     new Inputter()
                                             .inputType(AnswerType.CHOOSE)
-                                            .caption(res.getString(R.string.question_6_2))
-                                            .orLogic(false)
+                                            .caption(res.getString(R.string.question_17_1))
                                             .options(Arrays.asList(
                                                     new OptionValue().caption(res.getString(R.string.question_17_1_1)).id(0),
                                                     new OptionValue().caption(res.getString(R.string.question_17_1_2)).id(1),
@@ -134,7 +135,7 @@ public class Questions {
                                     new Inputter()
                                             .inputType(AnswerType.TEXT)
                                             .caption(res.getString(R.string.question_21_2_4))
-                                            .setValidateable(false)
+                                            .isValidateable(false)
                             ))
             );
         }};

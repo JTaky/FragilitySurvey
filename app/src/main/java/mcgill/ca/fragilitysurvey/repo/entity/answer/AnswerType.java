@@ -9,7 +9,7 @@ public enum AnswerType {
 
         @Override
         public int componentId() {
-            return 1;
+            return 101;
         }
 
         @Override
@@ -25,7 +25,7 @@ public enum AnswerType {
 
         @Override
         public int componentId() {
-            return 99;
+            return 99;  //radio button ids, starts from '1'
         }
 
         @Override
@@ -41,7 +41,7 @@ public enum AnswerType {
 
         @Override
         public int componentId() {
-            return 1;
+            return 201;
         }
 
         @Override
@@ -57,7 +57,7 @@ public enum AnswerType {
 
         @Override
         public int componentId() {
-            return 1;
+            return 301;
         }
 
         @Override

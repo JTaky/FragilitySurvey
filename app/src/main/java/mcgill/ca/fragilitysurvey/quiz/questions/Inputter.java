@@ -23,6 +23,7 @@ public class Inputter implements Parcelable {
             AnswerType inputType = AnswerType.fromId(in.readInt());
             boolean orLogic = BooleanUtils.toBoolean(in.readInt());
             String caption = in.readString();
+            Boolean isValidateable = BooleanUtils.toBoolean(in.readInt());
             List<OptionValue> options = new ArrayList<>();
             in.readList(options, OptionValue.class.getClassLoader());
             List<IAnswer> answers = new ArrayList<>();
@@ -32,6 +33,7 @@ public class Inputter implements Parcelable {
                     .inputType(inputType)
                     .orLogic(orLogic)
                     .caption(caption)
+                    .isValidateable(isValidateable)
                     .options(options)
                     .answers(answers);
         }
@@ -85,7 +87,7 @@ public class Inputter implements Parcelable {
         return isValidateable;
     }
 
-    public Inputter setValidateable(boolean isValidateable) {
+    public Inputter isValidateable(boolean isValidateable) {
         this.isValidateable = isValidateable;
         return this;
     }
@@ -138,6 +140,7 @@ public class Inputter implements Parcelable {
         dest.writeInt(inputType.id);
         dest.writeInt(BooleanUtils.toInteger(orLogic));
         dest.writeString(caption);
+        dest.writeInt(BooleanUtils.toInteger(isValidateable));
         dest.writeList(options);
         dest.writeList(answers);
     }
