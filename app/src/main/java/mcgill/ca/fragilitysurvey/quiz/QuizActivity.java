@@ -20,6 +20,7 @@ import mcgill.ca.fragilitysurvey.repo.entity.Survey;
 public class QuizActivity extends AppCompatActivity {
 
     public static final int SURVEY_REQUEST_CODE = 1;
+    public static final int SURVEY_SCORE_CODE = 2;
 
     private static final String TAG = "questions";
 
@@ -127,7 +128,7 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void movePrev(){
-        if(cur != null){
+        if (cur != null){
             nextQuestions.push(cur);
         }
         cur = previousQuestions.pop();

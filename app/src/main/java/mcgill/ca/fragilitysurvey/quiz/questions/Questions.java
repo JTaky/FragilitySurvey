@@ -12,7 +12,7 @@ import mcgill.ca.fragilitysurvey.repo.entity.answer.AnswerType;
 
 public class Questions {
 
-    public static final int PATIENT_QUESTIONS_COUNT = 21;
+    public static final int PATIENT_QUESTIONS_COUNT = 21 + 2;
 
     private static AtomicInteger nextId = new AtomicInteger();
 
@@ -25,8 +25,8 @@ public class Questions {
 
     public static List<OptionValue> yesNo(final Resources res) {
         return Arrays.asList(
-                new OptionValue().caption(res.getString(R.string.question_no)).id(0),
-                new OptionValue().caption(res.getString(R.string.question_yes)).id(1)
+                new OptionValue().caption(res.getString(R.string.question_yes)).id(0),
+                new OptionValue().caption(res.getString(R.string.question_no)).id(1)
         );
     }
 
@@ -51,6 +51,9 @@ public class Questions {
             return patientQuestions;
 
         patientQuestions = new ArrayList<Question>() {{
+            add(newQuestion()
+                            .questionText(res.getString(R.string.question_preface))
+            );
             add(newQuestion()
                             .questionText(res.getString(R.string.question_1))
                             .inputers(Arrays.asList(
@@ -143,6 +146,9 @@ public class Questions {
                                             .isValidateable(false)
                             ))
             );
+            add(newQuestion()
+                            .questionText(res.getString(R.string.question_thanks))
+            );
         }};
         return new ArrayList<>(patientQuestions);
     }
@@ -165,6 +171,11 @@ public class Questions {
             );
         }};
         return completeSurveyQuestions;
+    }
+
+    public static ArrayList<Question> getQuestionsForTests(final Resources res, List<AdditionalTest> additionalTests) {
+        //TODO build questions lists
+        return new ArrayList<>();
     }
 
     public static Question getQuestionById(int id, final Resources res){

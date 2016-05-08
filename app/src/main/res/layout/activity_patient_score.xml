@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="mcgill.ca.fragilitysurvey.patientlist.PatientScoreActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnOk"
+        android:id="@+id/btnOk"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:textSize="@dimen/text.size.large"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btwMakeTest"
+        android:id="@+id/btnMakeTests"
+        android:layout_alignParentEnd="true"
+        android:textSize="@dimen/text.size.large"
+        android:layout_alignTop="@+id/btnOk"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/lbl.score.caption"
+        android:id="@+id/lblScoreCaption"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:textSize="@dimen/text.size.large"
+        android:layout_margin="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
+        android:id="@+id/lblScore"
+        android:layout_toEndOf="@+id/lblScoreCaption"
+        android:textSize="@dimen/text.size.large"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignBottom="@+id/lblScoreCaption"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/lblFragilityLevel"
+        android:text=""
+        android:textSize="@dimen/text.size.large"
+        android:layout_alignEnd="@+id/btnMakeTests"
+        android:layout_toEndOf="@+id/lblScore"
+        android:layout_alignParentEnd="false"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignBottom="@+id/lblScoreCaption"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/lbl.recommendations"
+        android:id="@+id/lblRecos"
+        android:layout_below="@+id/lblScoreCaption"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="34dp"/>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listRecomendations"
+        android:layout_below="@+id/lblRecos"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="32dp"
+        android:layout_above="@+id/btnOk"
+        android:choiceMode="none"/>
+
+</RelativeLayout>

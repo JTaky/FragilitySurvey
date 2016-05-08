@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.os.Build;
 import android.util.Log;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,6 +61,30 @@ public class SurveyRepository extends BaseRepository {
                 SURVEY_ID + ", " +
                 TIMESTAMP + "" +
                 " FROM " + TABLE_NAME, new String[]{})){
+            while(surveyCursor.moveToNext()) {
+                String surveyId = surveyCursor.getString(surveyCursor.getColumnIndex(SURVEY_ID));
+                long timestamp = surveyCursor.getLong(surveyCursor.getColumnIndex(TIMESTAMP));
+                surveyList.add(
+                        new Survey().surveyId(surveyId).timestamp(new Date(timestamp))
+                );
+            }
+        }
+        return surveyList;
+    }
+
+    public List<Survey> getSurveys(DateTime day) {
+        return getSurveys(day.toLocalDate().toDateTimeAtStartOfDay(), day.plusDays(1).toLocalDate().toDateTimeAtStartOfDay());
+    }
+
+    public List<Survey> getSurveys(DateTime from, DateTime to) {
+        SQLiteDatabase db = dbContext.getReadableDatabase();
+        List<Survey> surveyList = new ArrayList<>();
+        try(Cursor surveyCursor = db.rawQuery("SELECT " +
+                SURVEY_ID + ", " +
+                TIMESTAMP + "" +
+                " FROM "  + TABLE_NAME +
+                " WHERE " + TIMESTAMP + " > " + from.getMillis() +
+                " AND "   + TIMESTAMP + " < " + to.getMillis(), new String[]{})){
             while(surveyCursor.moveToNext()) {
                 String surveyId = surveyCursor.getString(surveyCursor.getColumnIndex(SURVEY_ID));
                 long timestamp = surveyCursor.getLong(surveyCursor.getColumnIndex(TIMESTAMP));

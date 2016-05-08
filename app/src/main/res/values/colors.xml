@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="color.fragility.no">#4db707</color>
+    <color name="color.fragility.mild">#ffb76b</color>
+    <color name="color.fragility.modetate">#f47f01</color>
+    <color name="color.fragility.severe">#ef0d0d</color>
 </resources>

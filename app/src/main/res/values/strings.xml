@@ -36,6 +36,8 @@
      <string name="question.preface">Madam, Mister,
     You will be seen in consultation by a physician.
     Before starting the consultation, would you please mna this short questionnaire by filling in the appropriate box the way you perceive your own health. The person accompanying you may help you.</string>
+    <string name="question.thanks">The quiz is done.
+        Thank you for the partitipation.</string>
     <string name="question.yes">Yes</string>
     <string name="question.no">No</string>
     <string name="question.1">1.</string>
@@ -176,7 +178,7 @@
     <string name="patient.list.survey.id">Survey ID</string>
     <string name="patient.list.survey.date">Date</string>
     <string name="patient.list.checkbox.label">Completed</string>
-    <string name="patient.list.survey.button">Complete</string>
+    <string name="patient.list.survey.button">Show</string>
 
     <string name="pdf.title">Fragility Survey Result</string>
     <string name="pdf.date">Date: </string>
@@ -184,4 +186,13 @@
     <string name="pdf.caption.2">You will be seen in consultation by a physician.</string>
     <string name="pdf.caption.3">Before starting the consultation, would you please complete this short questionnaire by filling in the appropriate box the way you perceive your own health. The person accompanying you may help you.</string>
     <string name="welcome.label.prefix">Welcome to: %s</string>
+    <string name="btnOk">OK</string>
+    <string name="btwMakeTest">Make tests</string>
+    <string name="lbl.score.caption">Score: </string>
+    <string name="lbl.score.value">%s/18</string>
+    <string name="lbl.recommendations">Recommendations:</string>
+    <string name="fragility.level.no">NO</string>
+    <string name="fragility.level.mild">MOLD</string>
+    <string name="fragility.level.moderate">MODERATE</string>
+    <string name="fragility.level.severe">SEVERE</string>
 </resources>

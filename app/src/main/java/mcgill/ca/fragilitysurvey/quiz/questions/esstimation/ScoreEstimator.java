@@ -1,5 +1,7 @@
 package mcgill.ca.fragilitysurvey.quiz.questions.esstimation;
 
+import android.content.res.Resources;
+
 import org.apache.commons.lang3.BooleanUtils;
 
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import mcgill.ca.fragilitysurvey.repo.entity.Survey;
 
 public class ScoreEstimator {
 
-    private static final int FIRST_PATIENT_ID = 0;
+    private static final int FIRST_PATIENT_ID = 1;
 
     private static final int HAPPY_ID = 0;
     private static final int SAD_ID = 1;
@@ -122,7 +124,15 @@ public class ScoreEstimator {
     }
 
     private Question q(int index){
-        return survey.getQuestionById(FIRST_PATIENT_ID + 0);
+        return survey.getQuestionById(FIRST_PATIENT_ID + index);
     }
 
+    public FragilityLevel getFragilityResult() {
+        return FragilityLevel.estimate(score());
+    }
+
+    public List<String> buildRecommendations(Resources res) {
+        //analyze each recommendation
+        return new ArrayList<>();
+    }
 }

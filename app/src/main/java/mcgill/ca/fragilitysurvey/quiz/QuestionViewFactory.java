@@ -115,6 +115,7 @@ public class QuestionViewFactory {
             RadioGroup radioGroup = new RadioGroup(context);
             radioGroup.setId(curChose.inputType().componentId());
             radioGroup.setOrientation(RadioGroup.HORIZONTAL);
+            RadioButton lastR = null;
             for (final OptionValue option : curChose.options()) {
                 RadioButton radioButton = new RadioButton(context);
                 radioButton.setText(option.caption());
@@ -126,7 +127,12 @@ public class QuestionViewFactory {
                     }
                 });
                 radioGroup.addView(radioButton);
+                lastR = radioButton;
             }
+            //set default value, tmp
+            radioGroup.check(0);
+            curChose.answer(curChose.inputType().toAnswer(String.valueOf(0)));
+
             subQuestionLayout.addView(radioGroup);
         } else {
             LinearLayout checkBoxGroup = new LinearLayout(context);

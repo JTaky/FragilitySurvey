@@ -84,13 +84,12 @@ public class PatientListActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(PatientListActivity.this, QuizActivity.class);
+                  //show patient score
+                Intent myIntent = new Intent(PatientListActivity.this, PatientScoreActivity.class);
                 Bundle extras = new Bundle();
                 extras.putParcelable(QuizActivity.SURVEY_KEY, survey);
-                extras.putParcelableArrayList(QuizActivity.QUESTIONS_KEY, Questions.completeSurveyQuestions(getResources()));
                 myIntent.putExtra(QuizActivity.EXTRAS_KEY, extras);
-                PatientListActivity.this.startActivityForResult(myIntent, QuizActivity.SURVEY_REQUEST_CODE);
-                Log.d(TAG, "Activity has returned");
+                PatientListActivity.this.startActivityForResult(myIntent, QuizActivity.SURVEY_SCORE_CODE);
             }
         };
     }
@@ -126,10 +125,12 @@ public class PatientListActivity extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 showData();
-                // The user picked a contact.
-                // The Intent's data Uri identifies which contact was selected.
-
-                // Do something with the contact here (bigger example below)
+            }
+        }
+        if (requestCode == QuizActivity.SURVEY_SCORE_CODE) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                showData();
             }
         }
     }

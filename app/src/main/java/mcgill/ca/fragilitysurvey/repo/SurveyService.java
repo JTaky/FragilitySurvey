@@ -2,6 +2,11 @@ package mcgill.ca.fragilitysurvey.repo;
 
 import android.content.res.Resources;
 
+import org.joda.time.DateTime;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -10,6 +15,8 @@ import mcgill.ca.fragilitysurvey.quiz.questions.Question;
 import mcgill.ca.fragilitysurvey.repo.entity.Survey;
 
 public class SurveyService {
+
+    private static final DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd");
 
     private final Resources resources;
     private final SurveyRepository surveyRepository;
@@ -35,7 +42,7 @@ public class SurveyService {
     }
 
     private String generateId() {
-        return UUID.randomUUID().toString();
+        return dateFormat.format(new DateTime().toDate()) + "_" + (surveyRepository.getSurveys(DateTime.now()).size() + 1);
     }
 
     public List<Survey> getSurveys() {
