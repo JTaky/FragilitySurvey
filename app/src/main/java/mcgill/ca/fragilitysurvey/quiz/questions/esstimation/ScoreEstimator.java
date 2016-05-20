@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mcgill.ca.fragilitysurvey.quiz.questions.AdditionalTest;
+import mcgill.ca.fragilitysurvey.quiz.questions.Inputter;
+import mcgill.ca.fragilitysurvey.quiz.questions.OptionValue;
 import mcgill.ca.fragilitysurvey.quiz.questions.Question;
+import mcgill.ca.fragilitysurvey.quiz.questions.Questions;
 import mcgill.ca.fragilitysurvey.repo.entity.Survey;
 
 public class ScoreEstimator {
@@ -25,7 +28,7 @@ public class ScoreEstimator {
 
     public ScoreEstimator(Survey survey){
         this.survey = survey;
-        esstimateSurvey();
+//        esstimateSurvey();
     }
 
     public List<AdditionalTest> additionalTests(){
@@ -116,11 +119,13 @@ public class ScoreEstimator {
     }
 
     private int getInt(int index){
-        return (Integer)q(index - 1).inputters().get(0).answers().get(0).value();
+        return (Integer)q(index).inputters().get(0).answers().get(0).value();
     }
 
     private boolean isTrue(int index){
-        return (Boolean)q(index - 1).inputters().get(0).answers().get(0).value();
+        Inputter inputter = q(index).inputters().get(0);
+        int optionId = (Integer)inputter.answers().get(0).value();
+        return optionId == Questions.YES_ID;
     }
 
     private Question q(int index){
