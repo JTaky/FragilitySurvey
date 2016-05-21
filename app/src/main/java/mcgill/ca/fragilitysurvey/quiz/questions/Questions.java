@@ -18,12 +18,13 @@ public class Questions {
 
     private static AtomicInteger nextId = new AtomicInteger();
 
+    private static boolean isInitialized = false;
     private static ArrayList<Question> patientQuestions;
+    private static ArrayList<Question> completeSurveyQuestions;
     private static ArrayList<Question> mnaQuestions;
     private static ArrayList<Question> sMmseQuestions;
     private static ArrayList<Question> gdsQuestions;
     private static ArrayList<Question> sitToStandQuestions;
-    private static ArrayList<Question> completeSurveyQuestions;
 
     private static Question newQuestion() {
         return new Question().id(nextId.incrementAndGet());
@@ -57,62 +58,95 @@ public class Questions {
     }
 
     public static ArrayList<Question> newPatientQuestions(final Resources res) {
-        if (patientQuestions != null)
-            return patientQuestions;
         initQuestions(res);
-
-        initNewPatientQuestions(res);
         return new ArrayList<>(patientQuestions);
+    }
+
+    public static ArrayList<Question> completeSurveyQuestions(final Resources res) {
+        initQuestions(res);
+        return new ArrayList<>(completeSurveyQuestions);
+    }
+
+    public static ArrayList<Question> mnaQuestions(final Resources res) {
+        initQuestions(res);
+        return new ArrayList<>(mnaQuestions);
+    }
+
+    public static ArrayList<Question> sMmseQuestions(final Resources res) {
+        initQuestions(res);
+        return new ArrayList<>(sMmseQuestions);
+    }
+
+    public static ArrayList<Question> gdsQuestions(final Resources res) {
+        initQuestions(res);
+        return new ArrayList<>(gdsQuestions);
+    }
+
+    public static ArrayList<Question> sitToStandQuestions(final Resources res) {
+        initQuestions(res);
+        return new ArrayList<>(sitToStandQuestions);
+    }
+
+    public static void initQuestions(final Resources res){
+        if(isInitialized)
+            return;
+        initNewPatientQuestions(res);
+        initCompleteSurveyQuestions(res);
+        initMnaQuestions(res);
+        initSMmseQuestions(res);
+        initGdsQuestions(res);
+        initSitToStandQuestions(res);
+        isInitialized = true;
     }
 
     private static void initNewPatientQuestions(final Resources res) {
         patientQuestions = new ArrayList<Question>() {{
             add(newQuestion()
-                            .questionText(res.getString(R.string.question_preface))
+                    .questionText(res.getString(R.string.question_preface))
             );
             add(newQuestion()
-                            .questionText(res.getString(R.string.question_1))
-                            .inputers(Arrays.asList(
-                                    new Inputter()
-                                            .inputType(AnswerType.CHOOSE)
-                                            .caption(res.getString(R.string.question_1_1))
-                                            .options(yesNo(res)),
-                                    new Inputter()
-                                            .inputType(AnswerType.CHOOSE)
-                                            .caption(res.getString(R.string.question_1_2))
-                                            .isValidateable(false)
-                                            .options(yesNo(res))
-                            ))
+                    .questionText(res.getString(R.string.question_1))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_1_1))
+                                    .options(yesNo(res)),
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_1_2))
+                                    .isValidateable(false)
+                                    .options(yesNo(res))
+                    ))
             );
             add(newQuestion()
-                            .questionText(res.getString(R.string.question_2))
-                            .inputers(Arrays.asList(
-                                    new Inputter()
-                                            .inputType(AnswerType.INT)
-                                            .caption(res.getString(R.string.question_2_1))
-                            ))
+                    .questionText(res.getString(R.string.question_2))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.INT)
+                                    .caption(res.getString(R.string.question_2_1))
+                    ))
             );
             add(binaryQuestion(res, res.getString(R.string.question_3), res.getString(R.string.question_3_1)));
             add(binaryQuestion(res, res.getString(R.string.question_4), res.getString(R.string.question_4_1)));
             add(binaryQuestion(res, res.getString(R.string.question_5), res.getString(R.string.question_5_1)));
             add(newQuestion()
-                            .questionText(res.getString(R.string.question_6))
-                            .inputers(Arrays.asList(
-                                    new Inputter()
-                                            .inputType(AnswerType.CHOOSE)
-                                            .caption(res.getString(R.string.question_6_1))
-                                            .options(yesNo(res)),
-                                    new Inputter()
-                                            .inputType(AnswerType.CHOOSE)
-                                            .caption(res.getString(R.string.question_6_2))
-                                            .orLogic(false)
-                                            .isValidateable(false)
-                                            .options(Arrays.asList(
-                                                    new OptionValue().caption(res.getString(R.string.question_6_2_1)).id(0),
-                                                    new OptionValue().caption(res.getString(R.string.question_6_2_2)).id(1),
-                                                    new OptionValue().caption(res.getString(R.string.question_6_2_3)).id(2)
-                                            ))
-                            ))
+                    .questionText(res.getString(R.string.question_6))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_6_1))
+                                    .options(yesNo(res)),
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_6_2))
+                                    .orLogic(false)
+                                    .isValidateable(false)
+                                    .options(Arrays.asList(
+                                            new OptionValue().caption(res.getString(R.string.question_6_2_1)).id(0),
+                                            new OptionValue().caption(res.getString(R.string.question_6_2_2)).id(1),
+                                            new OptionValue().caption(res.getString(R.string.question_6_2_3)).id(2)
+                                    ))
+                    ))
             );
             add(binaryQuestion(res, res.getString(R.string.question_7), res.getString(R.string.question_7_1)));
             add(binaryQuestion(res, res.getString(R.string.question_8), res.getString(R.string.question_8_1)));
@@ -125,66 +159,61 @@ public class Questions {
             add(binaryQuestion(res, res.getString(R.string.question_15), res.getString(R.string.question_15_1)));
             add(binaryQuestion(res, res.getString(R.string.question_16), res.getString(R.string.question_16_1)));
             add(newQuestion()
-                            .questionText(res.getString(R.string.question_17))
-                            .inputers(Arrays.asList(
-                                    new Inputter()
-                                            .inputType(AnswerType.CHOOSE)
-                                            .caption(res.getString(R.string.question_17_1))
-                                            .options(Arrays.asList(
-                                                    new OptionValue().caption(res.getString(R.string.question_17_1_1)).id(0),
-                                                    new OptionValue().caption(res.getString(R.string.question_17_1_2)).id(1),
-                                                    new OptionValue().caption(res.getString(R.string.question_17_1_3)).id(2)
-                                            ))
-                            ))
+                    .questionText(res.getString(R.string.question_17))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_17_1))
+                                    .options(Arrays.asList(
+                                            new OptionValue().caption(res.getString(R.string.question_17_1_1)).id(0),
+                                            new OptionValue().caption(res.getString(R.string.question_17_1_2)).id(1),
+                                            new OptionValue().caption(res.getString(R.string.question_17_1_3)).id(2)
+                                    ))
+                    ))
             );
             add(binaryQuestion(res, res.getString(R.string.question_18), res.getString(R.string.question_18_1)));
             add(binaryQuestion(res, res.getString(R.string.question_19), res.getString(R.string.question_19_1)));
             add(binaryQuestion(res, res.getString(R.string.question_20), res.getString(R.string.question_20_1)));
             add(newQuestion()
-                            .questionText(res.getString(R.string.question_21))
-                            .inputers(Arrays.asList(
-                                    new Inputter()
-                                            .inputType(AnswerType.CHOOSE)
-                                            .caption(res.getString(R.string.question_21_1))
-                                            .options(yesNo(res)),
-                                    new Inputter()
-                                            .inputType(AnswerType.CHOOSE)
-                                            .caption(res.getString(R.string.question_21_2))
-                                            .orLogic(false)
-                                            .options(Arrays.asList(
-                                                    new OptionValue().caption(res.getString(R.string.question_21_2_1)).id(0),
-                                                    new OptionValue().caption(res.getString(R.string.question_21_2_2)).id(1),
-                                                    new OptionValue().caption(res.getString(R.string.question_21_2_3)).id(2)
-                                            )),
-                                    new Inputter()
-                                            .inputType(AnswerType.TEXT)
-                                            .caption(res.getString(R.string.question_21_2_4))
-                                            .isValidateable(false)
-                            ))
+                    .questionText(res.getString(R.string.question_21))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_21_1))
+                                    .options(yesNo(res)),
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_21_2))
+                                    .orLogic(false)
+                                    .options(Arrays.asList(
+                                            new OptionValue().caption(res.getString(R.string.question_21_2_1)).id(0),
+                                            new OptionValue().caption(res.getString(R.string.question_21_2_2)).id(1),
+                                            new OptionValue().caption(res.getString(R.string.question_21_2_3)).id(2)
+                                    )),
+                            new Inputter()
+                                    .inputType(AnswerType.TEXT)
+                                    .caption(res.getString(R.string.question_21_2_4))
+                                    .isValidateable(false)
+                    ))
             );
             add(newQuestion()
-                            .questionText(res.getString(R.string.question_thanks))
+                    .questionText(res.getString(R.string.question_thanks))
             );
         }};
     }
 
-    public static ArrayList<Question> completeSurveyQuestions(final Resources res) {
-        if (completeSurveyQuestions != null)
-            return completeSurveyQuestions;
-
-        //init patient questions ids
-        initQuestions(res);
-
-        return completeSurveyQuestions;
-    }
-
-    public static ArrayList<Question> mnaQuestions(final Resources res) {
-        if (mnaQuestions != null)
-            return mnaQuestions;
-        initQuestions(res);
-
-        initMnaQuestions(res);
-        return new ArrayList<>(mnaQuestions);
+    private static void initCompleteSurveyQuestions(final Resources res) {
+        completeSurveyQuestions = new ArrayList<Question>() {{
+            add(newQuestion()
+                    .questionText(res.getString(R.string.question_gds_1))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_gds_1_1))
+                                    .options(yesNo(res))
+                    ))
+            );
+        }};
     }
 
     private static void initMnaQuestions(final Resources res) {
@@ -208,12 +237,12 @@ public class Questions {
                             new Inputter()
                                     .inputType(AnswerType.CHOOSE)
                                     .caption(res.getString(R.string.question_mna_2_1))
-                                        .options(Arrays.asList(
-                                                new OptionValue().caption(res.getString(R.string.question_mna_2_1_1)).id(0),
-                                                new OptionValue().caption(res.getString(R.string.question_mna_2_1_2)).id(1),
-                                                new OptionValue().caption(res.getString(R.string.question_mna_2_1_3)).id(2),
-                                                new OptionValue().caption(res.getString(R.string.question_mna_2_1_4)).id(3)
-                                        ))
+                                    .options(Arrays.asList(
+                                            new OptionValue().caption(res.getString(R.string.question_mna_2_1_1)).id(0),
+                                            new OptionValue().caption(res.getString(R.string.question_mna_2_1_2)).id(1),
+                                            new OptionValue().caption(res.getString(R.string.question_mna_2_1_3)).id(2),
+                                            new OptionValue().caption(res.getString(R.string.question_mna_2_1_4)).id(3)
+                                    ))
                     ))
             );
             add(newQuestion()
@@ -282,18 +311,8 @@ public class Questions {
         }};
     }
 
-    public static ArrayList<Question> sMmseQuestions(final Resources res) {
-        if (sMmseQuestions != null)
-            return sMmseQuestions;
-        initQuestions(res);
-
-        initSMmseQuestions(res);
-
-        return new ArrayList<>(sMmseQuestions);
-    }
-
     private static void initSMmseQuestions(final Resources res) {
-        mnaQuestions = new ArrayList<Question>() {{
+        sMmseQuestions = new ArrayList<Question>() {{
             add(newQuestion()
                     .questionText(res.getString(R.string.question_smmse_1))
                     .inputers(Arrays.asList(
@@ -313,7 +332,7 @@ public class Questions {
                     .inputers(Arrays.asList(
                             new Inputter()
                                     .inputType(AnswerType.CHOOSE)
-                                    .caption(res.getString(R.string.question_smmse_1_1))
+                                    .caption(res.getString(R.string.question_smmse_2_1))
                                     .orLogic(false)
                                     .options(yesNo(res))
                     ))
@@ -351,52 +370,92 @@ public class Questions {
         }};
     }
 
-    public static ArrayList<Question> gdsQuestions(final Resources res) {
-        if (gdsQuestions != null)
-            return gdsQuestions;
-        initQuestions(res);
-
-        initGdsQuestions(res);
-
-        return new ArrayList<>(gdsQuestions);
-    }
-
     private static void initGdsQuestions(final Resources res) {
-
+        gdsQuestions = new ArrayList<Question>() {{
+            add(newQuestion()
+                    .questionText(res.getString(R.string.question_gds_1))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_gds_1_1))
+                                    .options(yesNo(res))
+                    ))
+            );
+            add(newQuestion()
+                    .questionText(res.getString(R.string.question_gds_1))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_gds_2_1))
+                                    .options(yesNo(res))
+                    ))
+            );
+            add(newQuestion()
+                    .questionText(res.getString(R.string.question_gds_1))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_gds_3_1))
+                                    .options(yesNo(res))
+                    ))
+            );
+            add(newQuestion()
+                    .questionText(res.getString(R.string.question_gds_1))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_gds_4_1))
+                                    .options(yesNo(res))
+                    ))
+            );
+        }};
     }
 
-    public static ArrayList<Question> sitToStandQuestions(final Resources res) {
-        if (sitToStandQuestions != null)
-            return sitToStandQuestions;
-        initQuestions(res);
-
-        initSitToStandQuestions(res);
-
-        return new ArrayList<>(sitToStandQuestions);
-    }
-
-    private static void initSitToStandQuestions(Resources res) {
-
-    }
-
-    public static void initQuestions(final Resources res){
-        initNewPatientQuestions(res);
-        completeSurveyQuestions(res);
-//        initMnaQuestions(res);
-//        sMmseQuestions(res);
-//        gdsQuestions(res);
-//        sitToStandQuestions(res);
+    private static void initSitToStandQuestions(final Resources res) {
+        sitToStandQuestions = new ArrayList<Question>() {{
+            add(newQuestion()
+                    .questionText(res.getString(R.string.question_sit_stand_1))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_sit_stand_1_1))
+                                    .orLogic(false)
+                                    .options(Arrays.asList(
+                                            new OptionValue().caption(res.getString(R.string.question_yes)).id(YES_ID),
+                                            new OptionValue().caption(res.getString(R.string.question_no)).id(NO_ID),
+                                            new OptionValue().caption(res.getString(R.string.question_sit_stand_1_1_1_option_3)).id(NO_ID)
+                                    ))
+                    ))
+            );
+        }};
     }
 
     public static ArrayList<Question> getQuestionsForTests(final Resources res, List<AdditionalTest> additionalTests) {
-        //TODO build questions lists
-        return new ArrayList<>();
+        initQuestions(res);
+        ArrayList<Question> additionalTestQuestions = new ArrayList<>();
+        if(additionalTests.contains(AdditionalTest.MNA)){
+            additionalTestQuestions.addAll(mnaQuestions(res));
+        }
+        if(additionalTests.contains(AdditionalTest.S_MMSE)){
+            additionalTestQuestions.addAll(sMmseQuestions(res));
+        }
+        if(additionalTests.contains(AdditionalTest.GDS_4_ITEM)){
+            additionalTestQuestions.addAll(gdsQuestions(res));
+        }
+        if(additionalTests.contains(AdditionalTest.SITE_TO_STAND)){
+            additionalTestQuestions.addAll(gdsQuestions(res));
+        }
+        return additionalTestQuestions;
     }
 
     public static Question getQuestionById(int id, final Resources res){
         List<Question> questions = new ArrayList<>();
-        questions.addAll(completeSurveyQuestions(res));
         questions.addAll(newPatientQuestions(res));
+        questions.addAll(completeSurveyQuestions(res));
+        questions.addAll(mnaQuestions(res));
+        questions.addAll(sMmseQuestions(res));
+        questions.addAll(gdsQuestions(res));
+        questions.addAll(sitToStandQuestions(res));
         for(Question question : questions){
             if(question.id() == id){
                 return question;

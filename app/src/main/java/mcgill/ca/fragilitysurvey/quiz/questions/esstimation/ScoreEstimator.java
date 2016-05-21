@@ -28,7 +28,7 @@ public class ScoreEstimator {
 
     public ScoreEstimator(Survey survey){
         this.survey = survey;
-//        esstimateSurvey();
+        esstimateSurvey();
     }
 
     public List<AdditionalTest> additionalTests(){

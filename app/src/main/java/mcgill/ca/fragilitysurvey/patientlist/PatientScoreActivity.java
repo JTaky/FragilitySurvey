@@ -25,7 +25,10 @@ public class PatientScoreActivity extends AppCompatActivity {
             Intent myIntent = new Intent(PatientScoreActivity.this, QuizActivity.class);
             Bundle extras = new Bundle();
             extras.putParcelable(QuizActivity.SURVEY_KEY, survey);
-            extras.putParcelableArrayList(QuizActivity.QUESTIONS_KEY, Questions.completeSurveyQuestions(getResources()));
+            extras.putParcelableArrayList(
+                    QuizActivity.QUESTIONS_KEY,
+                    Questions.getQuestionsForTests(getResources(), scoreEstimator.additionalTests())
+            );
             myIntent.putExtra(QuizActivity.EXTRAS_KEY, extras);
             PatientScoreActivity.this.startActivityForResult(myIntent, QuizActivity.SURVEY_REQUEST_CODE);
         }
