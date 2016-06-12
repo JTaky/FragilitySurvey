@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -101,6 +102,9 @@ public class QuestionViewFactory {
                 case DOUBLE:
                     createDoubleInputView(subQuestionLayout, context, curChose);
                     break;
+                case DATE:
+                    createDateInputView(subQuestionLayout, context, curChose);
+                    break;
                 default:
                     throw new IllegalArgumentException("Do not support AnswerType - " + curChose.inputType());
             }
@@ -114,8 +118,7 @@ public class QuestionViewFactory {
         if(curChose.isOrLogic()) {
             RadioGroup radioGroup = new RadioGroup(context);
             radioGroup.setId(curChose.inputType().componentId());
-            radioGroup.setOrientation(RadioGroup.HORIZONTAL);
-            RadioButton lastR = null;
+            radioGroup.setOrientation(RadioGroup.VERTICAL);
             for (final OptionValue option : curChose.options()) {
                 RadioButton radioButton = new RadioButton(context);
                 radioButton.setText(option.caption());
@@ -127,7 +130,6 @@ public class QuestionViewFactory {
                     }
                 });
                 radioGroup.addView(radioButton);
-                lastR = radioButton;
             }
             //set default value, tmp
             radioGroup.check(0);
@@ -210,6 +212,15 @@ public class QuestionViewFactory {
             }
         });
         subQuestionLayout.addView(txt);
+    }
+
+    private void createDateInputView(LinearLayout subQuestionLayout, Context context, final Inputter curChose) {
+        DatePicker datePicker = new DatePicker(context);
+        datePicker.setId(curChose.inputType().componentId());
+        datePicker.setCalendarViewShown(false);
+        datePicker.setSpinnersShown(true);
+
+        subQuestionLayout.addView(datePicker);
     }
 
     private TextView createQuestionTitle(Context context, String lbl){

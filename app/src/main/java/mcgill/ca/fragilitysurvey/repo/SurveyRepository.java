@@ -95,4 +95,13 @@ public class SurveyRepository extends BaseRepository {
         }
         return surveyList;
     }
+
+    public Survey getSurveysById(String surveyId) {
+        for(Survey cur: getSurveys()){
+            if(cur.surveyId().equalsIgnoreCase(surveyId)){
+                return cur;
+            }
+        }
+        return null;
+    }
 }

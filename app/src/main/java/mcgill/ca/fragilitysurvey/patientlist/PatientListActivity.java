@@ -120,15 +120,7 @@ public class PatientListActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
-        if (requestCode == QuizActivity.SURVEY_REQUEST_CODE) {
-            // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                showData();
-            }
-        }
         if (requestCode == QuizActivity.SURVEY_SCORE_CODE) {
-            // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 showData();
             }

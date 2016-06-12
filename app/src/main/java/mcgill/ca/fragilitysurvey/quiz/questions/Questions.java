@@ -12,6 +12,14 @@ import mcgill.ca.fragilitysurvey.repo.entity.answer.AnswerType;
 
 public class Questions {
 
+    public static final int ID_QUESTION_INDEX = 2;
+    public static final int FIRST_PATIENT_ID = ID_QUESTION_INDEX + 1;
+
+    public static int MNA_FIRST_ID = 25;
+    public static int sMMSE_FIRST_ID = 32;
+    public static int GDS_FIRST_ID = 36;
+    public static int FTSST_FIRST_ID = 40;
+
     public static final int PATIENT_QUESTIONS_COUNT = 21 + 2;
     public static final int YES_ID = 0;
     public static final int NO_ID = 1;
@@ -103,6 +111,20 @@ public class Questions {
         patientQuestions = new ArrayList<Question>() {{
             add(newQuestion()
                     .questionText(res.getString(R.string.question_preface))
+            );
+            add(newQuestion()
+                    .questionText(res.getString(R.string.question_0))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.TEXT)
+                                    .caption(res.getString(R.string.question_0_1)),
+                            new Inputter()
+                                    .inputType(AnswerType.TEXT)
+                                    .caption(res.getString(R.string.question_0_2)),
+                            new Inputter()
+                                    .inputType(AnswerType.INT)
+                                    .caption(res.getString(R.string.question_0_3))
+                    ))
             );
             add(newQuestion()
                     .questionText(res.getString(R.string.question_1))
@@ -281,7 +303,7 @@ public class Questions {
                     ))
             );
             add(newQuestion()
-                    .questionText(res.getString(R.string.question_mna_6))
+                    .questionText( res.getString(R.string.question_mna_6, res.getString(R.string.question_mna_title_3)) )
                     .inputers(Arrays.asList(
                             new Inputter()
                                     .inputType(AnswerType.CHOOSE)
@@ -296,7 +318,7 @@ public class Questions {
                     ))
             );
             add(newQuestion()
-                    .questionText(res.getString(R.string.question_mna_7))
+                    .questionText( res.getString(R.string.question_mna_7, res.getString(R.string.question_mna_title_3)) )
                     .inputers(Arrays.asList(
                             new Inputter()
                                     .inputType(AnswerType.CHOOSE)
@@ -309,6 +331,7 @@ public class Questions {
                     ))
             );
         }};
+        MNA_FIRST_ID = mnaQuestions.get(0).id();
     }
 
     private static void initSMmseQuestions(final Resources res) {
@@ -333,13 +356,16 @@ public class Questions {
                             new Inputter()
                                     .inputType(AnswerType.CHOOSE)
                                     .caption(res.getString(R.string.question_smmse_2_1))
-                                    .orLogic(false)
                                     .options(yesNo(res))
                     ))
             );
             add(newQuestion()
                     .questionText(res.getString(R.string.question_smmse_3))
                     .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_smmse_3_2))
+                                    .options(yesNo(res)),
                             new Inputter()
                                     .inputType(AnswerType.CHOOSE)
                                     .caption(res.getString(R.string.question_smmse_3_1))
@@ -368,6 +394,7 @@ public class Questions {
                     ))
             );
         }};
+        sMMSE_FIRST_ID = sMmseQuestions.get(0).id();
     }
 
     private static void initGdsQuestions(final Resources res) {
@@ -409,6 +436,7 @@ public class Questions {
                     ))
             );
         }};
+        GDS_FIRST_ID = gdsQuestions.get(0).id();
     }
 
     private static void initSitToStandQuestions(final Resources res) {
@@ -424,10 +452,14 @@ public class Questions {
                                             new OptionValue().caption(res.getString(R.string.question_yes)).id(YES_ID),
                                             new OptionValue().caption(res.getString(R.string.question_no)).id(NO_ID),
                                             new OptionValue().caption(res.getString(R.string.question_sit_stand_1_1_1_option_3)).id(NO_ID)
-                                    ))
+                                    )),
+                            new Inputter()
+                                    .inputType(AnswerType.INT)
+                                    .caption(res.getString(R.string.question_sit_stand_1_2))
                     ))
             );
         }};
+        FTSST_FIRST_ID = sitToStandQuestions.get(0).id();
     }
 
     public static ArrayList<Question> getQuestionsForTests(final Resources res, List<AdditionalTest> additionalTests) {
@@ -443,7 +475,7 @@ public class Questions {
             additionalTestQuestions.addAll(gdsQuestions(res));
         }
         if(additionalTests.contains(AdditionalTest.SITE_TO_STAND)){
-            additionalTestQuestions.addAll(gdsQuestions(res));
+            additionalTestQuestions.addAll(sitToStandQuestions(res));
         }
         return additionalTestQuestions;
     }

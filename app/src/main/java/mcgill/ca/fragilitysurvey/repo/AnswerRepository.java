@@ -64,9 +64,19 @@ public class AnswerRepository extends BaseRepository {
     }
 
     private AnswerRepository saveQuestion(Survey survey, Question q) {
+        deleteQuestionFromSurvey(survey, q);
         for (Inputter inputter : q.inputters()) {
             saveInputter(survey, q, inputter);
         }
+        return this;
+    }
+
+    public AnswerRepository deleteQuestionFromSurvey(Survey survey, Question q) {
+        SQLiteDatabase db = dbContext.getWritableDatabase();
+        db.delete(
+                ANSWER_TABLE_NAME,
+                SURVEY_ID + "=? and " + QUESTION_ID+ "=?",
+                new String[]{survey.surveyId(), String.valueOf(q.id())});
         return this;
     }
 

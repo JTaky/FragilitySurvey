@@ -2,9 +2,13 @@ package mcgill.ca.fragilitysurvey.repo;
 
 import android.content.res.Resources;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.joda.time.DateTime;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -12,7 +16,9 @@ import java.util.List;
 import java.util.UUID;
 
 import mcgill.ca.fragilitysurvey.quiz.questions.Question;
+import mcgill.ca.fragilitysurvey.quiz.questions.Questions;
 import mcgill.ca.fragilitysurvey.repo.entity.Survey;
+import mcgill.ca.fragilitysurvey.repo.entity.answer.AnswerType;
 
 public class SurveyService {
 
@@ -29,7 +35,14 @@ public class SurveyService {
     }
 
     public Survey insertNewSurvey(LinkedList<Question> questions) {
-        Survey survey = new Survey().surveyId(generateId()).questions(questions);
+        Question idQuestion = null;
+        for(Question q : questions){
+            if(q.id() == Questions.ID_QUESTION_INDEX){
+                idQuestion = q;
+            }
+        }
+        questions.remove(idQuestion);
+        Survey survey = new Survey().surveyId(generateId(idQuestion)).questions(questions);
         //ideally start transaction here
         answerRepository.insertQuestions(survey, questions);
         surveyRepository.insertSurvey(survey);
@@ -41,8 +54,13 @@ public class SurveyService {
         return this;
     }
 
-    private String generateId() {
-        return dateFormat.format(new DateTime().toDate()) + "_" + (surveyRepository.getSurveys(DateTime.now()).size() + 1);
+    private String generateId(Question question) {
+        int inputterIndex = 0;
+        String lastName = AnswerType.TEXT.fromAnswer(question.inputters().get(inputterIndex++).answers().get(0));
+        String firstName = AnswerType.TEXT.fromAnswer(question.inputters().get(inputterIndex++).answers().get(0));
+        Integer monthOfBirth = NumberUtils.toInt(AnswerType.INT.fromAnswer(question.inputters().get(inputterIndex++).answers().get(0)));
+        String monthStr = new DecimalFormat("00").format(monthOfBirth);
+        return StringUtils.substring(lastName, 0, 3) + StringUtils.substring(firstName, 0, 3) + monthStr;
     }
 
     public List<Survey> getSurveys() {
@@ -53,5 +71,11 @@ public class SurveyService {
             );
         }
         return surveys;
+    }
+
+    public Survey getSurveyById(String surveyId) {
+        Survey survey = surveyRepository.getSurveysById(surveyId);
+        survey.questions(answerRepository.getBySurveyId(survey.surveyId(), resources));
+        return survey;
     }
 }

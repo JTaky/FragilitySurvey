@@ -14,6 +14,8 @@ import mcgill.ca.fragilitysurvey.quiz.QuizActivity;
 import mcgill.ca.fragilitysurvey.quiz.questions.Questions;
 import mcgill.ca.fragilitysurvey.quiz.questions.esstimation.FragilityLevel;
 import mcgill.ca.fragilitysurvey.quiz.questions.esstimation.ScoreEstimator;
+import mcgill.ca.fragilitysurvey.repo.DBContext;
+import mcgill.ca.fragilitysurvey.repo.SurveyService;
 import mcgill.ca.fragilitysurvey.repo.entity.Survey;
 
 public class PatientScoreActivity extends AppCompatActivity {
@@ -36,6 +38,7 @@ public class PatientScoreActivity extends AppCompatActivity {
     private View.OnClickListener finishListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            setResult(RESULT_OK);
             PatientScoreActivity.this.finish();
         }
     };
@@ -54,6 +57,7 @@ public class PatientScoreActivity extends AppCompatActivity {
 
     private void initSurvey() {
         this.survey = getIntent().getBundleExtra(QuizActivity.EXTRAS_KEY).getParcelable(QuizActivity.SURVEY_KEY);
+        Questions.initQuestions(getResources());
         this.scoreEstimator = new ScoreEstimator(survey);
 
         updateLabels();
@@ -95,9 +99,15 @@ public class PatientScoreActivity extends AppCompatActivity {
         if (requestCode == QuizActivity.SURVEY_REQUEST_CODE) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
+                reloadSurvey();
                 updateLabels();
                 updateRecommendations();
             }
         }
+    }
+
+    private void reloadSurvey() {
+        SurveyService surveyService = new SurveyService(new DBContext(this), this.getResources());
+        survey = surveyService.getSurveyById(survey.surveyId());
     }
 }

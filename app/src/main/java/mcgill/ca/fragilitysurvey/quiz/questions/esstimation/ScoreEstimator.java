@@ -8,26 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mcgill.ca.fragilitysurvey.quiz.questions.AdditionalTest;
-import mcgill.ca.fragilitysurvey.quiz.questions.Inputter;
-import mcgill.ca.fragilitysurvey.quiz.questions.OptionValue;
-import mcgill.ca.fragilitysurvey.quiz.questions.Question;
 import mcgill.ca.fragilitysurvey.quiz.questions.Questions;
 import mcgill.ca.fragilitysurvey.repo.entity.Survey;
 
 public class ScoreEstimator {
-
-    private static final int FIRST_PATIENT_ID = 1;
 
     private static final int HAPPY_ID = 0;
     private static final int SAD_ID = 1;
     private static final int NEITHER_ID = 2;
 
     private Survey survey;
+    private SurveyQuestionsAccessor surveyQuestionsAccessor;
     private int score;
     private List<AdditionalTest> additionalTests = new ArrayList<>();
 
     public ScoreEstimator(Survey survey){
         this.survey = survey;
+        this.surveyQuestionsAccessor = new SurveyQuestionsAccessor(survey);
         esstimateSurvey();
     }
 
@@ -45,7 +42,7 @@ public class ScoreEstimator {
 
     private void esstimateSurvey() {
         //1
-        if (isTrue(1)) {
+        if (surveyQuestionsAccessor.isTrue(1)) {
             score += 2;
             additionalTests.add(AdditionalTest.MNA);
         }
@@ -119,17 +116,11 @@ public class ScoreEstimator {
     }
 
     private int getInt(int index){
-        return (Integer)q(index).inputters().get(0).answers().get(0).value();
+        return surveyQuestionsAccessor.getInt(index);
     }
 
     private boolean isTrue(int index){
-        Inputter inputter = q(index).inputters().get(0);
-        int optionId = (Integer)inputter.answers().get(0).value();
-        return optionId == Questions.YES_ID;
-    }
-
-    private Question q(int index){
-        return survey.getQuestionById(FIRST_PATIENT_ID + index);
+        return surveyQuestionsAccessor.isTrue(index);
     }
 
     public FragilityLevel getFragilityResult() {
@@ -137,7 +128,7 @@ public class ScoreEstimator {
     }
 
     public List<String> buildRecommendations(Resources res) {
-        //analyze each recommendation
-        return new ArrayList<>();
+        Questions.initQuestions(res);
+        return new Recommendator(survey).buildReco(res);
     }
 }
