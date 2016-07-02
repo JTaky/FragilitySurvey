@@ -195,7 +195,7 @@ public class QuestionViewFactory {
 
     private void createDoubleInputView(LinearLayout subQuestionLayout, Context context, final Inputter curChose) {
         EditText txt = new EditText(context);
-        txt.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        txt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         txt.setId(curChose.inputType().componentId());
         txt.addTextChangedListener(new TextWatcher() {
             @Override

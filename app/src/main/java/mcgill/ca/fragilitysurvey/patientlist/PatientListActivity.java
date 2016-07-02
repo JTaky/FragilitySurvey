@@ -17,7 +17,9 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import mcgill.ca.fragilitysurvey.MainActivity;
 import mcgill.ca.fragilitysurvey.R;
+import mcgill.ca.fragilitysurvey.filter.SurveySearchFilter;
 import mcgill.ca.fragilitysurvey.quiz.QuizActivity;
 import mcgill.ca.fragilitysurvey.quiz.questions.Questions;
 import mcgill.ca.fragilitysurvey.repo.DBContext;
@@ -39,12 +41,13 @@ public class PatientListActivity extends AppCompatActivity {
     }
 
     private void showData() {
+        SurveySearchFilter searchFilter = getFilterObject();
         SurveyService surveyService = new SurveyService(new DBContext(this), this.getResources());
 
         TableLayout patientTable = (TableLayout) findViewById(R.id.patientTable);
         patientTable.removeAllViews();
 
-        List<Survey> surveys = surveyService.getSurveys();
+        List<Survey> surveys = surveyService.getSurveys(searchFilter);
 
         setHeaders(patientTable);
 
@@ -78,6 +81,11 @@ public class PatientListActivity extends AppCompatActivity {
 
             patientTable.addView(row);
         }
+    }
+
+    private SurveySearchFilter getFilterObject() {
+        SurveySearchFilter searchFilter = getIntent().getParcelableExtra(MainActivity.FILTER_OBJECT);
+        return searchFilter;
     }
 
     private View.OnClickListener OnCompleteSurvey(final Survey survey) {

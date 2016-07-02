@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/txtPatientId"
+        android:id="@+id/lblPatientId"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="37dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/lblOr"
+        android:id="@+id/lblOr"
+        android:layout_above="@+id/lblDateFrom"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/lblDateFrom"
+        android:id="@+id/lblDateFrom"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/lblPatientId"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/lblDateTo"
+        android:id="@+id/lblDateTo"
+        android:layout_marginTop="48dp"
+        android:layout_below="@+id/lblDateFrom"
+        android:layout_alignStart="@+id/lblDateFrom"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtPatientId"
+        android:paddingRight="5dp"
+        android:layout_alignBottom="@+id/lblPatientId"
+        android:layout_alignEnd="@+id/txtDateFrom"
+        android:layout_alignStart="@+id/lblOr"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtDateFrom"
+        android:paddingRight="5dp"
+        android:layout_above="@+id/lblDateTo"
+        android:layout_alignStart="@+id/lblOr"
+        android:enabled="false"
+        android:layout_toStartOf="@+id/btnDateFrom"
+        android:layout_marginRight="20dp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtDateTo"
+        android:paddingRight="5dp"
+        android:layout_alignBottom="@+id/lblDateTo"
+        android:layout_alignEnd="@+id/txtDateFrom"
+        android:layout_alignStart="@+id/txtDateFrom"
+        android:enabled="false"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnOk"
+        android:id="@+id/btnOk"
+        android:layout_marginBottom="43dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="48dp"
+        android:layout_alignStart="@+id/lblPatientId"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnCancel"
+        android:id="@+id/btnCancel"
+        android:layout_marginStart="41dp"
+        android:layout_alignTop="@+id/btnOk"
+        android:layout_toEndOf="@+id/btnOk"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="..."
+        android:id="@+id/btnDateFrom"
+        android:layout_alignBottom="@+id/txtDateFrom"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="..."
+        android:id="@+id/btnDateTo"
+        android:layout_marginRight="20dp"
+        android:layout_alignTop="@+id/txtDateTo"
+        android:layout_alignStart="@+id/btnDateFrom"/>
+
+</RelativeLayout>

@@ -10,11 +10,13 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
+import mcgill.ca.fragilitysurvey.filter.SurveySearchFilter;
 import mcgill.ca.fragilitysurvey.quiz.questions.Question;
 import mcgill.ca.fragilitysurvey.quiz.questions.Questions;
 import mcgill.ca.fragilitysurvey.repo.entity.Survey;
@@ -61,6 +63,22 @@ public class SurveyService {
         Integer monthOfBirth = NumberUtils.toInt(AnswerType.INT.fromAnswer(question.inputters().get(inputterIndex++).answers().get(0)));
         String monthStr = new DecimalFormat("00").format(monthOfBirth);
         return StringUtils.substring(lastName, 0, 3) + StringUtils.substring(firstName, 0, 3) + monthStr;
+    }
+
+    public List<Survey> getSurveys(SurveySearchFilter searchFilter) {
+        List<Survey> result = new ArrayList<>();
+        for(Survey survey : getSurveys()){
+            if(StringUtils.isNoneBlank(searchFilter.id())){
+                if(survey.surveyId().contains(searchFilter.id())){
+                    result.add(survey);
+                }
+            } else {
+                if( survey.timestamp().getTime() > searchFilter.from().getTime() && survey.timestamp().getTime() < searchFilter.to().getTime() ){
+                    result.add(survey);
+                }
+            }
+        }
+        return result;
     }
 
     public List<Survey> getSurveys() {

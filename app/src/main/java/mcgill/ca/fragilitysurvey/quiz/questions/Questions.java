@@ -23,12 +23,14 @@ public class Questions {
     public static final int PATIENT_QUESTIONS_COUNT = 21 + 2;
     public static final int YES_ID = 0;
     public static final int NO_ID = 1;
+    public static final int MALE_ID = 0;
+    public static final int FEMALE_ID = 1;
 
     private static AtomicInteger nextId = new AtomicInteger();
 
     private static boolean isInitialized = false;
     private static ArrayList<Question> patientQuestions;
-    private static ArrayList<Question> completeSurveyQuestions;
+    private static ArrayList<Question> systematicSurveyQuestions;
     private static ArrayList<Question> mnaQuestions;
     private static ArrayList<Question> sMmseQuestions;
     private static ArrayList<Question> gdsQuestions;
@@ -58,7 +60,7 @@ public class Questions {
 
     public static void reset(){
         patientQuestions = null;
-        completeSurveyQuestions = null;
+        systematicSurveyQuestions = null;
         mnaQuestions = null;
         sMmseQuestions = null;
         gdsQuestions = null;
@@ -70,9 +72,9 @@ public class Questions {
         return new ArrayList<>(patientQuestions);
     }
 
-    public static ArrayList<Question> completeSurveyQuestions(final Resources res) {
+    public static ArrayList<Question> systematicSurveyQuestions(final Resources res) {
         initQuestions(res);
-        return new ArrayList<>(completeSurveyQuestions);
+        return new ArrayList<>(systematicSurveyQuestions);
     }
 
     public static ArrayList<Question> mnaQuestions(final Resources res) {
@@ -99,7 +101,7 @@ public class Questions {
         if(isInitialized)
             return;
         initNewPatientQuestions(res);
-        initCompleteSurveyQuestions(res);
+        initSystematicSurveyQuestions(res);
         initMnaQuestions(res);
         initSMmseQuestions(res);
         initGdsQuestions(res);
@@ -224,14 +226,75 @@ public class Questions {
         }};
     }
 
-    private static void initCompleteSurveyQuestions(final Resources res) {
-        completeSurveyQuestions = new ArrayList<Question>() {{
+    private static void initSystematicSurveyQuestions(final Resources res) {
+        systematicSurveyQuestions = new ArrayList<Question>() {{
             add(newQuestion()
-                    .questionText(res.getString(R.string.question_gds_1))
+                    .questionText(res.getString(R.string.question_systematic_1))
                     .inputers(Arrays.asList(
                             new Inputter()
                                     .inputType(AnswerType.CHOOSE)
-                                    .caption(res.getString(R.string.question_gds_1_1))
+                                    .caption(res.getString(R.string.question_systematic_1_1))
+                                    .options(yesNo(res))
+                    ))
+            );
+            add(newQuestion()
+                    .questionText(res.getString(R.string.question_systematic_2))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.INT)
+                                    .caption(res.getString(R.string.question_systematic_2_1))
+                    ))
+            );
+            add(newQuestion()
+                    .questionText(res.getString(R.string.question_systematic_3))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_systematic_3_1))
+                                    .options(Arrays.asList(
+                                            new OptionValue().caption(res.getString(R.string.question_male)).id(YES_ID),
+                                            new OptionValue().caption(res.getString(R.string.question_female)).id(NO_ID)
+                                    ))
+                    ))
+            );
+            add(newQuestion()
+                    .questionText(res.getString(R.string.question_systematic_4))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.INT)
+                                    .caption(res.getString(R.string.question_systematic_4_1))
+                    ))
+            );
+            add(newQuestion()
+                    .questionText(res.getString(R.string.question_systematic_5))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.INT)
+                                    .caption(res.getString(R.string.question_systematic_5_1)),
+                            new Inputter()
+                                    .inputType(AnswerType.DOUBLE)
+                                    .caption(res.getString(R.string.question_systematic_5_2))
+                    ))
+            );
+            add(newQuestion()
+                    .questionText(res.getString(R.string.question_systematic_6))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_systematic_6_2))
+                                    .options(yesNo(res)),
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_systematic_6_3))
+                                    .options(yesNo(res))
+                    ))
+            );
+            add(newQuestion()
+                    .questionText(res.getString(R.string.question_systematic_7))
+                    .inputers(Arrays.asList(
+                            new Inputter()
+                                    .inputType(AnswerType.CHOOSE)
+                                    .caption(res.getString(R.string.question_systematic_7_1))
                                     .options(yesNo(res))
                     ))
             );
@@ -465,6 +528,7 @@ public class Questions {
     public static ArrayList<Question> getQuestionsForTests(final Resources res, List<AdditionalTest> additionalTests) {
         initQuestions(res);
         ArrayList<Question> additionalTestQuestions = new ArrayList<>();
+        additionalTestQuestions.addAll(systematicSurveyQuestions(res));
         if(additionalTests.contains(AdditionalTest.MNA)){
             additionalTestQuestions.addAll(mnaQuestions(res));
         }
@@ -483,7 +547,7 @@ public class Questions {
     public static Question getQuestionById(int id, final Resources res){
         List<Question> questions = new ArrayList<>();
         questions.addAll(newPatientQuestions(res));
-        questions.addAll(completeSurveyQuestions(res));
+        questions.addAll(systematicSurveyQuestions(res));
         questions.addAll(mnaQuestions(res));
         questions.addAll(sMmseQuestions(res));
         questions.addAll(gdsQuestions(res));

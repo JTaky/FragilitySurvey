@@ -1,5 +1,7 @@
 package mcgill.ca.fragilitysurvey.repo.entity.answer;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 public enum AnswerType {
     TEXT(0) {
         @Override
@@ -26,7 +28,7 @@ public enum AnswerType {
     INT(2) {
         @Override
         public IAnswer toAnswer(String stringValue) {
-            return new IntAnswer().value(Integer.parseInt(stringValue));
+            return new IntAnswer().value(NumberUtils.toInt(stringValue, 0));
         }
 
         @Override
@@ -37,7 +39,7 @@ public enum AnswerType {
     DOUBLE(3) {
         @Override
         public IAnswer toAnswer(String stringValue) {
-            return new DoubleAnswer().value(Double.parseDouble(stringValue));
+            return new DoubleAnswer().value(NumberUtils.toDouble(stringValue, 0.0));
         }
 
         @Override

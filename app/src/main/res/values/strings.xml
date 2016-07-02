@@ -25,6 +25,7 @@
     <string name="credentials.validation.pwd.does.not.match">Passwords does not match</string>
     <string name="credentials.validation.pwd.current.wrong">Current password does not match</string>
     <string name="preferences.key.organisation">OrganisationKey</string>
+    <string name="preferences.key.organisation.adress">OrganisationAdress</string>
     <string name="preferences.key.password">PasswordKey</string>
     <string name="quiz.btn.submit">Submit</string>
     <string name="quiz.btn.next">Next</string>
@@ -40,7 +41,9 @@
         Thank you for the partitipation.</string>
     <string name="question.yes">Yes</string>
     <string name="question.no">No</string>
-    <string name="question.0"></string>
+    <string name="question.male">Male</string>
+    <string name="question.female">Female</string>
+    <string name="question.0">ID = (3 letters of first name, 3 letters of last name, month of birth)</string>
     <string name="question.0.1">Enter please your first name?</string>
     <string name="question.0.2">Enter please your last name?</string>
     <string name="question.0.3">Please enter the month of you birth?</string>
@@ -101,6 +104,24 @@
     <string name="question.21.2.2">Family member</string>
     <string name="question.21.2.3">Friend</string>
     <string name="question.21.2.4">Other:</string>
+    <!-- Systematic questions -->
+    <string name="question.systematic.1">1.</string>
+    <string name="question.systematic.1.1">First visit?</string>
+    <string name="question.systematic.2">2.</string>
+    <string name="question.systematic.2.1">Age(years)?</string>
+    <string name="question.systematic.3">3.</string>
+    <string name="question.systematic.3.1">Sex?</string>
+    <string name="question.systematic.4">4.</string>
+    <string name="question.systematic.4.1">Height?</string>
+    <string name="question.systematic.5">5.</string>
+    <string name="question.systematic.5.1">Weight?</string>
+    <string name="question.systematic.5.2">BMI?</string>
+    <string name="question.systematic.6">6. Day’s date (ask question to patient): </string>
+    <string name="question.systematic.6.1"> Day’s date (ask question to patient): </string>
+    <string name="question.systematic.6.2">Month (correct answer):</string>
+    <string name="question.systematic.6.3">Year (correct answer): </string>
+    <string name="question.systematic.7">7.</string>
+    <string name="question.systematic.7.1">Use of psychoactive drugs*</string>
     <!-- Mini Nutritional Assessment (MNA) -->
     <string name="question.mna.title.1">mna the screen by filling in the boxes with the appropriate numbers. Total the numbers for the final screening score.</string>
     <string name="question.mna.title.2">Screening</string>
@@ -217,4 +238,10 @@
     <string name="recomendation.pass.smmse">Please pass SMMSE test</string>
     <string name="recomendation.pass.gds">Please pass GDS test</string>
     <string name="recomendation.pass.ftsts">Please pass Five Time Sit-to-Stand test</string>
+    <string name="txtPatientId">Patient ID</string>
+    <string name="lblOr">OR</string>
+    <string name="lblDateFrom">Date From</string>
+    <string name="lblDateTo">Date To</string>
+    <string name="btnCancel">Cancel</string>
+    <string name="credentials.organisation_address">Organisation address</string>
 </resources>

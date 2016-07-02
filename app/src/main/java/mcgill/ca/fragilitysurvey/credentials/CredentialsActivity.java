@@ -21,10 +21,11 @@ public class CredentialsActivity extends AppCompatActivity {
         return Preferences.getPreferences(this);
     }
 
-    private void saveOrganisationPassword(CharSequence organisationName, CharSequence password){
+    private void saveOrganisationPassword(CharSequence name, CharSequence address, CharSequence password){
         SharedPreferences sharedPref = getPreferences();
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(getString(R.string.preferences_key_organisation), String.valueOf(organisationName));
+        editor.putString(getString(R.string.preferences_key_organisation), String.valueOf(name));
+        editor.putString(getString(R.string.preferences_key_organisation_adress), String.valueOf(address));
         editor.putString(getString(R.string.preferences_key_password), String.valueOf(password));
         editor.apply();
         setResult(MainActivity.SIGN_UP_RESULT_SAVED);
@@ -41,10 +42,16 @@ public class CredentialsActivity extends AppCompatActivity {
         return sharedPref.getString(getString(R.string.preferences_key_organisation), "");
     }
 
+    private String getOrganisationAddress(){
+        SharedPreferences sharedPref = getPreferences();
+        return sharedPref.getString(getString(R.string.preferences_key_organisation_adress), "");
+    }
+
     private View.OnClickListener btnSaveCredentialsListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             TextView txtOrganisationName = (TextView) findViewById(R.id.txtOrganisationName);
+            TextView txtOrganisationAddress = (TextView) findViewById(R.id.txtOrganisationAdress);
             TextView txtCurrentPassword = (TextView) findViewById(R.id.txtCurrentPassword);
             TextView txtNewPassword = (TextView) findViewById(R.id.txtNewPassword);
             TextView txtNewPasswordRepeat = (TextView) findViewById(R.id.txtNewPasswordRepeat);
@@ -61,6 +68,7 @@ public class CredentialsActivity extends AppCompatActivity {
                 return;
             }
             TextValidator.checkIfEmpty(txtOrganisationName, getString(R.string.credentials_validation_empty_field));
+            TextValidator.checkIfEmpty(txtOrganisationAddress, getString(R.string.credentials_validation_empty_field));
             TextValidator.checkIfEmpty(txtCurrentPassword, getString(R.string.credentials_validation_empty_field));
             TextValidator.checkIfEmpty(txtNewPassword, getString(R.string.credentials_validation_empty_field));
             TextValidator.checkIfEmpty(txtNewPasswordRepeat, getString(R.string.credentials_validation_empty_field));
@@ -72,7 +80,7 @@ public class CredentialsActivity extends AppCompatActivity {
                 return;
             }
             //save preferences
-            saveOrganisationPassword(txtOrganisationName.getText(), txtNewPassword.getText());
+            saveOrganisationPassword(txtOrganisationName.getText(), txtOrganisationAddress.getText(), txtNewPassword.getText());
             //close activity
         }
     };
@@ -96,6 +104,8 @@ public class CredentialsActivity extends AppCompatActivity {
     private void fillOrganisation() {
         TextView txtOrganisationName = (TextView) findViewById(R.id.txtOrganisationName);
         txtOrganisationName.setText(getOrganisationName());
+        TextView txtOrganisationAddress = (TextView) findViewById(R.id.txtOrganisationAdress);
+        txtOrganisationAddress.setText(getOrganisationAddress());
     }
 
     private void hideIfNeed() {

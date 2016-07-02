@@ -2,12 +2,14 @@ package mcgill.ca.fragilitysurvey;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -30,10 +32,11 @@ import java.io.FileNotFoundException;
 import java.util.Locale;
 
 import mcgill.ca.fragilitysurvey.credentials.CredentialsActivity;
+import mcgill.ca.fragilitysurvey.filter.SurveyFilterActivity;
+import mcgill.ca.fragilitysurvey.filter.SurveySearchFilter;
+import mcgill.ca.fragilitysurvey.patientlist.PatientListActivity;
 import mcgill.ca.fragilitysurvey.preferences.Preferences;
 import mcgill.ca.fragilitysurvey.quiz.QuizActivity;
-import mcgill.ca.fragilitysurvey.patientlist.PatientListActivity;
-import mcgill.ca.fragilitysurvey.quiz.questions.Question;
 import mcgill.ca.fragilitysurvey.quiz.questions.Questions;
 import mcgill.ca.fragilitysurvey.repo.DBContext;
 import mcgill.ca.fragilitysurvey.report.CsvExporter;
@@ -43,7 +46,19 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
+    public static final int IGNORE_ANSWER = 0;
     public static final int SIGN_UP_RESULT_SAVED = 1;
+    public static final int FILTER_ACTIVATED = 2;
+
+    public static final String ACTION_KEY = "post.filter.action";
+    public static class PostFilterActions {
+        public static final int SHOW_PATIENTS = 0;
+        public static final int EXPORT_CSV = 1;
+        public static final int EXPORT_PDF = 2;
+    }
+    public static final String FILTER_OBJECT = "filter.object";
+
+    private final Context context = MainActivity.this;
 
     private View.OnClickListener newPatientListener = new View.OnClickListener() {
         @Override
@@ -59,8 +74,9 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener editPatientListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent myIntent = new Intent(MainActivity.this, PatientListActivity.class);
-            MainActivity.this.startActivity(myIntent);
+            //open search activity
+            Intent myIntent = new Intent(context, SurveyFilterActivity.class);
+            MainActivity.this.startActivityForResult(myIntent, PostFilterActions.SHOW_PATIENTS);
         }
     };
 
@@ -68,16 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            try {
-                String filePath = new CsvExporter().exportPatients(
-                        getExportDir(MainActivity.this, MainActivity.this.getString(getApplicationInfo().labelRes)),
-                        new DBContext(MainActivity.this),
-                        MainActivity.this
-                );
-                showMessage("Success", "Data was exported to the '" + filePath + "'");
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            Intent myIntent = new Intent(context, SurveyFilterActivity.class);
+            MainActivity.this.startActivityForResult(myIntent, PostFilterActions.EXPORT_CSV);
         }
     };
 
@@ -85,16 +93,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            try {
-                String filePath = new PdfExporter().exportPatients(
-                        getExportDir(MainActivity.this, MainActivity.this.getString(getApplicationInfo().labelRes)),
-                        new DBContext(MainActivity.this),
-                        MainActivity.this
-                );
-                showMessage("Success", "Data was exported to the '" + filePath + "'");
-            } catch (FileNotFoundException | DocumentException e) {
-                e.printStackTrace();
-            }
+            Intent myIntent = new Intent(context, SurveyFilterActivity.class);
+            MainActivity.this.startActivityForResult(myIntent, PostFilterActions.EXPORT_PDF);
         }
     };
 
@@ -169,6 +169,48 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == SIGN_UP_RESULT_SAVED){
             restartActivity();
+        } else if(resultCode == FILTER_ACTIVATED){
+            if(requestCode == PostFilterActions.SHOW_PATIENTS){
+                SurveySearchFilter searchFilter = data.getParcelableExtra(MainActivity.FILTER_OBJECT);
+                Intent myIntent = new Intent(context, PatientListActivity.class);
+                myIntent.putExtra(MainActivity.FILTER_OBJECT, searchFilter);
+                MainActivity.this.startActivity(myIntent);
+            } else if(requestCode == PostFilterActions.EXPORT_CSV){
+                String filePath;
+                try {
+                    filePath = new CsvExporter().exportPatients(
+                            getExportDir(MainActivity.this, MainActivity.this.getString(getApplicationInfo().labelRes)),
+                            new DBContext(MainActivity.this),
+                            MainActivity.this
+                    );
+                    showMessage("Success", "Data was exported to the '" + filePath + "'");
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } else if(requestCode == PostFilterActions.EXPORT_PDF){
+                String filePath;
+                try {
+                    filePath = new PdfExporter().exportPatients(
+                            getExportDir(MainActivity.this, MainActivity.this.getString(getApplicationInfo().labelRes)),
+                            new DBContext(MainActivity.this),
+                            MainActivity.this
+                    );
+                    showMessage("Success", "Data was exported to the '" + filePath + "'");
+                    Intent target = new Intent(Intent.ACTION_VIEW);
+                    File file = new File(filePath);
+                    target.setDataAndType(Uri.fromFile(file),"application/pdf");
+                    target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+                    Intent intent = Intent.createChooser(target, "Opening pdf file...");
+                    try {
+                        startActivity(intent);
+                    } catch (ActivityNotFoundException e) {
+                        showMessage("Erro", "Please install some PDF reader");
+                    }
+                } catch (DocumentException | FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

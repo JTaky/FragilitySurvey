@@ -31,6 +31,8 @@
         </activity>
         <activity android:name=".patientlist.PatientScoreActivity">
         </activity>
+        <activity android:name=".filter.SurveyFilterActivity">
+        </activity>
     </application>
 
 </manifest>
