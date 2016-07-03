@@ -13,8 +13,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btnOk"
-        android:id="@+id/btnOk"
+        android:text="@string/btn.close"
+        android:id="@+id/btnClose"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:textSize="@dimen/text.size.large"/>
@@ -26,7 +26,7 @@
         android:id="@+id/btnMakeTests"
         android:layout_alignParentEnd="true"
         android:textSize="@dimen/text.size.large"
-        android:layout_alignTop="@+id/btnOk"/>
+        android:layout_alignTop="@+id/btnClose"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
         android:layout_below="@+id/lblRecos"
         android:layout_alignParentStart="true"
         android:layout_marginTop="32dp"
-        android:layout_above="@+id/btnOk"
+        android:layout_above="@+id/btnClose"
         android:choiceMode="none"/>
 
 </RelativeLayout>

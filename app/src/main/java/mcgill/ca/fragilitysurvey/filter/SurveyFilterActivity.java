@@ -14,7 +14,6 @@ import android.widget.Toast;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import mcgill.ca.fragilitysurvey.MainActivity;
 import mcgill.ca.fragilitysurvey.R;
@@ -92,7 +91,7 @@ public class SurveyFilterActivity extends AppCompatActivity {
     }
 
     private void initBtns() {
-        Button btnOk = (Button) findViewById(R.id.btnOk);
+        Button btnOk = (Button) findViewById(R.id.btnClose);
         btnOk.setOnClickListener(okListener);
         Button btnCancel = (Button) findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(cancelListener);

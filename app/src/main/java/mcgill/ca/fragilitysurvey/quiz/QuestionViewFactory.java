@@ -18,14 +18,22 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mcgill.ca.fragilitysurvey.R;
 import mcgill.ca.fragilitysurvey.quiz.questions.Inputter;
 import mcgill.ca.fragilitysurvey.quiz.questions.OptionValue;
 import mcgill.ca.fragilitysurvey.quiz.questions.Question;
+import mcgill.ca.fragilitysurvey.repo.entity.answer.IAnswer;
 
 public class QuestionViewFactory {
 
     public static final QuestionViewFactory INSTANCE = new QuestionViewFactory();
+
+    private static boolean isDebugMode() {
+        return false;
+    }
 
     public boolean validate(Context context, Question cur, Activity view){
         boolean isValid = true;
@@ -115,6 +123,11 @@ public class QuestionViewFactory {
 
     private void createChoseInputView(LinearLayout subQuestionLayout, Context context, final Inputter curChose) {
         subQuestionLayout.setOrientation(LinearLayout.VERTICAL);
+        List<String> answersValues = new ArrayList<>();
+        for(IAnswer curAnswer : curChose.answers()){
+            answersValues.add(curChose.inputType().fromAnswer(curAnswer));
+        }
+
         if(curChose.isOrLogic()) {
             RadioGroup radioGroup = new RadioGroup(context);
             radioGroup.setId(curChose.inputType().componentId());
@@ -122,6 +135,9 @@ public class QuestionViewFactory {
             for (final OptionValue option : curChose.options()) {
                 RadioButton radioButton = new RadioButton(context);
                 radioButton.setText(option.caption());
+                if(answersValues.contains( String.valueOf(option.id()) )){
+                    radioButton.setSelected(true);
+                }
                 radioButton.setId(option.id());
                 radioButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -132,8 +148,10 @@ public class QuestionViewFactory {
                 radioGroup.addView(radioButton);
             }
             //set default value, tmp
-            radioGroup.check(0);
-            curChose.answer(curChose.inputType().toAnswer(String.valueOf(0)));
+            if(answersValues.isEmpty() && isDebugMode()) {
+                radioGroup.check(0);
+                curChose.answer(curChose.inputType().toAnswer(String.valueOf(0)));
+            }
 
             subQuestionLayout.addView(radioGroup);
         } else {
@@ -143,6 +161,9 @@ public class QuestionViewFactory {
             for (final OptionValue option : curChose.options()) {
                 CheckBox checkBox = new CheckBox(context);
                 checkBox.setText(option.caption());
+                if(answersValues.contains( String.valueOf(option.id()) )){
+                    checkBox.setSelected(true);
+                }
                 checkBox.setId(option.id());
                 checkBox.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -160,6 +181,10 @@ public class QuestionViewFactory {
         EditText txt = new EditText(context);
         txt.setInputType(InputType.TYPE_CLASS_NUMBER);
         txt.setId(curChose.inputType().componentId());
+        if(!curChose.answers().isEmpty()) {
+            String value = curChose.inputType().fromAnswer(curChose.answers().get(0));
+            txt.setText(value);
+        }
         txt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -178,6 +203,10 @@ public class QuestionViewFactory {
     private void createTextInputView(LinearLayout subQuestionLayout, Context context, final Inputter curChose) {
         EditText txt = new EditText(context);
         txt.setId(curChose.inputType().componentId());
+        if(!curChose.answers().isEmpty()) {
+            String value = curChose.inputType().fromAnswer(curChose.answers().get(0));
+            txt.setText(value);
+        }
         txt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -197,6 +226,10 @@ public class QuestionViewFactory {
         EditText txt = new EditText(context);
         txt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         txt.setId(curChose.inputType().componentId());
+        if(!curChose.answers().isEmpty()) {
+            String value = curChose.inputType().fromAnswer(curChose.answers().get(0));
+            txt.setText(value);
+        }
         txt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

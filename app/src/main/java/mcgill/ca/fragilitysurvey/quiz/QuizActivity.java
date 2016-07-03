@@ -62,8 +62,15 @@ public class QuizActivity extends AppCompatActivity {
     private View.OnClickListener prevOnClickListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            movePrev();
-            displayQuestion();
+        movePrev();
+        displayQuestion();
+        }
+    };
+
+    private View.OnClickListener closeListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            finish();
         }
     };
 
@@ -97,6 +104,8 @@ public class QuizActivity extends AppCompatActivity {
         btnPrev.setOnClickListener(prevOnClickListener);
         Button btnNext = (Button) findViewById(R.id.btnQuizNext);
         btnNext.setOnClickListener(nextOnClickListener);
+        Button btnClose = (Button) findViewById(R.id.btnClose);
+        btnClose.setOnClickListener(closeListener);
     }
 
     private void updateBtnActivity() {

@@ -32,12 +32,25 @@ public class PatientListActivity extends AppCompatActivity {
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss", Locale.CANADA);
 
+    private View.OnClickListener closeListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            finish();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patientlist);
 
+        initBtns();
         showData();
+    }
+
+    private void initBtns() {
+        Button btnClose = (Button) findViewById(R.id.btnClose);
+        btnClose.setOnClickListener(closeListener);
     }
 
     private void showData() {

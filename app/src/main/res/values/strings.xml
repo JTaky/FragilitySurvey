@@ -244,4 +244,5 @@
     <string name="lblDateTo">Date To</string>
     <string name="btnCancel">Cancel</string>
     <string name="credentials.organisation_address">Organisation address</string>
+    <string name="btn.close">Close</string>
 </resources>

@@ -77,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btnOk"
-        android:id="@+id/btnOk"
+        android:id="@+id/btnClose"
         android:layout_marginBottom="43dp"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="48dp"
@@ -89,8 +89,8 @@
         android:text="@string/btnCancel"
         android:id="@+id/btnCancel"
         android:layout_marginStart="41dp"
-        android:layout_alignTop="@+id/btnOk"
-        android:layout_toEndOf="@+id/btnOk"/>
+        android:layout_alignTop="@+id/btnClose"
+        android:layout_toEndOf="@+id/btnClose"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"

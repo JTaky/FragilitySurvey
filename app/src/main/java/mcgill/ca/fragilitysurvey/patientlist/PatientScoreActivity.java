@@ -89,7 +89,7 @@ public class PatientScoreActivity extends AppCompatActivity {
         Button btnMakeTests = (Button)findViewById(R.id.btnMakeTests);
         btnMakeTests.setOnClickListener(makeTestListener);
 
-        Button btnOk = (Button)findViewById(R.id.btnOk);
+        Button btnOk = (Button)findViewById(R.id.btnClose);
         btnOk.setOnClickListener(finishListener);
     }
 
