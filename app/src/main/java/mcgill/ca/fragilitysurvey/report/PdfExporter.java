@@ -31,7 +31,7 @@ import mcgill.ca.fragilitysurvey.repo.entity.answer.IAnswer;
 
 public class PdfExporter {
 
-    public static final DateFormat surveyDateFormat = new SimpleDateFormat("yyyyy-MM-dd hh");
+    public static final DateFormat surveyDateFormat = new SimpleDateFormat("yyyy-MM-dd_hh");
 
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
@@ -46,8 +46,7 @@ public class PdfExporter {
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.BOLD);
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    public String exportPatients(File outputDirectory, DBContext dbContext, Context context) throws FileNotFoundException, DocumentException {
+    public File exportPatients(File outputDirectory, DBContext dbContext, Context context) throws FileNotFoundException, DocumentException {
         SurveyService surveyService = new SurveyService(dbContext, context.getResources());
         File outputFile = new File(outputDirectory, "exported_" + CsvExporter.fileDateFormat.format(new Date()) + ".pdf");
         Document document = new Document();
@@ -57,7 +56,7 @@ public class PdfExporter {
         addHeader(document, context);
         addSurveys(document, context, surveyService.getSurveys());
         document.close();
-        return outputFile.getName();
+        return outputFile;
     }
 
     private static void addMetaData(Document document) {

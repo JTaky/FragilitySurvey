@@ -98,7 +98,7 @@ public class Questions {
     }
 
     public static void initQuestions(final Resources res){
-        if(isInitialized)
+        if(patientQuestions != null)
             return;
         initNewPatientQuestions(res);
         initSystematicSurveyQuestions(res);

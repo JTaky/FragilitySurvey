@@ -32,7 +32,7 @@ public class QuestionViewFactory {
     public static final QuestionViewFactory INSTANCE = new QuestionViewFactory();
 
     private static boolean isDebugMode() {
-        return false;
+        return true;
     }
 
     public boolean validate(Context context, Question cur, Activity view){

@@ -44,13 +44,7 @@ public class PatientListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patientlist);
 
-        initBtns();
         showData();
-    }
-
-    private void initBtns() {
-        Button btnClose = (Button) findViewById(R.id.btnClose);
-        btnClose.setOnClickListener(closeListener);
     }
 
     private void showData() {
@@ -110,6 +104,7 @@ public class PatientListActivity extends AppCompatActivity {
                 Bundle extras = new Bundle();
                 extras.putParcelable(QuizActivity.SURVEY_KEY, survey);
                 myIntent.putExtra(QuizActivity.EXTRAS_KEY, extras);
+                myIntent.putExtra(QuizActivity.POST_SUBMIT_ACTION, QuizActivity.PostSubmitActions.SHOW_RECOMENDATIONS.value);
                 PatientListActivity.this.startActivityForResult(myIntent, QuizActivity.SURVEY_SCORE_CODE);
             }
         };

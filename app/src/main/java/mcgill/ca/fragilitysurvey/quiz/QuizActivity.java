@@ -12,6 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import mcgill.ca.fragilitysurvey.R;
+import mcgill.ca.fragilitysurvey.quiz.postsubmit.GoodByeAtivity;
+import mcgill.ca.fragilitysurvey.quiz.postsubmit.RecomendationActivity;
 import mcgill.ca.fragilitysurvey.repo.DBContext;
 import mcgill.ca.fragilitysurvey.quiz.questions.Question;
 import mcgill.ca.fragilitysurvey.repo.SurveyService;
@@ -19,12 +21,41 @@ import mcgill.ca.fragilitysurvey.repo.entity.Survey;
 
 public class QuizActivity extends AppCompatActivity {
 
+    private static int GOODBYE_REQUEST_CODE = 0;
+
+    private static int RECOMENDATION_REQUEST_CODE = 1;
+    private static String EXTRA_KEY_ACTIVITY = "recomendation.survey.id";
+
+    public enum PostSubmitActions {
+        NO_ACTIONS(DEFAULT_POST_SUBMIT_ACTION),
+        SAY_GOODBYE(DEFAULT_POST_SUBMIT_ACTION + 1),
+        SHOW_RECOMENDATIONS(DEFAULT_POST_SUBMIT_ACTION + 2);
+
+        public final int value;
+
+        PostSubmitActions(int value){
+            this.value = value;
+        }
+
+        public static PostSubmitActions valueOf(int value){
+            for(PostSubmitActions postSubmitActions: values()){
+                if(postSubmitActions.value == value){
+                    return postSubmitActions;
+                }
+            }
+            return NO_ACTIONS;
+        }
+    }
+
     public static final int SURVEY_REQUEST_CODE = 1;
     public static final int SURVEY_SCORE_CODE = 2;
+
+    public static int DEFAULT_POST_SUBMIT_ACTION = 0;
 
     private static final String TAG = "questions";
 
     public static final String EXTRAS_KEY = "mcgill.ca.fragilitysurvey.extras";
+    public static final String POST_SUBMIT_ACTION = "mcgill.ca.fragilitysurvey.post.submit.action";
     public static final String QUESTIONS_KEY = "mcgill.ca.fragilitysurvey.questions";
     public static final String SURVEY_KEY = "mcgill.ca.fragilitysurvey.survey";
 
@@ -33,6 +64,7 @@ public class QuizActivity extends AppCompatActivity {
     private Question cur;
 
     private Survey survey;
+    private PostSubmitActions postSubmitAction;
 
     private View.OnClickListener nextOnClickListener = new View.OnClickListener(){
         @Override
@@ -50,7 +82,7 @@ public class QuizActivity extends AppCompatActivity {
                 }
                 saveSurvey(survey, previousQuestions);
                 setResult(RESULT_OK, new Intent());
-                finish();
+                postSubmitAction();
             } else {
                 //show next question
                 moveNext();
@@ -58,6 +90,20 @@ public class QuizActivity extends AppCompatActivity {
             }
         }
     };
+
+    private void postSubmitAction() {
+        if(postSubmitAction == PostSubmitActions.SAY_GOODBYE){
+            //say goodbye
+            Intent myIntent = new Intent(QuizActivity.this, GoodByeAtivity.class);
+            QuizActivity.this.startActivityForResult(myIntent, GOODBYE_REQUEST_CODE);
+        } else if(postSubmitAction == PostSubmitActions.SHOW_RECOMENDATIONS){
+            //show recommendations
+            Intent myIntent = new Intent(QuizActivity.this, RecomendationActivity.class);
+            myIntent.putExtra(EXTRA_KEY_ACTIVITY, survey);
+            QuizActivity.this.startActivityForResult(myIntent, RECOMENDATION_REQUEST_CODE);
+        }
+        finish();
+    }
 
     private View.OnClickListener prevOnClickListener = new View.OnClickListener(){
         @Override
@@ -85,6 +131,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private void initSurvey() {
         this.survey = getIntent().getBundleExtra(EXTRAS_KEY).getParcelable(SURVEY_KEY);
+        this.postSubmitAction = PostSubmitActions.valueOf(getIntent().getIntExtra(POST_SUBMIT_ACTION, DEFAULT_POST_SUBMIT_ACTION));
     }
 
     @Override
@@ -159,6 +206,11 @@ public class QuizActivity extends AppCompatActivity {
         } else {
             surveyService.saveSurvey(survey, questions);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        finish();
     }
 
 }

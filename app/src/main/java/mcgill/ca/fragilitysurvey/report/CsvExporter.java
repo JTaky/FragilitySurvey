@@ -28,10 +28,10 @@ import mcgill.ca.fragilitysurvey.repo.entity.answer.IAnswer;
 public class CsvExporter {
 
     private static final String SEP = " ";
-    public static final DateFormat fileDateFormat = new SimpleDateFormat("yyyyy-MM-dd_hh:mm:ss");
+    public static final DateFormat fileDateFormat = new SimpleDateFormat("yyyy-MM-dd_hh_mm_ss");
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public String exportPatients(File outputDirectory, DBContext dbContext, Context context) throws FileNotFoundException {
+    public File exportPatients(File outputDirectory, DBContext dbContext, Context context) throws FileNotFoundException {
         File outputFile = new File(outputDirectory, "exported_" + fileDateFormat.format(new Date()) + ".csv");
         SurveyService surveyService = new SurveyService(dbContext, context.getResources());
         List<Survey> surveys = surveyService.getSurveys();
@@ -39,7 +39,7 @@ public class CsvExporter {
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(outputFile))) {
             writer.print(csvContent);
         }
-        return outputFile.getName();
+        return outputFile;
     }
 
     public static String serializeToCsv(List<Survey> surveys) {

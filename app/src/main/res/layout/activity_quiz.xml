@@ -4,44 +4,71 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollQuiz"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"/>
-
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="8dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="8dp">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/quiz.btn.prev"
             android:id="@+id/btnQuizPrev"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_above="@+id/textView3"
+            android:layout_alignStart="@+id/btnClose"
+            android:textColor="#c70b0b"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/quiz.btn.next"
             android:id="@+id/btnQuizNext"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_marginEnd="45dp"
+            android:layout_above="@+id/textView3"
+            android:layout_alignEnd="@+id/imageView"
+            android:textColor="#159d09"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn.close"
             android:id="@+id/btnClose"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="48dp"
+            android:height="60dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:contentDescription="@string/logo"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/logo"
+            android:layout_toEndOf="@+id/textView3"
+            android:layout_alignBottom="@+id/btnClose"
+            android:scaleType="fitEnd"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Copyrights BIOMATHICS© "
+            android:id="@+id/textView3"
+            android:textStyle="italic"
             android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/btnQuizPrev"
+            android:textIsSelectable="false"
+            android:textSize="@dimen/text.size.copyright"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollQuiz"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/btnClose"
             android:layout_centerHorizontal="true"/>
 
     </RelativeLayout>

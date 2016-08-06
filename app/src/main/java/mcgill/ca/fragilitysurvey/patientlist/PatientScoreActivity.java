@@ -61,12 +61,12 @@ public class PatientScoreActivity extends AppCompatActivity {
         this.scoreEstimator = new ScoreEstimator(survey);
 
         updateLabels();
-        updateRecommendations();
+        updateTestsToDo();
     }
 
-    private void updateRecommendations() {
-        ListView listRecos = (ListView)findViewById(R.id.listRecomendations);
-        listRecos.setAdapter(new ArrayAdapter<>(this, R.layout.recomendations_listview, scoreEstimator.buildRecommendations(getResources())));
+    private void updateTestsToDo() {
+        ListView listTestsToDo = (ListView)findViewById(R.id.listTestsToDo);
+        listTestsToDo.setAdapter(new ArrayAdapter<>(this, R.layout.recomendations_listview, scoreEstimator.buildAdditionalTestsList(getResources())));
     }
 
     private void updateLabels() {
@@ -101,7 +101,7 @@ public class PatientScoreActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 reloadSurvey();
                 updateLabels();
-                updateRecommendations();
+                updateTestsToDo();
             }
         }
     }

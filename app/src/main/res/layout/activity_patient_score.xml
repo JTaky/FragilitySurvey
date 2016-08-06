@@ -17,7 +17,7 @@
         android:id="@+id/btnClose"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:textSize="@dimen/text.size.large"/>
+        />
 
     <Button
         android:layout_width="wrap_content"
@@ -25,7 +25,6 @@
         android:text="@string/btwMakeTest"
         android:id="@+id/btnMakeTests"
         android:layout_alignParentEnd="true"
-        android:textSize="@dimen/text.size.large"
         android:layout_alignTop="@+id/btnClose"/>
 
     <TextView
@@ -37,21 +36,26 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:textSize="@dimen/text.size.large"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignEnd="@+id/lblTestsToDo"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text=""
+        android:text="10"
         android:id="@+id/lblScore"
         android:layout_toEndOf="@+id/lblScoreCaption"
         android:textSize="@dimen/text.size.large"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignBottom="@+id/lblScoreCaption"/>
+        android:layout_alignBottom="@+id/lblScoreCaption"
+        android:layout_alignTop="@+id/lblScoreCaption"
+        android:gravity="center"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -61,32 +65,43 @@
         android:text=""
         android:textSize="@dimen/text.size.large"
         android:layout_alignEnd="@+id/btnMakeTests"
-        android:layout_toEndOf="@+id/lblScore"
+        android:layout_toEndOf="@+id/lblFragilityLevelCaption"
         android:layout_alignParentEnd="false"
         android:gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignBottom="@+id/lblScoreCaption"/>
+        android:layout_alignBottom="@+id/lblScoreCaption"
+        android:layout_alignTop="@+id/lblFragilityLevelCaption"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/lbl.recommendations"
-        android:id="@+id/lblRecos"
+        android:text="@string/lbl.testsToDo"
+        android:id="@+id/lblTestsToDo"
         android:layout_below="@+id/lblScoreCaption"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="34dp"/>
+        android:layout_alignParentStart="true"/>
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listRecomendations"
-        android:layout_below="@+id/lblRecos"
+        android:id="@+id/listTestsToDo"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="32dp"
         android:layout_above="@+id/btnClose"
-        android:choiceMode="none"/>
+        android:choiceMode="none"
+        android:layout_below="@+id/lblTestsToDo"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/lblFragilityLevelCaption"
+        android:id="@+id/lblFragilityLevelCaption"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignBottom="@+id/lblScore"
+        android:layout_toEndOf="@+id/lblScore"
+        android:layout_alignTop="@+id/lblScoreCaption"
+        android:gravity="center"/>
 
 </RelativeLayout>

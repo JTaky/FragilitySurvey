@@ -216,7 +216,7 @@
     <string name="welcome.label.prefix">Welcome to: %s</string>
     <string name="btnOk">OK</string>
     <string name="btwMakeTest">Make tests</string>
-    <string name="lbl.score.caption">Score: </string>
+    <string name="lbl.score.caption">Score QU<font color='red'>AE</font>20: </string>
     <string name="lbl.score.value">%s/18</string>
     <string name="lbl.recommendations">Recommendations:</string>
     <string name="fragility.level.no">NO</string>
@@ -245,4 +245,13 @@
     <string name="btnCancel">Cancel</string>
     <string name="credentials.organisation_address">Organisation address</string>
     <string name="btn.close">Close</string>
+    <string name="logo">logo</string>
+    <string name="lblFragilityLevelCaption">Fragility level:</string>
+    <string name="lbl.testsToDo">Considering the results and to make recommendations adapted to the patient\'s situation, the following additional tests must be performed:</string>
+    <string name="tests.todo.systematic">Systematic questions</string>
+    <string name="tests.todo.mna">Nutritionnel : Mini Nutritional Assessment (Mini MNA)</string>
+    <string name="tests.todo.smmse">Cognition : Short Mini Mental Status Examination (S-MMSE)</string>
+    <string name="tests.todo.gds">Mood : Geriatric Depression Scale items (4-item GDS)</string>
+    <string name="tests.todo.ftss">Mobility : Five time sit-to-stand test (FTSS)</string>
+    <string name="quiz.new.patient.goodbye">Goodbye </string>
 </resources>

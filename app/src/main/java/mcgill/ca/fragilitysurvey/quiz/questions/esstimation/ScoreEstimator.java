@@ -41,6 +41,8 @@ public class ScoreEstimator {
     }
 
     private void esstimateSurvey() {
+        //0 add systematic anyway
+        additionalTests.add(AdditionalTest.SYSTEMATIC);
         //1
         if (surveyQuestionsAccessor.isTrue(1)) {
             score += 2;
@@ -125,6 +127,15 @@ public class ScoreEstimator {
 
     public FragilityLevel getFragilityResult() {
         return FragilityLevel.estimate(score());
+    }
+
+    public List<String> buildAdditionalTestsList(Resources res) {
+        Questions.initQuestions(res);
+        List<String> additionalTests = new ArrayList<>();
+        for(AdditionalTest additionalTest: additionalTests()){
+            additionalTests.add(res.getString(additionalTest.STRING_ID));
+        }
+        return additionalTests;
     }
 
     public List<String> buildRecommendations(Resources res) {

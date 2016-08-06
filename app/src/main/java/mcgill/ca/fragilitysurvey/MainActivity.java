@@ -1,16 +1,16 @@
 package mcgill.ca.fragilitysurvey;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Locale;
 
 import mcgill.ca.fragilitysurvey.credentials.CredentialsActivity;
@@ -50,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     public static final int SIGN_UP_RESULT_SAVED = 1;
     public static final int FILTER_ACTIVATED = 2;
 
-    public static final String ACTION_KEY = "post.filter.action";
     public static class PostFilterActions {
         public static final int SHOW_PATIENTS = 0;
         public static final int EXPORT_CSV = 1;
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             Bundle extras = new Bundle();
             extras.putParcelableArrayList(QuizActivity.QUESTIONS_KEY, Questions.newPatientQuestions(getResources()));
             myIntent.putExtra(QuizActivity.EXTRAS_KEY, extras);
+            myIntent.putExtra(QuizActivity.POST_SUBMIT_ACTION, QuizActivity.PostSubmitActions.SAY_GOODBYE.value);
             MainActivity.this.startActivity(myIntent);
         }
     };
@@ -154,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public File getExportDir(Context context, String fileName) {
         // Get the directory for the app's private pictures directory.
         File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), fileName);
@@ -176,39 +176,47 @@ public class MainActivity extends AppCompatActivity {
                 myIntent.putExtra(MainActivity.FILTER_OBJECT, searchFilter);
                 MainActivity.this.startActivity(myIntent);
             } else if(requestCode == PostFilterActions.EXPORT_CSV){
-                String filePath;
+                File csvFile;
                 try {
-                    filePath = new CsvExporter().exportPatients(
+                    csvFile = new CsvExporter().exportPatients(
                             getExportDir(MainActivity.this, MainActivity.this.getString(getApplicationInfo().labelRes)),
                             new DBContext(MainActivity.this),
                             MainActivity.this
                     );
-                    showMessage("Success", "Data was exported to the '" + filePath + "'");
+                    showMessage("Success", "Data was exported to the '" + csvFile.getAbsolutePath() + "'");
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
             } else if(requestCode == PostFilterActions.EXPORT_PDF){
-                String filePath;
+                File pdfFile;
                 try {
-                    filePath = new PdfExporter().exportPatients(
+                    pdfFile = new PdfExporter().exportPatients(
                             getExportDir(MainActivity.this, MainActivity.this.getString(getApplicationInfo().labelRes)),
                             new DBContext(MainActivity.this),
                             MainActivity.this
                     );
-                    showMessage("Success", "Data was exported to the '" + filePath + "'");
-                    Intent target = new Intent(Intent.ACTION_VIEW);
-                    File file = new File(filePath);
-                    target.setDataAndType(Uri.fromFile(file),"application/pdf");
-                    target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    showMessage("Success", "Data was exported to the '" + pdfFile + "'");
 
-                    Intent intent = Intent.createChooser(target, "Opening pdf file...");
-                    try {
-                        startActivity(intent);
-                    } catch (ActivityNotFoundException e) {
-                        showMessage("Erro", "Please install some PDF reader");
+                    PackageManager packageManager = getPackageManager();
+                    Intent testIntent = new Intent(Intent.ACTION_VIEW);
+                    testIntent.setType("application/pdf");
+                    List<ResolveInfo> list = packageManager.queryIntentActivities(testIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                    if (list.size() > 0) {  //is executed only on the real device, since it is hard to install pdf reader on the emulator
+                        Intent target = new Intent(Intent.ACTION_VIEW);
+                        target.setDataAndType(Uri.fromFile(pdfFile),"application/pdf");
+                        target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+                        Intent intent = Intent.createChooser(target, "Opening pdf file...");
+                        try {
+                            startActivity(intent);
+                        } catch (ActivityNotFoundException e) {
+                        }
+                    } else {
+                        showMessage("Info", "You can find the exported document by path - '" + pdfFile.getAbsolutePath() + "'. Please install the PDF reader.");
                     }
                 } catch (DocumentException | FileNotFoundException e) {
                     e.printStackTrace();
+                    showMessage("Error", "Cannot export file. Internal error.");
                 }
             }
         }

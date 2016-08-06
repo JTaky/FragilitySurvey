@@ -11,30 +11,28 @@
         android:layout_height="wrap_content"
         android:text="@string/new_patient"
         android:id="@+id/btnNewPatient"
-        android:layout_marginTop="28dp"
-        android:layout_below="@+id/spinnerLang"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_above="@+id/btnEditPatient"
+        android:layout_alignParentStart="true"/>
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/edit_patient"
         android:id="@+id/btnEditPatient"
-        android:layout_marginTop="31dp"
-        android:layout_below="@+id/btnNewPatient"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"/>
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerLang"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:spinnerMode="dropdown"
-        android:nestedScrollingEnabled="false" />
+        android:nestedScrollingEnabled="false"
+        android:layout_toEndOf="@+id/txtWelcome"
+        android:gravity="right"
+        android:layout_alignStart="@+id/btnExportPdfPatients"
+        android:layout_above="@+id/btnNewPatient"
+        android:foregroundGravity="right"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -44,14 +42,15 @@
         android:id="@+id/btnSignUp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/export_csv_patient"
         android:id="@+id/btnExportCsvPatients"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="52dp"
         android:layout_below="@+id/btnEditPatient"
         android:layout_alignParentStart="true"/>
 
@@ -60,7 +59,8 @@
         android:layout_height="wrap_content"
         android:text="@string/export_pdf_patient"
         android:id="@+id/btnExportPdfPatients"
-        android:layout_alignTop="@+id/btnExportCsvPatients"
+        android:layout_alignBaseline="@+id/btnExportCsvPatients"
+        android:layout_alignBottom="@+id/btnExportCsvPatients"
         android:layout_alignEnd="@+id/btnEditPatient"/>
 
     <TextView
@@ -71,6 +71,32 @@
         android:id="@+id/txtWelcome"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/spinnerLang"/>
+        android:layout_alignBottom="@+id/spinnerLang"
+        android:layout_toStartOf="@+id/btnExportPdfPatients"
+        android:layout_alignEnd="@+id/textView2"
+        android:textSize="@dimen/text.size.copyright"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Copyrights BIOMATHICS© "
+        android:id="@+id/textView2"
+        android:layout_alignBottom="@+id/btnSignUp"
+        android:textStyle="italic"
+        android:textSize="@dimen/text.size.copyright"
+        android:textIsSelectable="false"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgLogo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/spinnerLang"
+        android:layout_toEndOf="@+id/txtWelcome"
+        android:src="@drawable/logo"
+        android:contentDescription="@string/logo"
+        android:scaleType="fitEnd"/>
 
 </RelativeLayout>
