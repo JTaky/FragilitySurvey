@@ -9,6 +9,7 @@ import java.util.List;
 
 import mcgill.ca.fragilitysurvey.R;
 import mcgill.ca.fragilitysurvey.quiz.questions.AdditionalTest;
+import mcgill.ca.fragilitysurvey.quiz.questions.Questions;
 import mcgill.ca.fragilitysurvey.repo.entity.Survey;
 
 public class Recommendator {
@@ -60,6 +61,13 @@ public class Recommendator {
         } catch (RuntimeException e){
             recos.add(res.getString(R.string.recomendation_pass_ftsts));
         }
+        try {
+            if (scoreEstimator.scoreP7() >= 3) {
+                recos.add(res.getString(R.string.recomendation_p7));
+            }
+        } catch (RuntimeException e){
+            recos.add(res.getString(R.string.recomendation_pass_p7));
+        }
         return recos;
     }
 
@@ -73,7 +81,7 @@ public class Recommendator {
 
     private boolean isMobility() {
         try {
-            return survey.isTrue(20) || (isFtsstEligible() && survey.getFtsstInSec() > 15);
+            return survey.isTrue(Questions.SELF_ENTER_FIRST_ID + 19) || (isFtsstEligible() && survey.getFtsstInSec() > 15);
         } catch (RuntimeException e){
             return false;
         }
@@ -87,7 +95,7 @@ public class Recommendator {
 
     private boolean isMood() {
          try {
-            return (survey.isTrue(17) || survey.isTrue(18)) && (isGdsEligible() && survey.gds() >= 1);
+            return (survey.isTrue(Questions.SELF_ENTER_FIRST_ID + 16) || survey.isTrue(Questions.SELF_ENTER_FIRST_ID + 17)) && (isGdsEligible() && survey.gds() >= 1);
          } catch(RuntimeException e){
             return false;
          }
@@ -100,7 +108,7 @@ public class Recommendator {
     }
 
     private boolean isCognition() {
-        return survey.isTrue(5) && (isSmmseEligible() && survey.sMMSE() <= 4);
+        return survey.isTrue(Questions.SELF_ENTER_FIRST_ID + 4) && (isSmmseEligible() && survey.sMMSE() <= 4);
     }
 
     private Collection<? extends String> communication(Resources res) {
@@ -111,7 +119,7 @@ public class Recommendator {
 
     private boolean isCommunication() {
         try {
-            return survey.isTrue(3) || survey.isTrue(4);
+            return survey.isTrue(Questions.SELF_ENTER_FIRST_ID + 2) || survey.isTrue(Questions.SELF_ENTER_FIRST_ID + 3);
         } catch(RuntimeException e){
             return false;
         }
@@ -124,7 +132,7 @@ public class Recommendator {
     }
 
     private boolean isMultimorbidity() {
-        return survey.getInt(2) >= 5;
+        return survey.getInt(Questions.SELF_ENTER_FIRST_ID + 1) >= 5;
     }
 
     private Collection<? extends String> homeHelpService(Resources res) {
@@ -135,19 +143,19 @@ public class Recommendator {
 
     private boolean isHomeHelpService() {
         int from7to11 = 0;
-        for(int i = 7; i < 12; i++){
-            if(survey.isTrue(i)) from7to11++;
+        for(int i = 6; i < 11; i++){
+            if(survey.isTrue(Questions.SELF_ENTER_FIRST_ID + i)) from7to11++;
         }
         int from12to15 = 0;
-        for(int i = 12; i < 16; i++){
-            if(survey.isTrue(i)) from12to15++;
+        for(int i = 11; i < 15; i++){
+            if(survey.isTrue(Questions.SELF_ENTER_FIRST_ID + i)) from12to15++;
         }
-        return survey.isTrue(6) && from7to11 < 5 && from12to15 < 4;
+        return survey.isTrue(Questions.SELF_ENTER_FIRST_ID + 5) && from7to11 < 5 && from12to15 < 4;
     }
 
     private boolean isNutrion() {
         try {
-            return survey.isTrue(1) && (isMnaEligible() && survey.mnaScore() < 11);
+            return survey.isTrue(Questions.SELF_ENTER_FIRST_ID + 0) && (isMnaEligible() && survey.mnaScore() < 11);
         } catch(RuntimeException e){
             return false;
         }

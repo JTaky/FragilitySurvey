@@ -15,10 +15,13 @@ public class Questions {
     public static final int ID_QUESTION_INDEX = 2;
     public static final int FIRST_PATIENT_ID = ID_QUESTION_INDEX + 1;
 
-    public static int MNA_FIRST_ID = 25;
-    public static int sMMSE_FIRST_ID = 32;
-    public static int GDS_FIRST_ID = 36;
-    public static int FTSST_FIRST_ID = 40;
+    //is initialized with the appropriate group of the questions
+    public static int SELF_ENTER_FIRST_ID = FIRST_PATIENT_ID;
+    public static int SYSTEMATIC_FIRST_ID = FIRST_PATIENT_ID;
+    public static int MNA_FIRST_ID = SYSTEMATIC_FIRST_ID + 3;
+    public static int sMMSE_FIRST_ID = MNA_FIRST_ID + 10;
+    public static int GDS_FIRST_ID = 0;
+    public static int FTSST_FIRST_ID = 0;
 
     public static final int PATIENT_QUESTIONS_COUNT = 21 + 2;
     public static final int YES_ID = 0;
@@ -224,6 +227,7 @@ public class Questions {
                     .questionText(res.getString(R.string.question_thanks))
             );
         }};
+        SELF_ENTER_FIRST_ID = patientQuestions.get(2).id();
     }
 
     private static void initSystematicSurveyQuestions(final Resources res) {
@@ -299,6 +303,7 @@ public class Questions {
                     ))
             );
         }};
+        SYSTEMATIC_FIRST_ID = systematicSurveyQuestions.get(0).id();
     }
 
     private static void initMnaQuestions(final Resources res) {
@@ -519,6 +524,7 @@ public class Questions {
                             new Inputter()
                                     .inputType(AnswerType.INT)
                                     .caption(res.getString(R.string.question_sit_stand_1_2))
+                                    .isValidateable(false)
                     ))
             );
         }};

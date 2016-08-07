@@ -136,7 +136,7 @@ public class QuestionViewFactory {
                 RadioButton radioButton = new RadioButton(context);
                 radioButton.setText(option.caption());
                 if(answersValues.contains( String.valueOf(option.id()) )){
-                    radioButton.setSelected(true);
+                    radioButton.setChecked(true);
                 }
                 radioButton.setId(option.id());
                 radioButton.setOnClickListener(new View.OnClickListener() {
@@ -162,7 +162,7 @@ public class QuestionViewFactory {
                 CheckBox checkBox = new CheckBox(context);
                 checkBox.setText(option.caption());
                 if(answersValues.contains( String.valueOf(option.id()) )){
-                    checkBox.setSelected(true);
+                    checkBox.setChecked(true);
                 }
                 checkBox.setId(option.id());
                 checkBox.setOnClickListener(new View.OnClickListener() {

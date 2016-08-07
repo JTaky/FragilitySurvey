@@ -8,6 +8,95 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="mcgill.ca.fragilitysurvey.quiz.postsubmit.RecomendationActivity">
+    tools:context=".quiz.postsubmit.RecommendationActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/quae20Completed"
+        android:id="@+id/textQuae20Completed"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnOk"
+        android:id="@+id/btnClose"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/lblScoreP7"
+        android:id="@+id/lblScoreP7"
+        android:layout_above="@+id/btnClose"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/lblScoreP7Value"
+        android:layout_alignBottom="@+id/lblScoreP7"
+        android:layout_toEndOf="@+id/lblScoreP7"
+        android:text="dafdeq"
+        android:layout_marginLeft="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/lblScoreER2Value"
+        android:text="fwerwe"
+        android:layout_alignTop="@+id/lblScoreER2"
+        android:layout_toEndOf="@+id/lblScoreER2"
+        android:layout_marginLeft="5dp"
+        android:gravity="bottom"
+        android:layout_alignParentBottom="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/scoreER2"
+        android:id="@+id/lblScoreER2"
+        android:layout_alignBottom="@+id/btnClose"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/btnClose"
+        android:gravity="bottom"/>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listRecomendations"
+        android:choiceMode="none"
+        android:layout_below="@+id/textQuae20Completed"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/textQuae20Completed"
+        android:layout_above="@+id/lblScoreP7"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/lblRiskFall"
+        android:id="@+id/lblRiskFall"
+        android:layout_below="@+id/listRecomendations"
+        android:layout_toStartOf="@+id/lblRiskFallValue"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/lblRiskFallValue"
+        android:text="fsdfsd"
+        android:layout_below="@+id/listRecomendations"
+        android:layout_toStartOf="@+id/btnClose"
+        android:layout_marginLeft="5dp"/>
 </RelativeLayout>

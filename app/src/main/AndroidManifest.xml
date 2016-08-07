@@ -42,7 +42,7 @@
             android:screenOrientation="landscape"/>
         <activity android:name=".quiz.postsubmit.GoodByeAtivity">
         </activity>
-        <activity android:name=".quiz.postsubmit.RecomendationActivity">
+        <activity android:name=".quiz.postsubmit.RecommendationActivity">
         </activity>
     </application>
 

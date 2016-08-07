@@ -112,10 +112,10 @@
     <string name="question.systematic.3">3.</string>
     <string name="question.systematic.3.1">Sex?</string>
     <string name="question.systematic.4">4.</string>
-    <string name="question.systematic.4.1">Height?</string>
+    <string name="question.systematic.4.1">Please enter the height?</string>
     <string name="question.systematic.5">5.</string>
-    <string name="question.systematic.5.1">Weight?</string>
-    <string name="question.systematic.5.2">BMI?</string>
+    <string name="question.systematic.5.1">Please enter the weight?</string>
+    <string name="question.systematic.5.2">Index BMI?</string>
     <string name="question.systematic.6">6. Day’s date (ask question to patient): </string>
     <string name="question.systematic.6.1"> Day’s date (ask question to patient): </string>
     <string name="question.systematic.6.2">Month (correct answer):</string>
@@ -161,7 +161,7 @@
     <string name="question.mna.7.1">Calf circumference (CC) in cm</string>
     <string name="question.mna.7.1.1">0 = CC less than 31</string>
     <string name="question.mna.7.1.2">3 = CC 31 or greater</string>
-    <!-- Final score, result -->
+    <!-- Final scoreQuae20, result -->
     <string name="question.mna.title.4">Screening score (max. 14 points)</string>
     <string name="question.mna.result.1">12-14 points:</string>
     <string name="question.mna.result.1.1">Normal nutritional status</string>
@@ -217,7 +217,7 @@
     <string name="btnOk">OK</string>
     <string name="btwMakeTest">Make tests</string>
     <string name="lbl.score.caption">Score QU<font color='red'>AE</font>20: </string>
-    <string name="lbl.score.value">%s/18</string>
+    <string name="lbl.score.value">%s</string>
     <string name="lbl.recommendations">Recommendations:</string>
     <string name="fragility.level.no">NO</string>
     <string name="fragility.level.mild">MOLD</string>
@@ -238,6 +238,8 @@
     <string name="recomendation.pass.smmse">Please pass SMMSE test</string>
     <string name="recomendation.pass.gds">Please pass GDS test</string>
     <string name="recomendation.pass.ftsts">Please pass Five Time Sit-to-Stand test</string>
+    <string name="recomendation.pass.p7">Please pass additional tests</string>
+    <string name="recomendation.p7">Please contact the local referent of the program "Autonomic Support of the Old Persons" for the additional evolution and taking in place the need of the special help</string>
     <string name="txtPatientId">Patient ID</string>
     <string name="lblOr">OR</string>
     <string name="lblDateFrom">Date From</string>
@@ -253,5 +255,14 @@
     <string name="tests.todo.smmse">Cognition : Short Mini Mental Status Examination (S-MMSE)</string>
     <string name="tests.todo.gds">Mood : Geriatric Depression Scale items (4-item GDS)</string>
     <string name="tests.todo.ftss">Mobility : Five time sit-to-stand test (FTSS)</string>
-    <string name="quiz.new.patient.goodbye">Goodbye </string>
+    <string name="quiz.new.patient.goodbye">Thank you for the partiticaption in the survey</string>
+    <string name="quae20Completed">The QUAE20 evaluation is now complete. Considering the results of additional tests, here are the recommendations adapted to patient’s needs:</string>
+    <string name="lblScoreP7">Score P7:</string>
+    <string name="lblScoreP7Value">%s</string>
+    <string name="scoreER2">Score ER<sup>2</sup>:</string>
+    <string name="lblScoreER2Value">%s</string>
+    <string name="lblRiskFall">Risk Fall:</string>
+    <string name="lblRiskFall.low"><font color='green'>Low</font></string>
+    <string name="lblRiskFall.moderate"><font color='blue'>Moderate</font></string>
+    <string name="lblRiskFall.high"><font color='red'>High</font></string>
 </resources>

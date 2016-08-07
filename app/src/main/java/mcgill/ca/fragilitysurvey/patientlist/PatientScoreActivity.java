@@ -32,6 +32,7 @@ public class PatientScoreActivity extends AppCompatActivity {
                     Questions.getQuestionsForTests(getResources(), scoreEstimator.additionalTests())
             );
             myIntent.putExtra(QuizActivity.EXTRAS_KEY, extras);
+            myIntent.putExtra(QuizActivity.POST_SUBMIT_ACTION, QuizActivity.PostSubmitActions.SHOW_RECOMENDATIONS.value);
             PatientScoreActivity.this.startActivityForResult(myIntent, QuizActivity.SURVEY_REQUEST_CODE);
         }
     };
@@ -74,7 +75,7 @@ public class PatientScoreActivity extends AppCompatActivity {
         lblScore.setText(
                 getResources().getString(
                         R.string.lbl_score_value,
-                        String.valueOf(scoreEstimator.score())
+                        String.valueOf(scoreEstimator.scoreQuae20()) + "/" + scoreEstimator.maxScoreQuae20()
                 )
         );
 

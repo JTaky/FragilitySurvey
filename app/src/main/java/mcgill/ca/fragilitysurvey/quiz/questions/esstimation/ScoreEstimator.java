@@ -19,8 +19,9 @@ public class ScoreEstimator {
 
     private Survey survey;
     private SurveyQuestionsAccessor surveyQuestionsAccessor;
-    private int score;
     private List<AdditionalTest> additionalTests = new ArrayList<>();
+
+    private int scoreQuae20;
 
     public ScoreEstimator(Survey survey){
         this.survey = survey;
@@ -32,83 +33,87 @@ public class ScoreEstimator {
         return additionalTests;
     }
 
-    public int score(){
-        return score;
+    public int scoreQuae20(){
+        return scoreQuae20;
     }
 
-    public int maxScore(){
+    public int maxScoreQuae20(){
         return 18;
     }
 
     private void esstimateSurvey() {
+        esstimateScoreQuae20();
+    }
+
+    private void esstimateScoreQuae20() {
         //0 add systematic anyway
         additionalTests.add(AdditionalTest.SYSTEMATIC);
         //1
-        if (surveyQuestionsAccessor.isTrue(1)) {
-            score += 2;
+        if (surveyQuestionsAccessor.isTrue(Questions.SELF_ENTER_FIRST_ID)) {
+            scoreQuae20 += 2;
             additionalTests.add(AdditionalTest.MNA);
         }
         //2
-        int q2Value = getInt(1);
+        int q2Value = getInt(Questions.SELF_ENTER_FIRST_ID + 1);
         if (q2Value >= 5 && q2Value < 9) {
-            score += 1;
+            scoreQuae20 += 1;
         } else if(q2Value > 8) {
-            score += 2;
+            scoreQuae20 += 2;
         }
         //3-4
-        if (isTrue(3)) score += 1;
-        if (isTrue(4)) score += 1;
+        if (isTrue(Questions.SELF_ENTER_FIRST_ID + 2)) scoreQuae20 += 1;
+        if (isTrue(Questions.SELF_ENTER_FIRST_ID + 3)) scoreQuae20 += 1;
         //5
-        if (isTrue(5)) {
-            score += 2;
+        if (isTrue(Questions.SELF_ENTER_FIRST_ID + 4)) {
+            scoreQuae20 += 2;
             additionalTests.add(AdditionalTest.S_MMSE);
         }
         //7 - 11
         {
             int noCount = 0;
-            noCount += BooleanUtils.toInteger(isFalse(7));
-            noCount += BooleanUtils.toInteger(isFalse(8));
-            noCount += BooleanUtils.toInteger(isFalse(9));
-            noCount += BooleanUtils.toInteger(isFalse(10));
-            noCount += BooleanUtils.toInteger(isFalse(11));
+            noCount += BooleanUtils.toInteger(isFalse(Questions.SELF_ENTER_FIRST_ID + 6));
+            noCount += BooleanUtils.toInteger(isFalse(Questions.SELF_ENTER_FIRST_ID + 7));
+            noCount += BooleanUtils.toInteger(isFalse(Questions.SELF_ENTER_FIRST_ID + 8));
+            noCount += BooleanUtils.toInteger(isFalse(Questions.SELF_ENTER_FIRST_ID + 9));
+            noCount += BooleanUtils.toInteger(isFalse(Questions.SELF_ENTER_FIRST_ID + 10));
             if (noCount <= 1) {
-                score += 2;
+                scoreQuae20 += 2;
             } else if (noCount >= 2 && noCount <= 3) {
-                score += 1;
+                scoreQuae20 += 1;
             }
         }
         //12 - 15
         {
             int noCount = 0;
-            noCount += BooleanUtils.toInteger(isFalse(12));
-            noCount += BooleanUtils.toInteger(isFalse(13));
-            noCount += BooleanUtils.toInteger(isFalse(14));
-            noCount += BooleanUtils.toInteger(isFalse(15));
+            noCount += BooleanUtils.toInteger(isFalse(Questions.SELF_ENTER_FIRST_ID + 11));
+            noCount += BooleanUtils.toInteger(isFalse(Questions.SELF_ENTER_FIRST_ID + 12));
+            noCount += BooleanUtils.toInteger(isFalse(Questions.SELF_ENTER_FIRST_ID + 13));
+            noCount += BooleanUtils.toInteger(isFalse(Questions.SELF_ENTER_FIRST_ID + 14));
             if(noCount <= 2){
-                score += 2;
+                scoreQuae20 += 2;
             } else if(noCount == 3){
-                score += 1;
+                scoreQuae20 += 1;
             }
         }
         //16
-        if(isTrue(16)){
-            score += 2;
+        if(isTrue(Questions.SELF_ENTER_FIRST_ID + 15)){
+            scoreQuae20 += 2;
         }
         //17-18
-        int happinessAnswer = getInt(17);
-        if(happinessAnswer == SAD_ID || isTrue(18)){
-            score += 2;
+        int happinessAnswer = getInt(Questions.SELF_ENTER_FIRST_ID + 16);
+        if(happinessAnswer == SAD_ID || isTrue(Questions.SELF_ENTER_FIRST_ID + 17)){
+            scoreQuae20 += 2;
             additionalTests.add(AdditionalTest.GDS_4_ITEM);
         } else if(happinessAnswer == NEITHER_ID){
-            score += 1;
+            scoreQuae20 += 1;
             additionalTests.add(AdditionalTest.GDS_4_ITEM);
         }
         //19-20
-        if(isTrue(20)){
-            score += 2;
+        if(isTrue(Questions.SELF_ENTER_FIRST_ID + 19)){
+            scoreQuae20 += 2;
             additionalTests.add(AdditionalTest.SITE_TO_STAND);
-        } else if(isFalse(19) && isFalse(20)){
-            score += 1;
+        } else if(isFalse(Questions.SELF_ENTER_FIRST_ID + 18) && isFalse(Questions.SELF_ENTER_FIRST_ID + 19)){
+            scoreQuae20 += 1;
             additionalTests.add(AdditionalTest.SITE_TO_STAND);
         }
     }
@@ -126,7 +131,7 @@ public class ScoreEstimator {
     }
 
     public FragilityLevel getFragilityResult() {
-        return FragilityLevel.estimate(score());
+        return FragilityLevel.estimate(scoreQuae20());
     }
 
     public List<String> buildAdditionalTestsList(Resources res) {
@@ -141,5 +146,17 @@ public class ScoreEstimator {
     public List<String> buildRecommendations(Resources res) {
         Questions.initQuestions(res);
         return new Recommendator(survey).buildReco(res);
+    }
+
+    public int scoreP7() {
+        return surveyQuestionsAccessor.p7();
+    }
+
+    public int scoreER2() {
+        return surveyQuestionsAccessor.er2();
+    }
+
+    public int riskLevel() {
+        return surveyQuestionsAccessor.riskLevel();
     }
 }

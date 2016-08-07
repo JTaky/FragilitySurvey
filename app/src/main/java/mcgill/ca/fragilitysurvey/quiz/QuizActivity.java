@@ -13,7 +13,7 @@ import java.util.List;
 
 import mcgill.ca.fragilitysurvey.R;
 import mcgill.ca.fragilitysurvey.quiz.postsubmit.GoodByeAtivity;
-import mcgill.ca.fragilitysurvey.quiz.postsubmit.RecomendationActivity;
+import mcgill.ca.fragilitysurvey.quiz.postsubmit.RecommendationActivity;
 import mcgill.ca.fragilitysurvey.repo.DBContext;
 import mcgill.ca.fragilitysurvey.quiz.questions.Question;
 import mcgill.ca.fragilitysurvey.repo.SurveyService;
@@ -98,11 +98,14 @@ public class QuizActivity extends AppCompatActivity {
             QuizActivity.this.startActivityForResult(myIntent, GOODBYE_REQUEST_CODE);
         } else if(postSubmitAction == PostSubmitActions.SHOW_RECOMENDATIONS){
             //show recommendations
-            Intent myIntent = new Intent(QuizActivity.this, RecomendationActivity.class);
-            myIntent.putExtra(EXTRA_KEY_ACTIVITY, survey);
+            Intent myIntent = new Intent(QuizActivity.this, RecommendationActivity.class);
+            Bundle extras = new Bundle();
+            extras.putParcelable(SURVEY_KEY, survey);
+            myIntent.putExtra(EXTRAS_KEY, extras);
             QuizActivity.this.startActivityForResult(myIntent, RECOMENDATION_REQUEST_CODE);
+        } else {
+            finish();
         }
-        finish();
     }
 
     private View.OnClickListener prevOnClickListener = new View.OnClickListener(){

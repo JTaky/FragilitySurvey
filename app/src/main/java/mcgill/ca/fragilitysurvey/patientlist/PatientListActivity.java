@@ -99,7 +99,7 @@ public class PatientListActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                  //show patient score
+                  //show patient scoreQuae20
                 Intent myIntent = new Intent(PatientListActivity.this, PatientScoreActivity.class);
                 Bundle extras = new Bundle();
                 extras.putParcelable(QuizActivity.SURVEY_KEY, survey);
