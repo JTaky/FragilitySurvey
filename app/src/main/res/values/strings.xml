@@ -37,8 +37,7 @@
      <string name="question.preface">Madam, Mister,
     You will be seen in consultation by a physician.
     Before starting the consultation, would you please mna this short questionnaire by filling in the appropriate box the way you perceive your own health. The person accompanying you may help you.</string>
-    <string name="question.thanks">The quiz is done.
-        Thank you for the partitipation.</string>
+    <string name="question.thanks">The quiz is done. <b>Press submit to save your personal data on the tablette.</b></string>
     <string name="question.yes">Yes</string>
     <string name="question.no">No</string>
     <string name="question.male">Male</string>
@@ -220,7 +219,7 @@
     <string name="lbl.score.value">%s</string>
     <string name="lbl.recommendations">Recommendations:</string>
     <string name="fragility.level.no">NO</string>
-    <string name="fragility.level.mild">MOLD</string>
+    <string name="fragility.level.mild">MILD</string>
     <string name="fragility.level.moderate">MODERATE</string>
     <string name="fragility.level.severe">SEVERE</string>
     <string name="recomendation.nutrion.1">Eliminate worst evolution of acute and/or chronic disease</string>
@@ -265,4 +264,7 @@
     <string name="lblRiskFall.low"><font color='green'>Low</font></string>
     <string name="lblRiskFall.moderate"><font color='blue'>Moderate</font></string>
     <string name="lblRiskFall.high"><font color='red'>High</font></string>
+    <string name="dialog.enter.pwd">Please enter the password</string>
+    <string name="dialog.enter.pwd.debug">Please enter the password(expect to see - "%s")</string>
+    <string name="dialog.wrong.pwd">Wrong password</string>
 </resources>

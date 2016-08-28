@@ -148,7 +148,8 @@ public class Inputter implements Parcelable {
     @Override
     public String toString() {
         return "Inputter{" +
-                "inputType=" + inputType +
+                "id=" + id +
+                ", inputType=" + inputType +
                 ", caption='" + caption + '\'' +
                 ", options=" + options +
                 ", orLogic=" + orLogic +

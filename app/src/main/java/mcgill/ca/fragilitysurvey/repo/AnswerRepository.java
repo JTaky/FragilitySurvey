@@ -125,6 +125,7 @@ public class AnswerRepository extends BaseRepository {
                     question = new Question().id(questionId);
                     questionsMap.put(questionId, question);
                     question.questionText(templateQuestion.questionText());
+//                    question.inputers(new ArrayList<>(templateQuestion.inputters()));
                 }
                 //create inputters
                 int inputterId = surveyCursor.getInt(surveyCursor.getColumnIndex(INPUTTER_ID));
@@ -136,10 +137,11 @@ public class AnswerRepository extends BaseRepository {
                 Inputter inputter = inputterSubMap.get(inputterId);
                 Inputter templateInputter = templateQuestion.getInputterById(inputterId);
                 if(inputter == null){
-                    inputter = new Inputter().id(questionId);
+                    inputter = new Inputter().id(inputterId);
                     inputter.caption(templateInputter.caption());
                     inputter.options(templateInputter.options());
                     inputter.orLogic(templateInputter.isOrLogic());
+                    inputter.inputType(templateInputter.inputType());
                     inputterSubMap.put(inputterId, inputter);
                     question.addInputter(inputter);
                 }

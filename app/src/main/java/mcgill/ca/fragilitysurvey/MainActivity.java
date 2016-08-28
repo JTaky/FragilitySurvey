@@ -14,12 +14,14 @@ import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -37,6 +39,7 @@ import mcgill.ca.fragilitysurvey.filter.SurveyFilterActivity;
 import mcgill.ca.fragilitysurvey.filter.SurveySearchFilter;
 import mcgill.ca.fragilitysurvey.patientlist.PatientListActivity;
 import mcgill.ca.fragilitysurvey.preferences.Preferences;
+import mcgill.ca.fragilitysurvey.quiz.QuestionViewFactory;
 import mcgill.ca.fragilitysurvey.quiz.QuizActivity;
 import mcgill.ca.fragilitysurvey.quiz.questions.Questions;
 import mcgill.ca.fragilitysurvey.repo.DBContext;
@@ -72,12 +75,58 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private String getPassword(){
+        SharedPreferences sharedPref = getPreferences();
+        return sharedPref.getString(getString(R.string.preferences_key_password), "");
+    }
+
     private View.OnClickListener editPatientListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //open search activity
-            Intent myIntent = new Intent(context, SurveyFilterActivity.class);
-            MainActivity.this.startActivityForResult(myIntent, PostFilterActions.SHOW_PATIENTS);
+            // Set up the input
+            final EditText input = new EditText(MainActivity.this);
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            final String expectedPwd = getPassword();
+
+            if(StringUtils.isEmpty(expectedPwd)){
+                Intent myIntent = new Intent(context, SurveyFilterActivity.class);
+                MainActivity.this.startActivityForResult(myIntent, PostFilterActions.SHOW_PATIENTS);
+            } else {
+                //open search activity
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle(QuestionViewFactory.isDebugMode() ?
+                                getResources().getString(R.string.dialog_enter_pwd_debug, expectedPwd) :
+                                getResources().getString(R.string.dialog_enter_pwd)
+                        )
+                        .setView(input).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String pwd = input.getText().toString();
+                        if (pwd.equals(expectedPwd)) {
+                            Intent myIntent = new Intent(context, SurveyFilterActivity.class);
+                            MainActivity.this.startActivityForResult(myIntent, PostFilterActions.SHOW_PATIENTS);
+                        } else {
+                            new AlertDialog.Builder(MainActivity.this)
+                                    .setTitle(getResources().getString(R.string.dialog_wrong_pwd))
+                                    .setMessage(getResources().getString(R.string.dialog_wrong_pwd))
+                                    .setPositiveButton(R.string.positive_btn, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        }
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).setIcon(android.R.drawable.ic_dialog_info)
+                        .show();
+            }
         }
     };
 

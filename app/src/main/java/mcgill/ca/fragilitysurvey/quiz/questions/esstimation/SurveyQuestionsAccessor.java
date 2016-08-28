@@ -46,6 +46,9 @@ public class SurveyQuestionsAccessor {
 
     public List<Integer> answerCheckBoxes(int index, int inputterIndex){
         List<Integer> res = new ArrayList<>();
+        List<Inputter> inputters = q(index).inputters();
+        if(!inputters.contains(inputterIndex))
+            return new ArrayList<>();
         Inputter inputter = q(index).inputters().get(inputterIndex);
         for(IAnswer answer : inputter.answers()){
             res.add((Integer) answer.value());

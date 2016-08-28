@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Question implements Parcelable {
@@ -66,8 +67,18 @@ public class Question implements Parcelable {
     }
 
     public Question addInputter(Inputter inputter) {
+        removeInputterById(inputter.id());
         inputters.add(inputter);
         return this;
+    }
+
+    public void removeInputterById(int inputterId){
+        Iterator<Inputter> it = inputters.iterator();
+        while (it.hasNext()){
+            if(it.next().id() == inputterId){
+                it.remove();
+            }
+        }
     }
 
     public Question inputers(List<Inputter> inputters) {

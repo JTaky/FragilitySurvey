@@ -31,6 +31,8 @@ public class SurveyFilterActivity extends AppCompatActivity {
     private View.OnClickListener okListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            if(isFinishing())
+                return;
             Intent resultData = new Intent();
             try {
                 resultData.putExtra(MainActivity.FILTER_OBJECT, gatherFilterObject());
@@ -113,6 +115,10 @@ public class SurveyFilterActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Opens date pickers dialogs
+     * TODO remove deprecation
+     */
     @Override
     protected Dialog onCreateDialog(int id) {
         if(id == DATE_FROM_DIALOG){

@@ -100,7 +100,7 @@ public class QuizActivity extends AppCompatActivity {
             //show recommendations
             Intent myIntent = new Intent(QuizActivity.this, RecommendationActivity.class);
             Bundle extras = new Bundle();
-            extras.putParcelable(SURVEY_KEY, survey);
+            extras.putParcelable(SURVEY_KEY, loadSurvey(survey.surveyId()));
             myIntent.putExtra(EXTRAS_KEY, extras);
             QuizActivity.this.startActivityForResult(myIntent, RECOMENDATION_REQUEST_CODE);
         } else {
@@ -199,6 +199,11 @@ public class QuizActivity extends AppCompatActivity {
         View questionView = QuestionViewFactory.INSTANCE.createQuestionView(this, cur);
         scrollView.addView(questionView);
         updateBtnActivity();
+    }
+
+    private Survey loadSurvey(String surveyId){
+        SurveyService surveyService = new SurveyService(new DBContext(this), this.getResources());
+        return surveyService.getSurveyById(surveyId);
     }
 
     //service level

@@ -31,7 +31,7 @@ public class QuestionViewFactory {
 
     public static final QuestionViewFactory INSTANCE = new QuestionViewFactory();
 
-    private static boolean isDebugMode() {
+    public static boolean isDebugMode() {
         return true;
     }
 
@@ -198,6 +198,10 @@ public class QuestionViewFactory {
             }
         });
         subQuestionLayout.addView(txt);
+        if(isDebugMode()){
+            txt.setText("1");
+            curChose.answer(curChose.inputType().toAnswer("1"));
+        }
     }
 
     private void createTextInputView(LinearLayout subQuestionLayout, Context context, final Inputter curChose) {
@@ -220,6 +224,10 @@ public class QuestionViewFactory {
             }
         });
         subQuestionLayout.addView(txt);
+        if(isDebugMode()){
+            txt.setText("testString");
+            curChose.answer(curChose.inputType().toAnswer("testString"));
+        }
     }
 
     private void createDoubleInputView(LinearLayout subQuestionLayout, Context context, final Inputter curChose) {
