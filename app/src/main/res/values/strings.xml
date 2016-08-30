@@ -111,16 +111,16 @@
     <string name="question.systematic.3">3.</string>
     <string name="question.systematic.3.1">Sex?</string>
     <string name="question.systematic.4">4.</string>
-    <string name="question.systematic.4.1">Please enter the height?</string>
+    <string name="question.systematic.4.1">Please enter the height(cm)?</string>
     <string name="question.systematic.5">5.</string>
-    <string name="question.systematic.5.1">Please enter the weight?</string>
-    <string name="question.systematic.5.2">Index BMI?</string>
+    <string name="question.systematic.5.1">Please enter the weight(kg)?</string>
+    <string name="question.systematic.5.2">Index Body Mass Index (BMI) (kg/m<sup>2</sup>)?</string>
     <string name="question.systematic.6">6. Day’s date (ask question to patient): </string>
     <string name="question.systematic.6.1"> Day’s date (ask question to patient): </string>
     <string name="question.systematic.6.2">Month (correct answer):</string>
     <string name="question.systematic.6.3">Year (correct answer): </string>
     <string name="question.systematic.7">7.</string>
-    <string name="question.systematic.7.1">Use of psychoactive drugs*</string>
+    <string name="question.systematic.7.1">Use of psychoactive drugs* (Benzodiazepines, antidepressants or neuroleptics)</string>
     <!-- Mini Nutritional Assessment (MNA) -->
     <string name="question.mna.title.1">mna the screen by filling in the boxes with the appropriate numbers. Total the numbers for the final screening score.</string>
     <string name="question.mna.title.2">Screening</string>
@@ -210,8 +210,10 @@
     <string name="pdf.title">Fragility Survey Result</string>
     <string name="pdf.date">Date: </string>
     <string name="pdf.caption.1">Madam, Mister,</string>
-    <string name="pdf.caption.2">You will be seen in consultation by a physician.</string>
-    <string name="pdf.caption.3">Before starting the consultation, would you please complete this short questionnaire by filling in the appropriate box the way you perceive your own health. The person accompanying you may help you.</string>
+    <string name="pdf.caption.2">You have requested export of the surveys for the patients in organisation - %s.</string>
+    <string name="pdf.caption.filter.dates">from the interval - (%s)</string>
+    <string name="pdf.caption.filter.id">id = "%s"</string>
+    <string name="pdf.caption.3">Report by the patients %s.</string>
     <string name="welcome.label.prefix">Welcome to: %s</string>
     <string name="btnOk">OK</string>
     <string name="btwMakeTest">Make tests</string>
@@ -257,9 +259,14 @@
     <string name="quiz.new.patient.goodbye">Thank you for the partiticaption in the survey</string>
     <string name="quae20Completed">The QUAE20 evaluation is now complete. Considering the results of additional tests, here are the recommendations adapted to patient’s needs:</string>
     <string name="lblScoreP7">Score P7:</string>
-    <string name="lblScoreP7Value">%s</string>
+    <string name="lblScoreP7Value">%s/7</string>
+    <string name="lblScoreP7ScroreNormal"><font color='green'>(Normal)</font></string>
+    <string name="lblScoreP7ScroreHigh"><font color='red'>(High)</font></string>
     <string name="scoreER2">Score ER<sup>2</sup>:</string>
-    <string name="lblScoreER2Value">%s</string>
+    <string name="lblScoreER2Value">%s/6</string>
+    <string name="lblScoreER2ValueLow"><font color='green'>(Low)</font></string>
+    <string name="lblScoreER2ValueMedium"><font color='blue'>(Moderate)</font></string>
+    <string name="lblScoreER2ValueHigh"><font color='red'>(High)</font></string>
     <string name="lblRiskFall">Risk Fall:</string>
     <string name="lblRiskFall.low"><font color='green'>Low</font></string>
     <string name="lblRiskFall.moderate"><font color='blue'>Moderate</font></string>
@@ -267,4 +274,5 @@
     <string name="dialog.enter.pwd">Please enter the password</string>
     <string name="dialog.enter.pwd.debug">Please enter the password(expect to see - "%s")</string>
     <string name="dialog.wrong.pwd">Wrong password</string>
+    <string name="lblShowRecomendations">Show recomendations</string>
 </resources>

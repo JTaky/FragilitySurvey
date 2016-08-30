@@ -69,9 +69,7 @@ public class CsvExporter {
             StringBuilder answersStringBuilder = new StringBuilder();
             for(IAnswer answer : inputter.answers()) {
                 if(valuesStringBuilder.length() != 0) answersStringBuilder.append(SEP);
-                answersStringBuilder.append("'");
                 answersStringBuilder.append(inputter.inputType().fromAnswer(answer));
-                answersStringBuilder.append("'");
             }
             valuesStringBuilder.append(answersStringBuilder);
         }

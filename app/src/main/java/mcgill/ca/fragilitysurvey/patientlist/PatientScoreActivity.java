@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import mcgill.ca.fragilitysurvey.R;
 import mcgill.ca.fragilitysurvey.quiz.QuizActivity;
+import mcgill.ca.fragilitysurvey.quiz.postsubmit.RecommendationActivity;
 import mcgill.ca.fragilitysurvey.quiz.questions.Questions;
 import mcgill.ca.fragilitysurvey.quiz.questions.esstimation.FragilityLevel;
 import mcgill.ca.fragilitysurvey.quiz.questions.esstimation.ScoreEstimator;
@@ -34,6 +35,16 @@ public class PatientScoreActivity extends AppCompatActivity {
             myIntent.putExtra(QuizActivity.EXTRAS_KEY, extras);
             myIntent.putExtra(QuizActivity.POST_SUBMIT_ACTION, QuizActivity.PostSubmitActions.SHOW_RECOMENDATIONS.value);
             PatientScoreActivity.this.startActivityForResult(myIntent, QuizActivity.SURVEY_REQUEST_CODE);
+        }
+    };
+    private View.OnClickListener showRecommendationsListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent myIntent = new Intent(PatientScoreActivity.this, RecommendationActivity.class);
+            Bundle extras = new Bundle();
+            extras.putParcelable(QuizActivity.SURVEY_KEY, survey);
+            myIntent.putExtra(QuizActivity.EXTRAS_KEY, extras);
+            PatientScoreActivity.this.startActivityForResult(myIntent, QuizActivity.RECOMENDATION_REQUEST_CODE);
         }
     };
     private View.OnClickListener finishListener = new View.OnClickListener() {
@@ -87,8 +98,14 @@ public class PatientScoreActivity extends AppCompatActivity {
     }
 
     private void initBtns() {
-        Button btnMakeTests = (Button)findViewById(R.id.btnMakeTests);
-        btnMakeTests.setOnClickListener(makeTestListener);
+        if(survey.isCompleted()){
+            Button btnMakeTests = (Button) findViewById(R.id.btnMakeTests);
+            btnMakeTests.setText(getResources().getText(R.string.lblShowRecomendations));
+            btnMakeTests.setOnClickListener(showRecommendationsListener);
+        } else {
+            Button btnMakeTests = (Button) findViewById(R.id.btnMakeTests);
+            btnMakeTests.setOnClickListener(makeTestListener);
+        }
 
         Button btnOk = (Button)findViewById(R.id.btnClose);
         btnOk.setOnClickListener(finishListener);
@@ -99,11 +116,12 @@ public class PatientScoreActivity extends AppCompatActivity {
         // Check which request we're responding to
         if (requestCode == QuizActivity.SURVEY_REQUEST_CODE) {
             // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                reloadSurvey();
-                updateLabels();
-                updateTestsToDo();
-            }
+//            if (resultCode == RESULT_OK) {
+//                reloadSurvey();
+//                updateLabels();
+//                updateTestsToDo();
+//            }
+            finish();
         }
     }
 

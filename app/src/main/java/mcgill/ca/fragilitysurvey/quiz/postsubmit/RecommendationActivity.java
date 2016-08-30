@@ -32,18 +32,40 @@ public class RecommendationActivity extends AppCompatActivity {
         ListView listRecomendations = (ListView)findViewById(R.id.listRecomendations);
         listRecomendations.setAdapter(new ArrayAdapter<>(this, R.layout.recomendations_listview, scoreEstimator.buildRecommendations(getResources())));
         //scores
-        TextView scoreP7 = (TextView)findViewById(R.id.lblScoreP7Value);
-        scoreP7.setText(String.valueOf(scoreEstimator.scoreP7()));
-        TextView scoreER2 = (TextView)findViewById(R.id.lblScoreER2Value);
-        scoreER2.setText(String.valueOf(scoreEstimator.scoreER2()));
-        TextView riskFall = (TextView)findViewById(R.id.lblRiskFallValue);
-        int riskLevel = scoreEstimator.riskLevel();
-        if(riskLevel == 0){
-            riskFall.setText(getResources().getText(R.string.lblRiskFall_low));
-        } else if(riskLevel == 1){
-            riskFall.setText(getResources().getText(R.string.lblRiskFall_moderate));
-        } else if(riskLevel == 2){
-            riskFall.setText(getResources().getText(R.string.lblRiskFall_high));
+        {
+            TextView scoreP7 = (TextView) findViewById(R.id.lblScoreP7Value);
+            TextView scoreP7Modifier = (TextView) findViewById(R.id.lblP7Modifier);
+            int p7 = scoreEstimator.scoreP7();
+
+            scoreP7.setText(getResources().getString(R.string.lblScoreP7Value, String.valueOf(p7)));
+            scoreP7Modifier.setText(p7 > 2 ?
+                    getResources().getText(R.string.lblScoreP7ScroreNormal) :
+                    getResources().getText(R.string.lblScoreP7ScroreHigh)
+            );
+        }
+        {
+            TextView scoreER2 = (TextView) findViewById(R.id.lblScoreER2Value);
+            TextView scoreER2Modifier = (TextView) findViewById(R.id.lblEr2Modifier);
+            int er2 = scoreEstimator.scoreER2();
+
+            scoreER2.setText(getResources().getString(R.string.lblScoreER2Value, String.valueOf(er2)));
+
+            scoreER2Modifier.setText(scoreEstimator.scoreER2() <= 2 ?
+                    getResources().getText(R.string.lblScoreER2ValueLow) :
+                    scoreEstimator.scoreER2() <= 4 ?
+                            getResources().getText(R.string.lblScoreER2ValueMedium) :
+                            getResources().getText(R.string.lblScoreER2ValueHigh));
+        }
+        {
+            TextView riskFall = (TextView) findViewById(R.id.lblRiskFallValue);
+            int riskLevel = scoreEstimator.riskLevel();
+            if (riskLevel == 0) {
+                riskFall.setText(getResources().getText(R.string.lblRiskFall_low));
+            } else if (riskLevel == 1) {
+                riskFall.setText(getResources().getText(R.string.lblRiskFall_moderate));
+            } else if (riskLevel == 2) {
+                riskFall.setText(getResources().getText(R.string.lblRiskFall_high));
+            }
         }
     }
 

@@ -23,7 +23,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private static int GOODBYE_REQUEST_CODE = 0;
 
-    private static int RECOMENDATION_REQUEST_CODE = 1;
+    public static int RECOMENDATION_REQUEST_CODE = 1;
     private static String EXTRA_KEY_ACTIVITY = "recomendation.survey.id";
 
     public enum PostSubmitActions {

@@ -99,4 +99,26 @@
         android:layout_below="@+id/listRecomendations"
         android:layout_toStartOf="@+id/btnClose"
         android:layout_marginLeft="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/lblP7Modifier"
+        android:text="dafdeq"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/listRecomendations"
+        android:layout_toEndOf="@+id/lblScoreP7Value"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/lblEr2Modifier"
+        android:text="fwerwe"
+        android:layout_marginLeft="5dp"
+        android:gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/lblScoreER2Value"/>
+
 </RelativeLayout>

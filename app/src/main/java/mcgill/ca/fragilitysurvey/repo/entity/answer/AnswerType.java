@@ -2,6 +2,9 @@ package mcgill.ca.fragilitysurvey.repo.entity.answer;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
+import mcgill.ca.fragilitysurvey.quiz.questions.Inputter;
+import mcgill.ca.fragilitysurvey.quiz.questions.OptionValue;
+
 public enum AnswerType {
     TEXT(0) {
         @Override
@@ -13,6 +16,7 @@ public enum AnswerType {
         public String fromAnswer(IAnswer answer) {
             return ((StringAnswer)answer).value();
         }
+
     },
     CHOOSE(1) {
         @Override
@@ -23,6 +27,20 @@ public enum AnswerType {
         @Override
         public String fromAnswer(IAnswer answer) {
             return ((ChooseAnswer)answer).value().toString();
+        }
+
+        @Override
+        public String formatAnswer(IAnswer answer, Inputter inputter) {
+            return getChooseName(inputter, ((ChooseAnswer)answer).value());
+        }
+
+        private String getChooseName(Inputter inputter, int id) {
+            for(OptionValue o: inputter.options()){
+                if(o.id() == id){
+                    return o.caption();
+                }
+            }
+            return "";
         }
     },
     INT(2) {
@@ -35,6 +53,7 @@ public enum AnswerType {
         public String fromAnswer(IAnswer answer) {
             return ((IntAnswer)answer).value().toString();
         }
+
     },
     DOUBLE(3) {
         @Override
@@ -57,6 +76,7 @@ public enum AnswerType {
         public String fromAnswer(IAnswer answer) {
             return ((DoubleAnswer)answer).value().toString();
         }
+
     };
 
     public final int id;
@@ -81,4 +101,8 @@ public enum AnswerType {
     }
 
     public abstract String fromAnswer(IAnswer answer);
+
+    public String formatAnswer(IAnswer answer, Inputter inputter) {
+        return fromAnswer(answer);
+    }
 }

@@ -238,11 +238,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             } else if(requestCode == PostFilterActions.EXPORT_PDF){
                 File pdfFile;
+                SurveySearchFilter searchFilter = data.getParcelableExtra(MainActivity.FILTER_OBJECT);
                 try {
                     pdfFile = new PdfExporter().exportPatients(
                             getExportDir(MainActivity.this, MainActivity.this.getString(getApplicationInfo().labelRes)),
                             new DBContext(MainActivity.this),
-                            MainActivity.this
+                            MainActivity.this,
+                            searchFilter
                     );
                     showMessage("Success", "Data was exported to the '" + pdfFile + "'");
 

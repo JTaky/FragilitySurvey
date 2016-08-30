@@ -1,10 +1,15 @@
 package mcgill.ca.fragilitysurvey.filter;
 
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Date;
+
+import mcgill.ca.fragilitysurvey.R;
 
 public final class SurveySearchFilter implements Parcelable {
 
@@ -67,6 +72,14 @@ public final class SurveySearchFilter implements Parcelable {
     public SurveySearchFilter to(Date to){
         this.to = to;
         return this;
+    }
+
+    public String asString(Context context){
+        if(StringUtils.isBlank(id())){
+            return context.getResources().getString(R.string.pdf_caption_filter_dates, from().toString() + ";" + to.toString());
+        } else {
+            return context.getResources().getString(R.string.pdf_caption_filter_id, id());
+        }
     }
 
 }
