@@ -121,6 +121,7 @@ public class PatientScoreActivity extends AppCompatActivity {
 //                updateLabels();
 //                updateTestsToDo();
 //            }
+            setResult(RESULT_OK);
             finish();
         }
     }

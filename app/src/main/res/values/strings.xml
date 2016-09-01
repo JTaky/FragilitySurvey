@@ -120,7 +120,7 @@
     <string name="question.systematic.6.2">Month (correct answer):</string>
     <string name="question.systematic.6.3">Year (correct answer): </string>
     <string name="question.systematic.7">7.</string>
-    <string name="question.systematic.7.1">Use of psychoactive drugs* (Benzodiazepines, antidepressants or neuroleptics)</string>
+    <string name="question.systematic.7.1">Use of psychoactive drugs (Benzodiazepines, antidepressants or neuroleptics)</string>
     <!-- Mini Nutritional Assessment (MNA) -->
     <string name="question.mna.title.1">mna the screen by filling in the boxes with the appropriate numbers. Total the numbers for the final screening score.</string>
     <string name="question.mna.title.2">Screening</string>
