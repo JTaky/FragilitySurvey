@@ -39,8 +39,8 @@ public class RecommendationActivity extends AppCompatActivity {
 
             scoreP7.setText(getResources().getString(R.string.lblScoreP7Value, String.valueOf(p7)));
             scoreP7Modifier.setText(p7 > 2 ?
-                    getResources().getText(R.string.lblScoreP7ScroreNormal) :
-                    getResources().getText(R.string.lblScoreP7ScroreHigh)
+                    getResources().getText(R.string.lblScoreP7ScroreHigh) :
+                    getResources().getText(R.string.lblScoreP7ScroreNormal)
             );
         }
         {
