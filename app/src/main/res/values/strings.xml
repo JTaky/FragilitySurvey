@@ -34,32 +34,30 @@
     <string name="question.validation.empty.value">Value cannot be empty</string>
 
     <!-- Main questionnaire -->
-     <string name="question.preface">Madam, Mister,
-    You will be seen in consultation by a physician.
-    Before starting the consultation, would you please mna this short questionnaire by filling in the appropriate box the way you perceive your own health. The person accompanying you may help you.</string>
-    <string name="question.thanks">The quiz is done. <b>Press submit to save your personal data on the tablette.</b></string>
+     <string name="question.preface">Madam, mister, you will be seen in consultation by a physician. Before starting the consultation, would you please answer this short questionnaire about the way you perceive your own health. The person accompanying you may help you</string>
+    <string name="question.thanks">The survey is done. <b>Press submit to save your personal data on the tablet.</b></string>
     <string name="question.yes">Yes</string>
     <string name="question.no">No</string>
     <string name="question.male">Male</string>
     <string name="question.female">Female</string>
     <string name="question.0">ID = (3 letters of first name, 3 letters of last name, month of birth)</string>
-    <string name="question.0.1">Enter please your first name?</string>
-    <string name="question.0.2">Enter please your last name?</string>
-    <string name="question.0.3">Please enter the month of you birth?</string>
+    <string name="question.0.1">Please enter your first name?</string>
+    <string name="question.0.2">Please enter your last name?</string>
+    <string name="question.0.3">Please enter your month of birth?</string>
     <string name="question.1">1.</string>
     <string name="question.1.1">Have you involuntary lost weight in the past year?</string>
-    <string name="question.1.2">If yes, was the lost of weight above 3 kg?</string>
+    <string name="question.1.2">If yes, was the weight loss more than 3 kg (6.6lb)?</string>
     <string name="question.2">2.</string>
     <string name="question.2.1">How many different drugs do you take daily?</string>
     <string name="question.3">3.</string>
-    <string name="question.3.1">Do you have sight problems?</string>
+    <string name="question.3.1">Do you have vision problems?</string>
     <string name="question.4">4.</string>
     <string name="question.4.1">Do you have hearing problems?</string>
     <string name="question.5">5.</string>
     <string name="question.5.1">Has someone around you noticed that you have memory problems?</string>
     <string name="question.6">6.</string>
-    <string name="question.6.1">Do you receive home-help services?</string>
-    <string name="question.6.2">If yes from whom?</string>
+    <string name="question.6.1">Do you receive help at home?</string>
+    <string name="question.6.2">If yes, from whom (please select all applicable)</string>
     <string name="question.6.2.1">Family, and/or</string>
     <string name="question.6.2.2">Friend, and/or </string>
     <string name="question.6.2.3">Professional</string>
@@ -75,13 +73,13 @@
     <string name="question.11">11.</string>
     <string name="question.11.1">Do you need help for feeding?</string>
     <string name="question.12">12.</string>
-    <string name="question.12.1">Do you need help for phoning?</string>
+    <string name="question.12.1">Do you need help to use the phone?</string>
     <string name="question.13">13.</string>
-    <string name="question.13.1">Do you need help for take public transports?</string>
+    <string name="question.13.1">Do you need help for taking public transport?</string>
     <string name="question.14">14.</string>
-    <string name="question.14.1">Do you need help for managing your medications on your own?</string>
+    <string name="question.14.1">Do you need help for managing your own medications?</string>
     <string name="question.15">15.</string>
-    <string name="question.15.1">Do you need help for handle your finances on your own?</string>
+    <string name="question.15.1">Do you need help for handle your own finances?</string>
     <string name="question.16">16.</string>
     <string name="question.16.1">Are you incontinent (urine and/or stool)?</string>
     <string name="question.17">17.</string>
@@ -92,13 +90,13 @@
     <string name="question.18">18.</string>
     <string name="question.18.1">Do you feel energetic?</string>
     <string name="question.19">19.</string>
-    <string name="question.19.1">Did you do regular physical activities (walking, bicycle, etc…), at least one hour per week in the past month?</string>
+    <string name="question.19.1">Did you do at least one hour per week of regular physical activity in the past month?</string>
     <string name="question.20">20.</string>
     <string name="question.20.1">Did you fall in the previous year (at least one fall)?</string>
     <!-- there is no number before next question -->
     <string name="question.21"></string>
     <string name="question.21.1">Have you received help to complete the questionnaire?</string>
-    <string name="question.21.2">If yes who helped you?</string>
+    <string name="question.21.2">If yes, who helped you?</string>
     <string name="question.21.2.1">Spouse</string>
     <string name="question.21.2.2">Family member</string>
     <string name="question.21.2.3">Friend</string>
@@ -256,7 +254,7 @@
     <string name="tests.todo.smmse">Cognition : Short Mini Mental Status Examination (S-MMSE)</string>
     <string name="tests.todo.gds">Mood : Geriatric Depression Scale items (4-item GDS)</string>
     <string name="tests.todo.ftss">Mobility : Five time sit-to-stand test (FTSS)</string>
-    <string name="quiz.new.patient.goodbye">Thank you for the partiticaption in the survey</string>
+    <string name="quiz.new.patient.goodbye">Thank you for participating in this survey</string>
     <string name="quae20Completed">The QUAE20 evaluation is now complete. Considering the results of additional tests, here are the recommendations adapted to patient’s needs:</string>
     <string name="lblScoreP7">Score P7:</string>
     <string name="lblScoreP7Value">%s/7</string>

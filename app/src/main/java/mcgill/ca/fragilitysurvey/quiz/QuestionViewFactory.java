@@ -2,6 +2,8 @@ package mcgill.ca.fragilitysurvey.quiz;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -87,7 +89,9 @@ public class QuestionViewFactory {
         questionView.setOrientation(LinearLayout.VERTICAL);
         questionView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        questionView.addView(createQuestionTitle(context, cur.questionText()));
+        if(StringUtils.isNotBlank(cur.questionText())) {
+            questionView.addView(createQuestionTitle(context, cur.questionText()));
+        }
 
         for(Inputter curChose: cur.inputters()){
             LinearLayout subQuestionLayout = new LinearLayout(context);
@@ -266,8 +270,9 @@ public class QuestionViewFactory {
 
     private TextView createQuestionTitle(Context context, String lbl){
         TextView questionTitle = new TextView(context);
-        questionTitle.setTextSize(14);
+        questionTitle.setTextSize(21);
         questionTitle.setText(lbl);
+        questionTitle.setTextColor(Color.BLACK);
         questionTitle.setPadding(5, 5, 5, 5);
         return questionTitle;
     }

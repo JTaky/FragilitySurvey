@@ -1,71 +1,278 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FragilitySurvey</string>
-    <string name="new_patient">Nouveau patient</string>
-    <string name="edit_patient">Edit</string>
+    <string name="new_patient">New patient</string>
+    <string name="edit_patient">Edit Patient</string>
+    <string name="export_csv_patient">Export CSV</string>
+    <string name="export_pdf_patient">Export PDF</string>
     <string name="sign_up">Sign Up</string>
+    <string name="sign_up.edit">Edit profile</string>
+    <string name="positive_btn">OK</string>
+    <string-array name="supportedLanguages">
+        <item>EN</item>
+        <item>FR</item>
+    </string-array>
+    <string name="preferences.key.locale">LocaleKey</string>
+    <string name="title_activity_step1">step1</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_step2">Step2</string>
+    <string name="main.title.sign_up">SignUp</string>
+    <string name="credentials.organisation_name">Organisation name:</string>
+    <string name="credentials.current_password">Current password:</string>
+    <string name="credentials.new_password">New password:</string>
+    <string name="credentials.new_password_repeat">Repeat new password:</string>
+    <string name="credentials.save_credentials">Save</string>
+    <string name="credentials.validation.empty_field">Field cannot be empty</string>
+    <string name="credentials.validation.pwd.does.not.match">Passwords does not match</string>
+    <string name="credentials.validation.pwd.current.wrong">Current password does not match</string>
+    <string name="preferences.key.organisation">OrganisationKey</string>
+    <string name="preferences.key.organisation.adress">OrganisationAdress</string>
+    <string name="preferences.key.password">PasswordKey</string>
+    <string name="quiz.btn.submit">Submit</string>
+    <string name="quiz.btn.next">Next</string>
+    <string name="quiz.btn.prev">Previous</string>
 
-    <!-- Takyta's code :) -->
-    <string name="question.yes">Oui</string>
-    <string name="question.no">Non</string>
+    <string name="question.validation.empty.value">Value cannot be empty</string>
+
+    <!-- Main questionnaire -->
+     <string name="question.preface">Madam, Mister,
+    You will be seen in consultation by a physician.
+    Before starting the consultation, would you please mna this short questionnaire by filling in the appropriate box the way you perceive your own health. The person accompanying you may help you.</string>
+    <string name="question.thanks">The quiz is done. <b>Press submit to save your personal data on the tablette.</b></string>
+    <string name="question.yes">Yes</string>
+    <string name="question.no">No</string>
+    <string name="question.male">Male</string>
+    <string name="question.female">Female</string>
+    <string name="question.0">ID = (3 letters of first name, 3 letters of last name, month of birth)</string>
+    <string name="question.0.1">Enter please your first name?</string>
+    <string name="question.0.2">Enter please your last name?</string>
+    <string name="question.0.3">Please enter the month of you birth?</string>
     <string name="question.1">1.</string>
-    <string name="question.1.1">Avez-vous perdu involontairement du poids au cours de la dernière année ?</string>
-    <string name="question.1.2">Si oui, précisez si la perte de poids a été de plus de 3 kilos ?</string>
+    <string name="question.1.1">Have you involuntary lost weight in the past year?</string>
+    <string name="question.1.2">If yes, was the lost of weight above 3 kg?</string>
     <string name="question.2">2.</string>
-    <string name="question.2.1">Combien de médicaments différents prenez-vous par jour ?</string>
+    <string name="question.2.1">How many different drugs do you take daily?</string>
     <string name="question.3">3.</string>
-    <string name="question.3.1">Avez-vous des problèmes de vue ?</string>
+    <string name="question.3.1">Do you have sight problems?</string>
     <string name="question.4">4.</string>
-    <string name="question.4.1">Avez-vous des problèmes d’audition ?</string>
+    <string name="question.4.1">Do you have hearing problems?</string>
     <string name="question.5">5.</string>
-    <string name="question.5.1">Votre entourage vous a-t-il fait remarquer que vous aviez des problèmes de mémoire ?</string>
-    <string name="question.6.1">Recevez-vous de l\’aide pour accomplir les actes de vie de tous les jours ?</string>
-    <string name="question.6.2">Si oui, précisez s\’il s\’agit d\’un : </string>
-    <string name="question.6.2.1">Parent et/ou</string>
-    <string name="question.6.2.2">Ami et/ou</string>
-    <string name="question.6.2.3">Professionnel</string>
+    <string name="question.5.1">Has someone around you noticed that you have memory problems?</string>
+    <string name="question.6">6.</string>
+    <string name="question.6.1">Do you receive home-help services?</string>
+    <string name="question.6.2">If yes from whom?</string>
+    <string name="question.6.2.1">Family, and/or</string>
+    <string name="question.6.2.2">Friend, and/or </string>
+    <string name="question.6.2.3">Professional</string>
 
     <string name="question.7">7.</string>
-    <string name="question.7.1">Avez-vous besoin d\’aide pour faire votre toilette ?</string>
+    <string name="question.7.1">Do you need help for toileting?</string>
     <string name="question.8">8.</string>
-    <string name="question.8.1">Avez-vous besoin d\’aide pour vos soins d\’apparence corporelle ?</string>
+    <string name="question.8.1">Do you need help for bathing?</string>
     <string name="question.9">9.</string>
-    <string name="question.9.1">Avez-vous besoin d\’aide pour vous habiller ?</string>
+    <string name="question.9.1">Do you need help for dressing?</string>
     <string name="question.10">10.</string>
-    <string name="question.10.1">Avez-vous besoin d\’aide pour vous déplacer (canne ou autre)?</string>
+    <string name="question.10.1">Do you need help for walking and/or transfering?</string>
     <string name="question.11">11.</string>
-    <string name="question.11.1">Avez-vous besoin d\’aide pour manger ?</string>
+    <string name="question.11.1">Do you need help for feeding?</string>
     <string name="question.12">12.</string>
-    <string name="question.12.1">Avez-vous besoin d\’aide pour utiliser le téléphone ?</string>
+    <string name="question.12.1">Do you need help for phoning?</string>
     <string name="question.13">13.</string>
-    <string name="question.13.1">Avez-vous besoin d\’aide pour prendre les transports en commun ?</string>
+    <string name="question.13.1">Do you need help for take public transports?</string>
     <string name="question.14">14.</string>
-    <string name="question.14.1">Avez-vous besoin d\’aide pour prendre vos médicaments ?</string>
+    <string name="question.14.1">Do you need help for managing your medications on your own?</string>
     <string name="question.15">15.</string>
-    <string name="question.15.1">Avez-vous besoin d\’aide pour gérer votre argent ?</string>
+    <string name="question.15.1">Do you need help for handle your finances on your own?</string>
     <string name="question.16">16.</string>
-    <string name="question.16.1">Perdez-vous vos urines et/ou selles ?</string>
+    <string name="question.16.1">Are you incontinent (urine and/or stool)?</string>
     <string name="question.17">17.</string>
-    <string name="question.17.1">Vous sentez-vous aujourd\’hui :</string>
-    <string name="question.17.1.1">Heureux</string>
-    <string name="question.17.1.2">Malheureux</string>
-    <string name="question.17.1.3">Ni l\'un ni l\'autre</string>
+    <string name="question.17.1">How do you feel today?</string>
+    <string name="question.17.1.1">Happy</string>
+    <string name="question.17.1.2">Unhappy</string>
+    <string name="question.17.1.3">Neither one nor the other</string>
     <string name="question.18">18.</string>
-    <string name="question.18.1">Vous sentez-vous plein d\’énergie ?</string>
+    <string name="question.18.1">Do you feel energetic?</string>
     <string name="question.19">19.</string>
-    <string name="question.19.1">Avez-vous pratiqué une activité physique (marche, jardinage, vélo, etc…) au moins pendant 1 heure par semaine au cours du dernier mois ?</string>
+    <string name="question.19.1">Did you do regular physical activities (walking, bicycle, etc…), at least one hour per week in the past month?</string>
     <string name="question.20">20.</string>
-    <string name="question.20.1">Avez-vous fait au moins une chute au cours des 12 derniers mois ?</string>
+    <string name="question.20.1">Did you fall in the previous year (at least one fall)?</string>
     <!-- there is no number before next question -->
     <string name="question.21"></string>
-    <string name="question.21.1">Avez-vous rempli seul ce questionnaire ?</string>
-    <string name="question.21.2">Si vous avez coché non, qui vous a aidé ?</string>
-    <string name="question.21.2.1">Conjoint</string>
-    <string name="question.21.2.2">Membre famille</string>
-    <string name="question.21.2.3">Ami</string>
-    <string name="question.21.2.4">Autre :</string>
-    <string name="btn.close">Fermer</string>
-    <string name="action_settings">Configuration</string>
-    <string name="question.systematic.1">1</string>
+    <string name="question.21.1">Have you received help to complete the questionnaire?</string>
+    <string name="question.21.2">If yes who helped you?</string>
+    <string name="question.21.2.1">Spouse</string>
+    <string name="question.21.2.2">Family member</string>
+    <string name="question.21.2.3">Friend</string>
+    <string name="question.21.2.4">Other:</string>
+    <!-- Systematic questions -->
+    <string name="question.systematic.1">1.</string>
+    <string name="question.systematic.1.1">First visit?</string>
+    <string name="question.systematic.2">2.</string>
+    <string name="question.systematic.2.1">Age(years)?</string>
+    <string name="question.systematic.3">3.</string>
+    <string name="question.systematic.3.1">Sex?</string>
+    <string name="question.systematic.4">4.</string>
+    <string name="question.systematic.4.1">Please enter the height(cm)?</string>
+    <string name="question.systematic.5">5.</string>
+    <string name="question.systematic.5.1">Please enter the weight(kg)?</string>
+    <string name="question.systematic.5.2">Index Body Mass Index (BMI) (kg/m<sup>2</sup>)?</string>
+    <string name="question.systematic.6">6. Day’s date (ask question to patient): </string>
+    <string name="question.systematic.6.1"> Day’s date (ask question to patient): </string>
+    <string name="question.systematic.6.2">Month (correct answer):</string>
+    <string name="question.systematic.6.3">Year (correct answer): </string>
+    <string name="question.systematic.7">7.</string>
+    <string name="question.systematic.7.1">Use of psychoactive drugs (Benzodiazepines, antidepressants or neuroleptics)</string>
+    <!-- Mini Nutritional Assessment (MNA) -->
+    <string name="question.mna.title.1">mna the screen by filling in the boxes with the appropriate numbers. Total the numbers for the final screening score.</string>
+    <string name="question.mna.title.2">Screening</string>
+    <string name="question.mna.1">A</string>
+    <string name="question.mna.1.1">Has food intake declined over the past 3 months due to loss of appetite, digestive problems, chewing or swallowing difficulties?</string>
+    <string name="question.mna.1.1.1">0 = severe decrease in food intake</string>
+    <string name="question.mna.1.1.2">1 = moderate decrease in food intake</string>
+    <string name="question.mna.1.1.3">2 = no decrease in food intake</string>
+    <string name="question.mna.2">B</string>
+    <string name="question.mna.2.1">Weight loss during the last 3 months</string>
+    <string name="question.mna.2.1.1">0 = weight loss greater than 3 kg (6.6 lbs)</string>
+    <string name="question.mna.2.1.2">1 = does not know</string>
+    <string name="question.mna.2.1.3">2 = weight loss between 1 and 3 kg (2.2 and 6.6 lbs)</string>
+    <string name="question.mna.2.1.4">3 = no weight loss</string>
+    <string name="question.mna.3">C</string>
+    <string name="question.mna.3.1">Mobility</string>
+    <string name="question.mna.3.1.1">0 = bed or chair bound</string>
+    <string name="question.mna.3.1.2">1 = able to get out of bed / chair but does not go out</string>
+    <string name="question.mna.3.1.3">2 = goes out</string>
+    <string name="question.mna.4">D</string>
+    <string name="question.mna.4.1">Has suffered psychological stress or acute disease in the past 3 months?</string>
+    <string name="question.mna.4.1.1">Yes</string>
+    <string name="question.mna.4.1.2">No</string>
+    <string name="question.mna.5">E</string>
+    <string name="question.mna.5.1">Neuropsychological problems</string>
+    <string name="question.mna.5.1.1">0 = severe dementia or depression</string>
+    <string name="question.mna.5.1.2">1 = mild dementia</string>
+    <string name="question.mna.5.1.3">2 = no psychological problems</string>
+    <string name="question.mna.6">F1, %s</string>
+    <string name="question.mna.6.1">Body Mass Index (BMI) (weight in kg) / (height in m)2</string>
+    <string name="question.mna.6.1.1">0 = BMI less than 19</string>
+    <string name="question.mna.6.1.2">1 = BMI 19 to less than 21</string>
+    <string name="question.mna.6.1.3">2 = BMI 21 to less than 23</string>
+    <string name="question.mna.6.1.4">3 = BMI 23 or greater</string>
+    <string name="question.mna.title.3">IF BMI IS NOT AVAILABLE, REPLACE QUESTION F1 WITH QUESTION F2. DO NOT ANSWER QUESTION F2 IF QUESTION F1 IS ALREADY COMPLETED.</string>
+    <string name="question.mna.7">F2, %s</string>
+    <string name="question.mna.7.1">Calf circumference (CC) in cm</string>
+    <string name="question.mna.7.1.1">0 = CC less than 31</string>
+    <string name="question.mna.7.1.2">3 = CC 31 or greater</string>
+    <!-- Final scoreQuae20, result -->
+    <string name="question.mna.title.4">Screening score (max. 14 points)</string>
+    <string name="question.mna.result.1">12-14 points:</string>
+    <string name="question.mna.result.1.1">Normal nutritional status</string>
+    <string name="question.mna.result.2">8-11 points:</string>
+    <string name="question.mna.result.2.1">At risk of malnutrition</string>
+    <string name="question.mna.result.3">0-7 points:</string>
+    <string name="question.mna.result.3.1">Malnourished</string>
+    <!-- Short Mini Mental Status Eamination (S-MMSE) -->
+    <string name="question.check">Check if correct</string>
+    <string name="question.smmse.1">Short Mini Mental Status Eamination (S-MMSE)</string>
+    <string name="question.smmse.1.1">Repeat the following three words after me:</string>
+    <string name="question.smmse.1.1.1">Accordion</string>
+    <string name="question.smmse.1.1.2">Mimosa</string>
+    <string name="question.smmse.1.1.3">Elephant</string>
+    <string name="question.smmse.score.1">Sub-score</string>
+    <string name="question.smmse.2">Distractive task:</string>
+    <string name="question.smmse.2.1">Spell the word “WORLD” backward</string>
+    <string name="question.smmse.3">Distractive task:</string>
+    <string name="question.smmse.3.1">Subtract 7 from 100 and keep subtracting 7 from what’s left until I tell you stop:</string>
+    <string name="question.smmse.3.1.1">93</string>
+    <string name="question.smmse.3.1.2">86</string>
+    <string name="question.smmse.3.1.3">79</string>
+    <string name="question.smmse.3.1.4">72</string>
+    <string name="question.smmse.3.1.5">65</string>
+    <string name="question.smmse.3.2">Yes if correct:</string>
+    <string name="question.smmse.4">What were the 3 words that I asked you to remember?</string>
+    <string name="question.smmse.score.2">TOTAL SCORE (abnormal if ≤4)</string>
 
+    <string name="question.gds.1">Geriatric Depression Scale (GDS)</string>
+    <string name="question.gds.1.1">Are you basically satisfied with life?</string>
+    <string name="question.gds.2.1">Do you feel that your life is empty?</string>
+    <string name="question.gds.3.1">Are you afraid that something bad is going to happen to you?</string>
+    <string name="question.gds.4.1">Do you feel happy most of the time?</string>
+    <string name="question.gds.score.3">TOTAL SCORE (abnormal if ≥1)</string>
+
+    <string name="question.sit.stand.1">Five Time Sit-to-Stand test:</string>
+    <string name="question.sit.stand.1.1">Ask the patient to Sit-to-Stand five times as quick as possible:</string>
+    <string name="question.sit.stand.1.1.1">Able</string>
+    <string name="question.sit.stand.1.1.1.option.3">Hands help</string>
+    <string name="question.sit.stand.1.2">If yes, TIME SCORE: (abnormal if ≥ 15 seconds)</string>
+
+    <string name="patient.list.survey.id">Survey ID</string>
+    <string name="patient.list.survey.date">Date</string>
+    <string name="patient.list.checkbox.label">Completed</string>
+    <string name="patient.list.survey.button">Show</string>
+
+    <string name="pdf.title">Fragility Survey Result</string>
+    <string name="pdf.date">Date: </string>
+    <string name="pdf.caption.1">Madam, Mister,</string>
+    <string name="pdf.caption.2">You have requested export of the surveys for the patients in organisation - %s.</string>
+    <string name="pdf.caption.filter.dates">from the interval - (%s)</string>
+    <string name="pdf.caption.filter.id">id = "%s"</string>
+    <string name="pdf.caption.3">Report by the patients %s.</string>
+    <string name="welcome.label.prefix">Welcome to: %s</string>
+    <string name="btnOk">OK</string>
+    <string name="btwMakeTest">Make tests</string>
+    <string name="lbl.score.caption">Score QU<font color='red'>AE</font>20: </string>
+    <string name="lbl.score.value">%s</string>
+    <string name="lbl.recommendations">Recommendations:</string>
+    <string name="fragility.level.no">NO</string>
+    <string name="fragility.level.mild">MILD</string>
+    <string name="fragility.level.moderate">MODERATE</string>
+    <string name="fragility.level.severe">SEVERE</string>
+    <string name="recomendation.nutrion.1">Eliminate worst evolution of acute and/or chronic disease</string>
+    <string name="recomendation.nutrion.2">Prescribe oral vitamin D supplementation if hypovitaminosis D</string>
+    <string name="recomendation.nutrion.3">Request dietician consultation</string>
+    <string name="recomendation.home.help.service.1">Reassess help if moderate frailty status or change in frailty status compared to previous consultation</string>
+    <string name="recomendation.multimorbidity.1">Reevaluation of medication</string>
+    <string name="recomendation.communication.1">Assess glasses and/or hearing aids (appropriate or not)</string>
+    <string name="recomendation.cognition.1">MMSE and/or Memory consultation</string>
+    <string name="recomendation.mood.1">Suspicion of depression: psychiatric consultation and/or anti- depressant</string>
+    <string name="recomendation.mobility.1">Physiotherapist and/or occupational therapist assessment</string>
+    <string name="recomendation.mobility.2">Physical exercises</string>
+    <string name="recomendation.mobility.3">Prescribe oral vitamin D supplementation if hypovitaminosis D</string>
+    <string name="recomendation.pass.mna">Please pass MNA test</string>
+    <string name="recomendation.pass.smmse">Please pass SMMSE test</string>
+    <string name="recomendation.pass.gds">Please pass GDS test</string>
+    <string name="recomendation.pass.ftsts">Please pass Five Time Sit-to-Stand test</string>
+    <string name="recomendation.pass.p7">Please pass additional tests</string>
+    <string name="recomendation.p7">Please contact the local referent of the program "Autonomic Support of the Old Persons" for the additional evolution and taking in place the need of the special help</string>
+    <string name="txtPatientId">Patient ID</string>
+    <string name="lblOr">OR</string>
+    <string name="lblDateFrom">Date From</string>
+    <string name="lblDateTo">Date To</string>
+    <string name="btnCancel">Cancel</string>
+    <string name="credentials.organisation_address">Organisation address</string>
+    <string name="btn.close">Close</string>
+    <string name="logo">logo</string>
+    <string name="lblFragilityLevelCaption">Fragility level:</string>
+    <string name="lbl.testsToDo">Considering the results and to make recommendations adapted to the patient\'s situation, the following additional tests must be performed:</string>
+    <string name="tests.todo.systematic">Systematic questions</string>
+    <string name="tests.todo.mna">Nutritionnel : Mini Nutritional Assessment (Mini MNA)</string>
+    <string name="tests.todo.smmse">Cognition : Short Mini Mental Status Examination (S-MMSE)</string>
+    <string name="tests.todo.gds">Mood : Geriatric Depression Scale items (4-item GDS)</string>
+    <string name="tests.todo.ftss">Mobility : Five time sit-to-stand test (FTSS)</string>
+    <string name="quiz.new.patient.goodbye">Thank you for the partiticaption in the survey</string>
+    <string name="quae20Completed">The QUAE20 evaluation is now complete. Considering the results of additional tests, here are the recommendations adapted to patient’s needs:</string>
+    <string name="lblScoreP7">Score P7:</string>
+    <string name="lblScoreP7Value">%s/7</string>
+    <string name="lblScoreP7ScroreNormal"><font color='green'>(Normal)</font></string>
+    <string name="lblScoreP7ScroreHigh"><font color='red'>(High)</font></string>
+    <string name="scoreER2">Score ER<sup>2</sup>:</string>
+    <string name="lblScoreER2Value">%s/6</string>
+    <string name="lblScoreER2ValueLow"><font color='green'>(Low)</font></string>
+    <string name="lblScoreER2ValueMedium"><font color='blue'>(Moderate)</font></string>
+    <string name="lblScoreER2ValueHigh"><font color='red'>(High)</font></string>
+    <string name="lblRiskFall">Risk Fall:</string>
+    <string name="lblRiskFall.low"><font color='green'>Low</font></string>
+    <string name="lblRiskFall.moderate"><font color='blue'>Moderate</font></string>
+    <string name="lblRiskFall.high"><font color='red'>High</font></string>
+    <string name="dialog.enter.pwd">Please enter the password</string>
+    <string name="dialog.enter.pwd.debug">Please enter the password(expect to see - "%s")</string>
+    <string name="dialog.wrong.pwd">Wrong password</string>
+    <string name="lblShowRecomendations">Show recomendations</string>
 </resources>
